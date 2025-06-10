@@ -41,7 +41,6 @@ function App() {
       <div className="Contact-line">
       <img src={phone} alt="phone" className="Phone-icon" />
        <p id="phone-number">099284003</p>
-
       <img src={facebook} alt="facebook" className="Facebook-icon" />
       <a className="Facebook-link" href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
        Usados Coleccionables
