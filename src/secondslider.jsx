@@ -3,7 +3,6 @@ import ps4 from './ps4.jpg';
 import ps2 from './ps2.jpg';
 import ps2wpendrive from './ps2wpendrive.jpg';
 import xbox360 from './xbox360.jpg';
-
 import xbox360controller from './xbox360controller.jpg';
 import xbox360controllerwcable from './xbox360controllerwcable.jpg';
 
