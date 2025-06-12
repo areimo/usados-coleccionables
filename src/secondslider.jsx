@@ -3,11 +3,11 @@ import ps4 from './ps4.jpg';
 import ps2 from './ps2.jpg';
 import ps2wpendrive from './ps2wpendrive.jpg';
 import xbox360 from './xbox360.jpg';
-import ps3fifacontroller from './ps3fifacontroller.jpg';
+
 import xbox360controller from './xbox360controller.jpg';
 import xbox360controllerwcable from './xbox360controllerwcable.jpg';
 
-const images = [ ps4, ps2, ps2wpendrive, ps3fifacontroller, xbox360, xbox360controller, xbox360controllerwcable];
+const images = [ ps4, ps2, ps2wpendrive, xbox360, xbox360controller, xbox360controllerwcable];
 
 
 const AutoSlider = () => {

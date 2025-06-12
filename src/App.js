@@ -18,7 +18,7 @@ import ndsgames from './ndsgames.jpg';
 import pes2018ps3 from './pes2018ps3.jpg';
 import ps2 from './ps2.jpg';
 import ps2wpendrive from './ps2wpendrive.jpg';
-import ps3fifacontroller from './ps3fifacontroller.jpg';
+
 import ps4 from './ps4.jpg';
 import psp from './psp.jpg';
 import skatexbox360 from './skatexbox360.jpg';
@@ -74,7 +74,7 @@ function App() {
             <ProductCard image={f12011xbox360} title="F1 2011 XBOX360" price="$1.200"/>
             <ProductCard image={fifa13xbox360} title="FIFA 13 XBOX360" price="$800" />
             <ProductCard image={fifa15psvita} title="FIFA 15 PS VITA" price="$800"/>
-            {/*<ProductCard image={fifa18ps3} title="FIFA 18 PS3" />*/}
+
             <ProductCard image={fifa19ps4} title="FIFA 19 PS4" price="$1.000" />
             <ProductCard image={fifasoccer12ps3} title="FIFA SOCCER 12 PS3" price="$800"/>
             <ProductCard image={kinnectsportsxbox360} title="Kinnect Sports 360 XBOX360" price="$400"/>
@@ -82,7 +82,7 @@ function App() {
             <ProductCard image={pes2018ps3} title="PES 2018 PS3" />
             <ProductCard image={ps2} title="PS2" price="$3.500"/>
             <ProductCard image={ps2wpendrive} title="PS2 CON PENDRIVE" price="$3.000"/>
-            <ProductCard image={ps3fifacontroller} title="MANDO PS3 FIFA 19" price="$700"/>
+
             <ProductCard image={ps4} title="PS4" price="$8.000"/>
             <ProductCard image={psp} title="PSP" price="$6.000"/>
             <ProductCard image={skatexbox360} title="SKATE XBOX360" price="$1.000"/>
