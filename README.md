@@ -71,3 +71,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # usados_coleccionables
 # usados_coleccionables
 # usados-coleccionables
+# usados-coleccionables
