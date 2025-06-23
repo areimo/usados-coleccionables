@@ -15,7 +15,6 @@ import fifa19ps4 from './fifa19ps4.jpg';
 import fifasoccer12ps3 from './fifasoccer12ps3.jpg';
 import kinnectsportsxbox360 from './kinnectsportsxbox360.jpg';
 import ndsgames from './ndsgames.jpg';
-import pes2018ps3 from './pes2018ps3.jpg';
 import ps2 from './ps2.jpg';
 import ps2wpendrive from './ps2wpendrive.jpg';
 import ps4 from './ps4.jpg';
@@ -77,7 +76,6 @@ function App() {
             <ProductCard image={fifasoccer12ps3} title="FIFA SOCCER 12 PS3" price="$800"/>
             <ProductCard image={kinnectsportsxbox360} title="Kinnect Sports 360 XBOX360" price="$400"/>
             <ProductCard image={ndsgames} title="JUEGOS Nintendo DS" price="$350"/>
-            <ProductCard image={pes2018ps3} title="PES 2018 PS3" />
             <ProductCard image={ps2} title="PS2" price="$3.500"/>
             <ProductCard image={ps2wpendrive} title="PS2 CON PENDRIVE" price="$3.000"/>
             <ProductCard image={ps4} title="PS4" price="$8.000"/>
