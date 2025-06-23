@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/usados-coleccionables/static/css/main.23a955a6.css",
-    "main.js": "/usados-coleccionables/static/js/main.b6292c65.js",
+    "main.js": "/usados-coleccionables/static/js/main.e8563a5b.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
@@ -17,7 +17,6 @@
     "static/media/bacxbox360.jpg": "/usados-coleccionables/static/media/bacxbox360.129479001e4142446963.jpg",
     "static/media/avcable.jpg": "/usados-coleccionables/static/media/avcable.626d77eb971d5c182567.jpg",
     "static/media/uncharted2ps3.jpg": "/usados-coleccionables/static/media/uncharted2ps3.dcbb23abe0a9ca135d81.jpg",
-    "static/media/pes2018ps3.jpg": "/usados-coleccionables/static/media/pes2018ps3.010644fe42819bf36f6c.jpg",
     "static/media/fifa19ps4.jpg": "/usados-coleccionables/static/media/fifa19ps4.6196bc7aeb5f5c154596.jpg",
     "static/media/tloups3.jpg": "/usados-coleccionables/static/media/tloups3.006af8230f33856010f8.jpg",
     "static/media/kinnectsportsxbox360.jpg": "/usados-coleccionables/static/media/kinnectsportsxbox360.3ec56d757ad230cd86fb.jpg",
@@ -37,11 +36,11 @@
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
     "main.23a955a6.css.map": "/usados-coleccionables/static/css/main.23a955a6.css.map",
-    "main.b6292c65.js.map": "/usados-coleccionables/static/js/main.b6292c65.js.map",
+    "main.e8563a5b.js.map": "/usados-coleccionables/static/js/main.e8563a5b.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.23a955a6.css",
-    "static/js/main.b6292c65.js"
+    "static/js/main.e8563a5b.js"
   ]
 }
