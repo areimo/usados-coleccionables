@@ -22,8 +22,8 @@ import uncharted2ps3 from './uncharted2ps3.jpg';
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
 import xbox360controllerwcable from './xbox360controllerwcable.jpg';
-import psp from './psp.jpg';
-import skatexbox360 from './skatexbox360.jpg';
+import psp from './psp.jpg'
+import skatexbox360 from './skatexbox360.jpg'
 
 import './App.css';
 import AutoSlider from './slider.jsx';

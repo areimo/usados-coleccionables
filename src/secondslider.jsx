@@ -1,11 +1,10 @@
 import { useEffect,useState } from 'react';import React from "react";
-import ps4 from './ps4.jpg';
 import ps2 from './ps2.jpg';
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
 import xbox360controllerwcable from './xbox360controllerwcable.jpg';
 
-const images = [ ps4, ps2, xbox360, xbox360controller, xbox360controllerwcable];
+const images = [ ps2, xbox360, xbox360controller, xbox360controllerwcable];
 
 
 const AutoSlider = () => {
