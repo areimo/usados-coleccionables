@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/usados-coleccionables/static/css/main.23a955a6.css",
-    "main.js": "/usados-coleccionables/static/js/main.172426a5.js",
+    "main.css": "/usados-coleccionables/static/css/main.64ab8e63.css",
+    "main.js": "/usados-coleccionables/static/js/main.eac7663c.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
@@ -32,12 +32,12 @@
     "static/media/whatsapp.png": "/usados-coleccionables/static/media/whatsapp.c12d25261ebb8404ba07.png",
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
-    "main.23a955a6.css.map": "/usados-coleccionables/static/css/main.23a955a6.css.map",
-    "main.172426a5.js.map": "/usados-coleccionables/static/js/main.172426a5.js.map",
+    "main.64ab8e63.css.map": "/usados-coleccionables/static/css/main.64ab8e63.css.map",
+    "main.eac7663c.js.map": "/usados-coleccionables/static/js/main.eac7663c.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.23a955a6.css",
-    "static/js/main.172426a5.js"
+    "static/css/main.64ab8e63.css",
+    "static/js/main.eac7663c.js"
   ]
 }
