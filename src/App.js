@@ -6,6 +6,7 @@ import phone from './phone.png';
 import facebook from './facebook.png';
 import xbox360logo from './xbox360logo.png';
 import pslogo from './playsation.png';
+import joystick from './joystick.png';
 import aciixbox360 from './aciixbox360.jpg';
 import avcable from './avcable.jpg';
 import bacxbox360 from './bacxbox360.jpg';
@@ -109,11 +110,12 @@ function App() {
       </header>
 
       <header
-        className="Extras-header"
+        className="OtrosProductos-header"
         style={headerStyle("#4B5060")}
-        onClick={() => setPage("extras")}
+        onClick={() => setPage("otros")}
       >
-        <h6>Extras</h6>
+        <img src={joystick} alt="joystick" style={logoStyle} />
+        <h6>Otros Productos</h6>
       </header>
     </div>
   );
@@ -241,7 +243,7 @@ function App() {
         </>
       )}
 
-      {page === "extras" && (
+      {page === "otros" && (
         <>
           <ConsoleHeaders />
           <div className="product-container">
