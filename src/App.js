@@ -11,22 +11,19 @@ import crysis2ps3 from './crysis2ps3.jpg';
 import f12011xbox360 from './f12011xbox360.jpg';
 import fifa13xbox360 from './fifa13xbox360.jpg';
 import fifa15psvita from './fifa15psvita.jpg';
-import fifa19ps4 from './fifa19ps4.jpg';
 import fifasoccer12ps3 from './fifasoccer12ps3.jpg';
 import kinnectsportsxbox360 from './kinnectsportsxbox360.jpg';
 import ndsgames from './ndsgames.jpg';
 import ps2 from './ps2.jpg';
 import ps2wpendrive from './ps2wpendrive.jpg';
-import ps4 from './ps4.jpg';
 import socomps2 from './socomps2.jpg';
 import tloups3 from './tloups3.jpg';
 import uncharted2ps3 from './uncharted2ps3.jpg';
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
 import xbox360controllerwcable from './xbox360controllerwcable.jpg';
-import psp from './psp.jpg'
-import skatexbox360 from './skatexbox360.jpg'
-import tctd2ps4 from './tctd2ps4.jpg'
+import psp from './psp.jpg';
+import skatexbox360 from './skatexbox360.jpg';
 
 import './App.css';
 import AutoSlider from './slider.jsx';
@@ -72,17 +69,14 @@ function App() {
             <ProductCard image={f12011xbox360} title="F1 2011 XBOX360" price="$1.200"/>
             <ProductCard image={fifa13xbox360} title="FIFA 13 XBOX360" price="$800" />
             <ProductCard image={fifa15psvita} title="FIFA 15 PS VITA" price="$800"/>
-            <ProductCard image={fifa19ps4} title="FIFA 19 PS4" price="$1.000" />
             <ProductCard image={fifasoccer12ps3} title="FIFA SOCCER 12 PS3" price="$800"/>
             <ProductCard image={kinnectsportsxbox360} title="Kinnect Sports 360 XBOX360" price="$400"/>
             <ProductCard image={ndsgames} title="JUEGOS Nintendo DS" price="$350"/>
             <ProductCard image={ps2} title="PS2" price="$3.500"/>
             <ProductCard image={ps2wpendrive} title="PS2 CON PENDRIVE" price="$3.000"/>
-            <ProductCard image={ps4} title="PS4" price="$8.000"/>
             <ProductCard image={psp} title="PSP" price="$6.000"/>
             <ProductCard image={skatexbox360} title="SKATE XBOX360" price="$1.000"/>
             <ProductCard image={socomps2} title="SOCOM PS2" price="$1.800"/>
-            <ProductCard image={tctd2ps4} title="T.C.T.D 2 PS4" price="$1.000"/>
             <ProductCard image={tloups3} title="T.L.O.U PS3" price="$2.500"/>
             <ProductCard image={uncharted2ps3} title="UNCHARTED 2 PS3" price="$900"/>
             <ProductCard image={xbox360} title="XBOX360" price="$5.000"/>
