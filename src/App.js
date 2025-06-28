@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import logo from './logo.png';
 import shop from './shop.png';
@@ -70,7 +71,6 @@ function App() {
 
   const ConsoleHeaders = () => (
     <div
-      className="Headers-container"
       style={{
         marginTop: "3.2rem",
         display: "flex",
@@ -82,38 +82,19 @@ function App() {
         marginBottom: "1rem",
       }}
     >
-      <header
-        className="PS3-header"
-        style={headerStyle("#182580")}
-        onClick={() => setPage("ps3")}
-      >
+      <header style={headerStyle("#182580")} onClick={() => setPage("ps3")}>
         <img src={pslogo} alt="pslogo" style={logoStyle} />
         <h6>PLAYSTATION 3</h6>
       </header>
-
-      <header
-        className="PS2-header"
-        style={headerStyle("#182580")}
-        onClick={() => setPage("ps2")}
-      >
+      <header style={headerStyle("#182580")} onClick={() => setPage("ps2")}>
         <img src={pslogo} alt="pslogo" style={logoStyle} />
         <h6>PLAYSTATION 2</h6>
       </header>
-
-      <header
-        className="XBOX360-header"
-        style={headerStyle("green")}
-        onClick={() => setPage("xbox360")}
-      >
+      <header style={headerStyle("green")} onClick={() => setPage("xbox360")}>
         <img src={xbox360logo} alt="xbox360logo" style={logoStyle} />
         <h6>XBOX 360</h6>
       </header>
-
-      <header
-        className="OtrosProductos-header"
-        style={headerStyle("#4B5060")}
-        onClick={() => setPage("otros")}
-      >
+      <header style={headerStyle("#4B5060")} onClick={() => setPage("otros")}>
         <img src={joystick} alt="joystick" style={logoStyle} />
         <h6>Otros Productos</h6>
       </header>
@@ -133,127 +114,162 @@ function App() {
         </header>
       </div>
 
-      {page === "home" && (
-        <>
-          <main className="App-main">
-            <AutoSlider />
-            <div className="App-info">
-              <header className="App-about">
-                <h6>Sobre Nosotros</h6>
-              </header>
-              <p id="about">
-                Realizamos servicio técnico para PC y consolas (mantenimiento, reparaciones, destrabas), también vendemos consolas y videojuegos con envíos a todo el país. ¡No dudes en ponerte en contacto con nosotros!
-              </p>
-              <header className="App-contact">
-                <h6>Contacto</h6>
-              </header>
-              <div className="Contact-line">
-                <img src={phone} alt="phone" className="Phone-icon" />
-                <p id="phone-number">099284003</p>
-                <img src={facebook} alt="facebook" className="Facebook-icon" />
-                <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
-                  Usados Coleccionables
-                </a>
+      <AnimatePresence mode="wait">
+        {page === "home" && (
+          <motion.div
+            key="home"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
+            <main className="App-main">
+              <AutoSlider />
+              <div className="App-info">
+                <header className="App-about"><h6>Sobre Nosotros</h6></header>
+                <p id="about">
+                  Realizamos servicio técnico para PC y consolas (mantenimiento, reparaciones, destrabas), también vendemos consolas y videojuegos con envíos a todo el país. ¡No dudes en ponerte en contacto con nosotros!
+                </p>
+                <header className="App-contact"><h6>Contacto</h6></header>
+                <div className="Contact-line">
+                  <img src={phone} alt="phone" className="Phone-icon" />
+                  <p id="phone-number">099284003</p>
+                  <img src={facebook} alt="facebook" className="Facebook-icon" />
+                  <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
+                    Usados Coleccionables
+                  </a>
+                </div>
               </div>
+            </main>
+          </motion.div>
+        )}
+
+        {page === "shop" && (
+          <motion.div
+            key="shop"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
+            <header className="App-products" style={{ textAlign: "center" }}><h6>Productos Destacados</h6></header>
+            <SecondSlider />
+
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem", marginBottom: "1rem" }}>
+              <input
+                type="text"
+                placeholder="Buscar..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                style={{
+                  padding: "0.25rem 0.5rem",
+                  fontSize: "0.9rem",
+                  borderRadius: "0.25rem",
+                  border: "1px solid #4B5060",
+                  width: "350px",
+                  height: "1.5rem",
+                }}
+              />
             </div>
-          </main>
-        </>
-      )}
-{page === "shop" && (
-  <div>
-    <header className="App-products" style={{ textAlign: "center" }}>
-      <h6>Productos Destacados</h6>
-    </header>
 
-    <SecondSlider />
+            <AnimatePresence>
+              {searchText !== "" && (
+                <motion.div
+                  key="search-results"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    position: "relative",
+                    zIndex: 10,
+                    marginTop: "-1rem",
+                  }}
+                >
+                  <div className="product-container" style={{ background: "white", padding: "1rem", borderRadius: "8px" }}>
+                    {filteredProducts.map((product, index) => (
+                      <ProductCard key={index} image={product.image} title={product.title} price={product.price} />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem", marginBottom: "1rem" }}>
-      <input 
-        type="text" 
-        placeholder="Buscar..." 
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        style={{
-          padding: "0.25rem 0.5rem",
-          fontSize: "0.9rem",
-          borderRadius: "0.25rem",
-          border: "1px solid #4B5060",
-          width: "350px",
-          height: "1.5rem",
-        }}
-      />
+            <ConsoleHeaders />
+
+            <header className="App-contact"><h6>Contacto</h6></header>
+            <div className="Contact-line">
+              <img src={phone} alt="phone" className="Phone-icon" />
+              <p id="phone-number">099284003</p>
+              <img src={facebook} alt="facebook" className="Facebook-icon" />
+              <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
+                Usados Coleccionables
+              </a>
+            </div>
+          </motion.div>
+        )}
+
+        {["ps3", "ps2", "xbox360", "otros"].includes(page) && (
+          <motion.div
+            key={page}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
+            <ConsoleHeaders />
+            <div className="product-container">
+              {page === "ps3" && (
+                <>
+                  <ProductCard image={baops3} title="Batman Arkham Origins PS3" price="$1.200" />
+                  <ProductCard image={battlefield4ps3} title="Battlefield 4 PS3" price="$1.800" />
+                  <ProductCard image={crysis2ps3} title="Crysis 2 PS3" price="$1.800" />
+                  <ProductCard image={tloups3} title="T.L.O.U PS3" price="$2.500" />
+                  <ProductCard image={uncharted2ps3} title="UNCHARTED 2 PS3" price="$900" />
+                  <ProductCard image={fifasoccer12ps3} title="FIFA SOCCER 12 PS3" price="$800" />
+                </>
+              )}
+              {page === "ps2" && (
+                <>
+                  <ProductCard image={ps2} title="PS2" price="$3.500" />
+                  <ProductCard image={ps2wpendrive} title="PS2 CON PENDRIVE" price="$3.000" />
+                  <ProductCard image={socomps2} title="SOCOM PS2" price="$1.800" />
+                </>
+              )}
+              {page === "xbox360" && (
+                <>
+                  <ProductCard image={xbox360} title="XBOX360" price="$5.000" />
+                  <ProductCard image={xbox360controller} title="MANDO XBOX360 INALÁMBRICO" price="$900" />
+                  <ProductCard image={xbox360controllerwcable} title="MANDO XBOX360" price="$800" />
+                  <ProductCard image={aciixbox360} title="Assassin's Creed II XBOX360" price="$1.000" />
+                  <ProductCard image={bacxbox360} title="Batman Arkham City XBOX360" price="$800" />
+                  <ProductCard image={f12011xbox360} title="F1 2011 XBOX360" price="$1.200" />
+                  <ProductCard image={fifa13xbox360} title="FIFA 13 XBOX360" price="$800" />
+                  <ProductCard image={kinnectsportsxbox360} title="Kinnect Sports 360 XBOX360" price="$400" />
+                  <ProductCard image={skatexbox360} title="SKATE XBOX360" price="$1.000" />
+                </>
+              )}
+              {page === "otros" && (
+                <>
+                  <ProductCard image={avcable} title="Cable AV" price="$500" />
+                  <ProductCard image={ndsgames} title="JUEGOS Nintendo DS" price="$350" />
+                  <ProductCard image={fifa15psvita} title="FIFA 15 PS VITA" price="$800" />
+                  <ProductCard image={psp} title="PSP" price="$6.000" />
+                </>
+              )}
+            </div>
+                <header className="App-contact"><h6>Contacto</h6></header>
+    <div className="Contact-line">
+      <img src={phone} alt="phone" className="Phone-icon" />
+      <p id="phone-number">099284003</p>
+      <img src={facebook} alt="facebook" className="Facebook-icon" />
+      <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
+        Usados Coleccionables
+      </a>
     </div>
-
-    <ConsoleHeaders />
-
-    {searchText !== "" && (
-      <div className="product-container">
-        {filteredProducts.map((product, index) => (
-          <ProductCard 
-            key={index}
-            image={product.image}
-            title={product.title}
-            price={product.price}
-          />
-        ))}
-      </div>
-    )}
-  </div>
-)}
-
-      {page === "ps3" && (
-        <>
-          <ConsoleHeaders />
-          <div className="product-container">
-            <ProductCard image={baops3} title="Batman Arkham Origins PS3" price="$1.200" />
-            <ProductCard image={battlefield4ps3} title="Battlefield 4 PS3" price="$1.800" />
-            <ProductCard image={crysis2ps3} title="Crysis 2 PS3" price="$1.800" />
-            <ProductCard image={tloups3} title="T.L.O.U PS3" price="$2.500" />
-            <ProductCard image={uncharted2ps3} title="UNCHARTED 2 PS3" price="$900" />
-            <ProductCard image={fifasoccer12ps3} title="FIFA SOCCER 12 PS3" price="$800" />
-          </div>
-        </>
-      )}
-
-      {page === "ps2" && (
-        <>
-          <ConsoleHeaders />
-          <div className="product-container">
-            <ProductCard image={ps2} title="PS2" price="$3.500" />
-            <ProductCard image={ps2wpendrive} title="PS2 CON PENDRIVE" price="$3.000" />
-            <ProductCard image={socomps2} title="SOCOM PS2" price="$1.800" />
-          </div>
-        </>
-      )}
-
-      {page === "xbox360" && (
-        <>
-          <ConsoleHeaders />
-          <div className="product-container">
-            <ProductCard image={xbox360} title="XBOX360" price="$5.000" />
-            <ProductCard image={xbox360controller} title="MANDO XBOX360 INALÁMBRICO" price="$900" />
-            <ProductCard image={xbox360controllerwcable} title="MANDO XBOX360" price="$800" />
-            <ProductCard image={aciixbox360} title="Assassin's Creed II XBOX360" price="$1.000" />
-            <ProductCard image={bacxbox360} title="Batman Arkham City XBOX360" price="$800" />
-            <ProductCard image={f12011xbox360} title="F1 2011 XBOX360" price="$1.200" />
-            <ProductCard image={fifa13xbox360} title="FIFA 13 XBOX360" price="$800" />
-            <ProductCard image={kinnectsportsxbox360} title="Kinnect Sports 360 XBOX360" price="$400" />
-            <ProductCard image={skatexbox360} title="SKATE XBOX360" price="$1.000" />
-          </div>
-        </>
-      )}
-
-      {page === "otros" && (
-        <>
-          <ConsoleHeaders />
-          <div className="product-container">
-            <ProductCard image={avcable} title="Cable AV" price="$500" />
-            <ProductCard image={ndsgames} title="JUEGOS Nintendo DS" price="$350" />
-            <ProductCard image={fifa15psvita} title="FIFA 15 PS VITA" price="$800" />
-            <ProductCard image={psp} title="PSP" price="$6.000" />
-          </div>
-        </>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <footer className="App-footer">
         <p id="footer">2025 @areimo on Github</p>
@@ -289,7 +305,7 @@ function ProductCard({ image, title, price }) {
   return (
     <div className="product-card">
       <img src={image} alt={title} style={{ width: "200px", height: "200px", borderRadius: "5px", marginTop: "1.5625rem" }} />
-      <h5 className="product-title" style={{ marginTop: "0.5rem" }}>{title}</h5>
+      <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{title}</h5>
       <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{price}</h5>
     </div>
   );
