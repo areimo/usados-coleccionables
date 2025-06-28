@@ -7,8 +7,21 @@ html, body, #root {
   min-height: 100%;
 }
 
+.Header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
+  align-items: center;     
+  gap: 0.2rem;               
+}
+
 .App-logo {
   height: 5vmin;
+  pointer-events: none;
+}
+
+.Shop-icon {
+  height: 5vmin; 
   pointer-events: none;
 }
 
@@ -26,7 +39,22 @@ html, body, #root {
   border-bottom-left-radius: 0.3125rem;
   border-bottom-right-radius: 0.3125rem;
   box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
+}
+
+.App-shop {
+  background-color: #4B5060; 
+  width: 6rem;               
+  height: 3.125rem;           
+  display: flex;
+  flex-direction: row;
+  align-items: center;       
+  justify-content: flex-start; 
+  font-size: calc(0.75rem + 2vmin);
+  color: white;
+  padding: 0 1.25rem;         
+  border-bottom-left-radius: 0.3125rem;
+  border-bottom-right-radius: 0.3125rem;
+  box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
 }
 
 .App-button {
@@ -163,29 +191,13 @@ html, body, #root {
 
 .App-products {
   background-color: #4B5060; 
-  width: 11.2rem;              
-  height: 3.125rem;           
-  display: flex;
-  flex-direction: row;
-  align-items: center;       
-  justify-content: flex-start; 
-  font-size: calc(0.75rem + 2vmin);
-  color: white;
-  padding: 0 1.25rem;         
-  border-radius: 0.3125rem;
-  box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
-  margin: 1.25rem auto 0 auto;
-}
-
-.App-shop{
-  background-color: #4B5060; 
-  width: 3.5rem; ;
+  width: 11.2rem;
   height: 3.125rem;
   display: flex;
   flex-direction: row;
   align-items: center;       
   justify-content: flex-start; 
-  margin-top: 1.875rem;
+  margin-top: 2.5rem;
   margin-left: 1.25rem;
   font-size: calc(0.75rem + 2vmin);
   color: white;
