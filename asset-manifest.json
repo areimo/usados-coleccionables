@@ -1,13 +1,12 @@
 {
   "files": {
     "main.css": "/usados-coleccionables/static/css/main.64ab8e63.css",
-    "main.js": "/usados-coleccionables/static/js/main.d1d479d2.js",
+    "main.js": "/usados-coleccionables/static/js/main.a842b9bf.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
     "static/media/consoles.png": "/usados-coleccionables/static/media/consoles.02e85af88613de8efe63.png",
     "static/media/computers.png": "/usados-coleccionables/static/media/computers.592e04ef3c59ca36a825.png",
-    "static/media/fifa13xbox360.jpg": "/usados-coleccionables/static/media/fifa13xbox360.ef50d90b4ee16f16f971.jpg",
     "static/media/ndsgames.jpg": "/usados-coleccionables/static/media/ndsgames.954f9929aafcf348a9ff.jpg",
     "static/media/baops3.jpg": "/usados-coleccionables/static/media/baops3.414309f94df6d8d82449.jpg",
     "static/media/skatexbox360.jpg": "/usados-coleccionables/static/media/skatexbox360.7a3d0d2e9d6e3ef9f838.jpg",
@@ -19,7 +18,6 @@
     "static/media/uncharted2ps3.jpg": "/usados-coleccionables/static/media/uncharted2ps3.dcbb23abe0a9ca135d81.jpg",
     "static/media/tloups3.jpg": "/usados-coleccionables/static/media/tloups3.006af8230f33856010f8.jpg",
     "static/media/kinnectsportsxbox360.jpg": "/usados-coleccionables/static/media/kinnectsportsxbox360.3ec56d757ad230cd86fb.jpg",
-    "static/media/fifa15psvita.jpg": "/usados-coleccionables/static/media/fifa15psvita.0ac2386dadb3f7a86a7b.jpg",
     "static/media/battlefield4ps3.jpg": "/usados-coleccionables/static/media/battlefield4ps3.e56820b33eaf53c759a4.jpg",
     "static/media/fifasoccer12ps3.jpg": "/usados-coleccionables/static/media/fifasoccer12ps3.c12eebeb7f6cb1ed9115.jpg",
     "static/media/socomps2.jpg": "/usados-coleccionables/static/media/socomps2.0d5b0a73fa247e6fc2f9.jpg",
@@ -33,11 +31,11 @@
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
     "main.64ab8e63.css.map": "/usados-coleccionables/static/css/main.64ab8e63.css.map",
-    "main.d1d479d2.js.map": "/usados-coleccionables/static/js/main.d1d479d2.js.map",
+    "main.a842b9bf.js.map": "/usados-coleccionables/static/js/main.a842b9bf.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.64ab8e63.css",
-    "static/js/main.d1d479d2.js"
+    "static/js/main.a842b9bf.js"
   ]
 }
