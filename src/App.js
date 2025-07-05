@@ -15,8 +15,6 @@ import baops3 from './baops3.jpg';
 import battlefield4ps3 from './battlefield4ps3.jpg';
 import crysis2ps3 from './crysis2ps3.jpg';
 import f12011xbox360 from './f12011xbox360.jpg';
-import fifa13xbox360 from './fifa13xbox360.jpg';
-import fifa15psvita from './fifa15psvita.jpg';
 import fifasoccer12ps3 from './fifasoccer12ps3.jpg';
 import kinnectsportsxbox360 from './kinnectsportsxbox360.jpg';
 import ndsgames from './ndsgames.jpg';
@@ -58,12 +56,10 @@ function App() {
     { id: 13, image: aciixbox360, title: "Assassin's Creed II XBOX360", price: "$1.000", description: "Assassin's Creed II es un juego de acción y aventura en tercera persona que sigue las aventuras de Ezio Auditore." },
     { id: 14, image: bacxbox360, title: "Batman Arkham City XBOX360", price: "$800", description: "Batman Arkham City es un juego de acción y aventura en tercera persona que ofrece una experiencia inmersiva en el universo de Batman." },
     { id: 15, image: f12011xbox360, title: "F1 2011 XBOX360", price: "$1.200", description: "F1 2011 es un juego de simulación de carreras que ofrece una experiencia realista de la Fórmula 1." },
-    { id: 16, image: fifa13xbox360, title: "FIFA 13 XBOX360", price: "$800", description: "FIFA 13 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
     { id: 17, image: kinnectsportsxbox360, title: "Kinnect Sports 360 XBOX360", price: "$400", description: "Kinect Sports es un juego de deportes que utiliza la tecnología Kinect para ofrecer una experiencia de juego interactiva." },
     { id: 18, image: skatexbox360, title: "SKATE XBOX360", price: "$1.000", description: "Skate es un juego de deportes que ofrece una experiencia realista de patinaje en monopatín." },
     { id: 19, image: avcable, title: "Cable AV", price: "$500", description: "Cable AV para conectar tu consola a la televisión y disfrutar de tus juegos en alta calidad." },
     { id: 20, image: ndsgames, title: "JUEGOS Nintendo DS", price: "$350", description: "Una colección de juegos para Nintendo DS, ideal para los amantes de las aventuras portátiles." },
-    { id: 21, image: fifa15psvita, title: "FIFA 15 PS VITA", price: "$800", description: "FIFA 15 para PS Vita es un juego de simulación de fútbol que ofrece una experiencia portátil con equipos y jugadores licenciados." },
     { id: 22, image: psp, title: "PSP", price: "$6.000", description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos." },
   ];
 
