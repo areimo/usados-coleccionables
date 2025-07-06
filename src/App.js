@@ -11,7 +11,6 @@ import joystick from './joystick.png';
 import aciixbox360 from './aciixbox360.jpg';
 import avcable from './avcable.jpg';
 import bacxbox360 from './bacxbox360.jpg';
-import baops3 from './baops3.jpg';
 import battlefield4ps3 from './battlefield4ps3.jpg';
 import crysis2ps3 from './crysis2ps3.jpg';
 import f12011xbox360 from './f12011xbox360.jpg';
@@ -25,7 +24,6 @@ import tloups3 from './tloups3.jpg';
 import uncharted2ps3 from './uncharted2ps3.jpg';
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
-import xbox360controllerwcable from './xbox360controllerwcable.jpg';
 import psp from './psp.jpg'
 import skatexbox360 from './skatexbox360.jpg'
 
@@ -41,7 +39,6 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const featuredProducts = [
-    { id: 1, image: baops3, title: "Batman Arkham Origins PS3", price: "$1.200", description: "Un juego de acción y aventura en tercera persona ambientado en el universo de Batman." },
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
     { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
@@ -52,7 +49,6 @@ function App() {
     { id: 9, image: socomps2, title: "SOCOM PS2", price: "$1.800", description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
     { id: 10, image: xbox360, title: "XBOX360", price: "$5.000", description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea." },
     { id: 11, image: xbox360controller, title: "MANDO XBOX360 INALÁMBRICO", price: "$900", description: "Controlador inalámbrico para Xbox 360, ideal para una experiencia de juego sin cables." },
-    { id: 12, image: xbox360controllerwcable, title: "MANDO XBOX360", price: "$800", description: "Controlador con cable para Xbox 360, perfecto para aquellos que prefieren una conexión directa." },
     { id: 13, image: aciixbox360, title: "Assassin's Creed II XBOX360", price: "$1.000", description: "Assassin's Creed II es un juego de acción y aventura en tercera persona que sigue las aventuras de Ezio Auditore." },
     { id: 14, image: bacxbox360, title: "Batman Arkham City XBOX360", price: "$800", description: "Batman Arkham City es un juego de acción y aventura en tercera persona que ofrece una experiencia inmersiva en el universo de Batman." },
     { id: 15, image: f12011xbox360, title: "F1 2011 XBOX360", price: "$1.200", description: "F1 2011 es un juego de simulación de carreras que ofrece una experiencia realista de la Fórmula 1." },
