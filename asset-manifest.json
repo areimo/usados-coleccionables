@@ -1,16 +1,14 @@
 {
   "files": {
     "main.css": "/usados-coleccionables/static/css/main.64ab8e63.css",
-    "main.js": "/usados-coleccionables/static/js/main.a842b9bf.js",
+    "main.js": "/usados-coleccionables/static/js/main.0b2b8f86.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
     "static/media/consoles.png": "/usados-coleccionables/static/media/consoles.02e85af88613de8efe63.png",
     "static/media/computers.png": "/usados-coleccionables/static/media/computers.592e04ef3c59ca36a825.png",
     "static/media/ndsgames.jpg": "/usados-coleccionables/static/media/ndsgames.954f9929aafcf348a9ff.jpg",
-    "static/media/baops3.jpg": "/usados-coleccionables/static/media/baops3.414309f94df6d8d82449.jpg",
     "static/media/skatexbox360.jpg": "/usados-coleccionables/static/media/skatexbox360.7a3d0d2e9d6e3ef9f838.jpg",
-    "static/media/xbox360controllerwcable.jpg": "/usados-coleccionables/static/media/xbox360controllerwcable.a1f8b96c19e956890a29.jpg",
     "static/media/aciixbox360.jpg": "/usados-coleccionables/static/media/aciixbox360.9df4fb674d403ab65a24.jpg",
     "static/media/crysis2ps3.jpg": "/usados-coleccionables/static/media/crysis2ps3.54c194c8378bf68021c8.jpg",
     "static/media/bacxbox360.jpg": "/usados-coleccionables/static/media/bacxbox360.129479001e4142446963.jpg",
@@ -31,11 +29,11 @@
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
     "main.64ab8e63.css.map": "/usados-coleccionables/static/css/main.64ab8e63.css.map",
-    "main.a842b9bf.js.map": "/usados-coleccionables/static/js/main.a842b9bf.js.map",
+    "main.0b2b8f86.js.map": "/usados-coleccionables/static/js/main.0b2b8f86.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.64ab8e63.css",
-    "static/js/main.a842b9bf.js"
+    "static/js/main.0b2b8f86.js"
   ]
 }
