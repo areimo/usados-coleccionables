@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import logo from './logo.png';
 import shop from './shop.png';
 import phone from './phone.png';
@@ -37,6 +37,13 @@ function App() {
   const [page, setPage] = useState("home");
   const [searchText, setSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/users")
+      .then(res => setUsers(res.data))
+      .catch(err => console.error(err));
+  }, []);
 
   const featuredProducts = [
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
@@ -113,6 +120,15 @@ function App() {
                     {filteredProducts.map(product => (
                       <ProductCard key={product.id} product={product} onClick={(p) => { setSelectedProduct(p); setPage("product"); }} />
                     ))}
+                  </div>
+                  {/* User list (ONLY ONE --ROOT--) */}
+                  <div style={{ marginTop: "2rem", textAlign: "center" }}>
+                    <h2>USER ROOT</h2>
+                    <ul style={{ listStyle: "none", padding: 0 }}>
+                     {users.map(user => (
+                       <li key={user.id}>{user.nombre}</li>
+                      ))}
+                    </ul>
                   </div>
                 </motion.div>
               )}
@@ -225,3 +241,4 @@ function ProductCard({ product, onClick }) {
 }
 
 export default App;
+
