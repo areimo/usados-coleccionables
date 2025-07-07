@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect,useState } from "react";
+import axios from 'axios';
 import logo from './logo.png';
 import shop from './shop.png';
 import phone from './phone.png';
