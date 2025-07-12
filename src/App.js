@@ -27,6 +27,7 @@ import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
 import psp from './psp.jpg'
 import skatexbox360 from './skatexbox360.jpg'
+import wii from './wii.jpg'
 
 import './App.css';
 import AutoSlider from './slider.jsx';
@@ -47,6 +48,7 @@ function App() {
   }, []);
 
   const featuredProducts = [
+    { id: 1, image: wii, title: "Wii", price: "$4000", description: "La Wii es una consola de Nintendo lanzada en el año 2006." }
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
     { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
