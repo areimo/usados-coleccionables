@@ -27,7 +27,6 @@ import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
 import psp from './psp.jpg'
 import skatexbox360 from './skatexbox360.jpg'
-import wii from './wii.jpg'
 
 import './App.css';
 import AutoSlider from './slider.jsx';
@@ -48,13 +47,12 @@ function App() {
   }, []);
 
   const featuredProducts = [
-    { id: 1, image: wii, title: "Wii", price: "$4000", description: "La Wii es una consola de Nintendo lanzada en el año 2006." }
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
     { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
     { id: 5, image: uncharted2ps3, title: "UNCHARTED 2 PS3", price: "$900", description: "Uncharted 2 es un juego de acción y aventura en tercera persona que sigue las aventuras del cazador de tesoros Nathan Drake." },
     { id: 6, image: fifasoccer12ps3, title: "FIFA SOCCER 12 PS3", price: "$800", description: "FIFA Soccer 12 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
-    { id: 7, image: ps2, title: "PS2", price: "$3.500", description: "PlayStation 2, una de las consolas más icónicas de la historia, con una vasta biblioteca de juegos." },
+    { id: 7, image: ps2, title: "PS2", price: "$5000", description: "PlayStation 2, una de las consolas más icónicas de la historia, con una vasta biblioteca de juegos." },
     { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: "$3.000", description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados." },
     { id: 9, image: socomps2, title: "SOCOM PS2", price: "$1.800", description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
     { id: 10, image: xbox360, title: "XBOX360", price: "$5.000", description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea." },
