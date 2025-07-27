@@ -2,7 +2,7 @@
   "name": "usados-coleccionables",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://areimo.github.io/usados-coleccionables/",
+  "homepage": "https://areimo.github.io/usados-coleccionables",
   "description": "Sitio oficial de Usados Coleccionables.",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
