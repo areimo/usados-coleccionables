@@ -11,6 +11,7 @@
 # production
 /build
 /backend
+/src
 
 # misc
 .DS_Store
