@@ -8,6 +8,7 @@ import phone from './phone.png';
 import facebook from './facebook.png';
 import xbox360logo from './xbox360logo.png';
 import pslogo from './playsation.png';
+import nintendologo from './nintendo.png';
 import joystick from './joystick.png';
 import aciixbox360 from './aciixbox360.jpg';
 import avcable from './avcable.jpg';
@@ -25,8 +26,17 @@ import tloups3 from './tloups3.jpg';
 import uncharted2ps3 from './uncharted2ps3.jpg';
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
-import psp from './psp.jpg'
-import skatexbox360 from './skatexbox360.jpg'
+import psp from './psp.jpg';
+import skatexbox360 from './skatexbox360.jpg';
+import wii from './wii.jpg';
+import nscharger from './nscharger.jpg';
+import wiimote from './wiimote.jpg';
+import f1poleposition64 from './f1poleposition64.jpg';
+import fifa64 from './fifa64.jpg';
+import gtavps3 from './gtavps3.jpg';
+import pes2012ps3 from './pes2012ps3.jpg';
+import pes2014ps3 from './pes2014ps3.jpg';
+
 
 import './App.css';
 import AutoSlider from './slider.jsx';
@@ -47,24 +57,32 @@ function App() {
   }, []);
 
   const featuredProducts = [
+    { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos." },
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
     { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
     { id: 5, image: uncharted2ps3, title: "UNCHARTED 2 PS3", price: "$900", description: "Uncharted 2 es un juego de acción y aventura en tercera persona que sigue las aventuras del cazador de tesoros Nathan Drake." },
     { id: 6, image: fifasoccer12ps3, title: "FIFA SOCCER 12 PS3", price: "$800", description: "FIFA Soccer 12 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
-    { id: 7, image: ps2, title: "PS2", price: "$3.500", description: "PlayStation 2, una de las consolas más icónicas de la historia, con una vasta biblioteca de juegos." },
+    { id: 7, image: ps2, title: "PS2", price: "$5000", description: "PlayStation 2, una de las consolas más icónicas de la historia, con una vasta biblioteca de juegos." },
     { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: "$3.000", description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados." },
     { id: 9, image: socomps2, title: "SOCOM PS2", price: "$1.800", description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
     { id: 10, image: xbox360, title: "XBOX360", price: "$5.000", description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea." },
     { id: 11, image: xbox360controller, title: "MANDO XBOX360 INALÁMBRICO", price: "$900", description: "Controlador inalámbrico para Xbox 360, ideal para una experiencia de juego sin cables." },
+    { id: 12, image: pes2012ps3, title: "PES 2012 PS3", price: "$500", description: "Pro Evolution Soccer 2012 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
     { id: 13, image: aciixbox360, title: "Assassin's Creed II XBOX360", price: "$1.000", description: "Assassin's Creed II es un juego de acción y aventura en tercera persona que sigue las aventuras de Ezio Auditore." },
     { id: 14, image: bacxbox360, title: "Batman Arkham City XBOX360", price: "$800", description: "Batman Arkham City es un juego de acción y aventura en tercera persona que ofrece una experiencia inmersiva en el universo de Batman." },
     { id: 15, image: f12011xbox360, title: "F1 2011 XBOX360", price: "$1.200", description: "F1 2011 es un juego de simulación de carreras que ofrece una experiencia realista de la Fórmula 1." },
+    { id: 16, image: pes2014ps3, title: "PES 2014 PS3", price: "$500", description: "Pro Evolution Soccer 2014 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
     { id: 17, image: kinnectsportsxbox360, title: "Kinnect Sports 360 XBOX360", price: "$400", description: "Kinect Sports es un juego de deportes que utiliza la tecnología Kinect para ofrecer una experiencia de juego interactiva." },
     { id: 18, image: skatexbox360, title: "SKATE XBOX360", price: "$1.000", description: "Skate es un juego de deportes que ofrece una experiencia realista de patinaje en monopatín." },
     { id: 19, image: avcable, title: "Cable AV", price: "$500", description: "Cable AV para conectar tu consola a la televisión y disfrutar de tus juegos en alta calidad." },
     { id: 20, image: ndsgames, title: "JUEGOS Nintendo DS", price: "$350", description: "Una colección de juegos para Nintendo DS, ideal para los amantes de las aventuras portátiles." },
+    { id: 21, image: f1poleposition64, title: "F1 POLE POSITION N64", price: "$700", description: "F1 Pole Position es un juego de carreras de Fórmula 1 para Nintendo 64 que ofrece una experiencia de conducción realista." },
     { id: 22, image: psp, title: "PSP", price: "$6.000", description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos." },
+    { id: 23, image: fifa64, title: "FIFA 64", price: "$700", description: "FIFA 64 es un juego de simulación de fútbol para Nintendo 64 que ofrece una experiencia de juego clásica con equipos y jugadores de la época." },
+    { id: 24, image: wiimote, title: "WIIMOTE", price: "$800", description: "Controlador Wii (Wiimote) para disfrutar de una experiencia de juego interactiva en la consola Wii." },
+    { id: 25, image: nscharger, title: "CARGADOR NINTENDO SWITCH", price: "$800", description: "Cargador para Nintendo Switch, ideal para mantener tu consola siempre lista para jugar." },
+    { id: 26, image: wii, title: "WII", price: "$4.000", description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento." },
   ];
 
   const filteredProducts = featuredProducts.filter(product =>
@@ -76,6 +94,7 @@ function App() {
       <header style={headerStyle("#182580")} onClick={() => setPage("ps3")}><img src={pslogo} alt="pslogo" style={logoStyle} /><h6>PLAYSTATION 3</h6></header>
       <header style={headerStyle("#182580")} onClick={() => setPage("ps2")}><img src={pslogo} alt="pslogo" style={logoStyle} /><h6>PLAYSTATION 2</h6></header>
       <header style={headerStyle("green")} onClick={() => setPage("xbox360")}><img src={xbox360logo} alt="xbox360logo" style={logoStyle} /><h6>XBOX 360</h6></header>
+      <header style={headerStyle("#EA473B")} onClick={() => setPage("nintendo")}><img src={nintendologo} alt="nintendologo" style={logoStyle} /><h6>NINTENDO</h6></header>
       <header style={headerStyle("#4B5060")} onClick={() => setPage("otros")}><img src={joystick} alt="joystick" style={logoStyle} /><h6>Otros Productos</h6></header>
     </div>
   );
@@ -140,7 +159,7 @@ function App() {
           </motion.div>
         )}
 
-        {["ps3", "ps2", "xbox360", "otros"].includes(page) && (
+        {["ps3", "ps2", "xbox360", "nintendo","otros"].includes(page) && (
           <motion.div key={page} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.5 }}>
             <ConsoleHeaders />
             <div className="product-container">
@@ -149,7 +168,8 @@ function App() {
                   if (page === "ps3") return p.title.includes("PS3");
                   if (page === "ps2") return p.title.includes("PS2");
                   if (page === "xbox360") return p.title.includes("XBOX360");
-                  if (page === "otros") return !p.title.includes("PS3") && !p.title.includes("PS2") && !p.title.includes("XBOX360");
+                  if (page === "nintendo") return p.title.includes("NINTENDO") || p.title.includes("WII") || p.title.includes("DS") || p.title.includes("64");
+                  if (page === "otros") return !p.title.includes("PS3") && !p.title.includes("PS2") && !p.title.includes("XBOX360") && !p.title.includes("NINTENDO") && !p.title.includes("WII") && !p.title.includes("DS") && !p.title.includes("64");
                   return false;
                 })
                 .map(product => (
