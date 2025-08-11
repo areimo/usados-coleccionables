@@ -4,6 +4,7 @@ import { useEffect,useState } from "react";
 import axios from 'axios';
 import logo from './logo.png';
 import shop from './shop.png';
+import buyicon from './buyicon.png';
 import phone from './phone.png';
 import facebook from './facebook.png';
 import xbox360logo from './xbox360logo.png';
@@ -19,7 +20,6 @@ import f12011xbox360 from './f12011xbox360.jpg';
 import fifasoccer12ps3 from './fifasoccer12ps3.jpg';
 import kinnectsportsxbox360 from './kinnectsportsxbox360.jpg';
 import ndsgames from './ndsgames.jpg';
-import ps2 from './ps2.jpg';
 import ps2wpendrive from './ps2wpendrive.jpg';
 import socomps2 from './socomps2.jpg';
 import tloups3 from './tloups3.jpg';
@@ -30,7 +30,6 @@ import psp from './psp.jpg';
 import skatexbox360 from './skatexbox360.jpg';
 import wii from './wii.jpg';
 import nscharger from './nscharger.jpg';
-import wiimote from './wiimote.jpg';
 import f1poleposition64 from './f1poleposition64.jpg';
 import fifa64 from './fifa64.jpg';
 import gtavps3 from './gtavps3.jpg';
@@ -51,7 +50,7 @@ function App() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/users")
+    axios.get("http://localhost:3000/api/users")
       .then(res => setUsers(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -63,7 +62,6 @@ function App() {
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
     { id: 5, image: uncharted2ps3, title: "UNCHARTED 2 PS3", price: "$900", description: "Uncharted 2 es un juego de acción y aventura en tercera persona que sigue las aventuras del cazador de tesoros Nathan Drake." },
     { id: 6, image: fifasoccer12ps3, title: "FIFA SOCCER 12 PS3", price: "$800", description: "FIFA Soccer 12 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
-    { id: 7, image: ps2, title: "PS2", price: "$5000", description: "PlayStation 2, una de las consolas más icónicas de la historia, con una vasta biblioteca de juegos." },
     { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: "$3.000", description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados." },
     { id: 9, image: socomps2, title: "SOCOM PS2", price: "$1.800", description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
     { id: 10, image: xbox360, title: "XBOX360", price: "$5.000", description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea." },
@@ -80,7 +78,6 @@ function App() {
     { id: 21, image: f1poleposition64, title: "F1 POLE POSITION N64", price: "$700", description: "F1 Pole Position es un juego de carreras de Fórmula 1 para Nintendo 64 que ofrece una experiencia de conducción realista." },
     { id: 22, image: psp, title: "PSP", price: "$6.000", description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos." },
     { id: 23, image: fifa64, title: "FIFA 64", price: "$700", description: "FIFA 64 es un juego de simulación de fútbol para Nintendo 64 que ofrece una experiencia de juego clásica con equipos y jugadores de la época." },
-    { id: 24, image: wiimote, title: "WIIMOTE", price: "$800", description: "Controlador Wii (Wiimote) para disfrutar de una experiencia de juego interactiva en la consola Wii." },
     { id: 25, image: nscharger, title: "CARGADOR NINTENDO SWITCH", price: "$800", description: "Cargador para Nintendo Switch, ideal para mantener tu consola siempre lista para jugar." },
     { id: 26, image: wii, title: "WII", price: "$4.000", description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento." },
   ];
@@ -138,7 +135,13 @@ function App() {
                 <motion.div key="search-results" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }} style={{ position: "relative", zIndex: 10, marginTop: "-1rem" }}>
                   <div className="product-container" style={{ background: "white", padding: "1rem", borderRadius: "8px" }}>
                     {filteredProducts.map(product => (
-                      <ProductCard key={product.id} product={product} onClick={(p) => { setSelectedProduct(p); setPage("product"); }} />
+                      <ProductCard
+                       key={product.id}
+                       product={product}
+                       onBuyClick={(p) => { setSelectedProduct(p); setPage("product"); }}
+                      />
+
+
                     ))}
                   </div>
                   {/* User list (ONLY ONE --ROOT--) */}
@@ -159,7 +162,7 @@ function App() {
           </motion.div>
         )}
 
-        {["ps3", "ps2", "xbox360", "nintendo","otros"].includes(page) && (
+        {['ps3', 'ps2', 'xbox360', 'nintendo','otros'].includes(page) && (
           <motion.div key={page} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.5 }}>
             <ConsoleHeaders />
             <div className="product-container">
@@ -173,8 +176,9 @@ function App() {
                   return false;
                 })
                 .map(product => (
-                  <ProductCard key={product.id} product={product} onClick={(p) => { setSelectedProduct(p); setPage("product"); }} />
-                ))}
+                 <ProductCard key={product.id} product={product} onBuyClick={(p) => { setSelectedProduct(p); setPage("product"); }} />
+                 ))}
+
             </div>
             <header className="App-contact"><h6>Contacto</h6></header>
             <div className="Contact-line"><img src={phone} alt="phone" className="Phone-icon" /><p id="phone-number">099284003</p><img src={facebook} alt="facebook" className="Facebook-icon" /><a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">Usados Coleccionables</a></div>
@@ -193,39 +197,78 @@ function App() {
       <img
         src={selectedProduct.image}
         alt={selectedProduct.title}
-        style={{ width: "400px", height: "300px", borderRadius: "5px", alignItems: "center", display: "block", margin: "0.5rem auto"   }}
+        style={{
+          width: "400px",
+          height: "300px",
+          borderRadius: "5px",
+          display: "block",
+          margin: "0.5rem auto",
+        }}
       />
       <h2 style={{ textAlign: "center" }}>{selectedProduct.title}</h2>
-      <h3 style={{ color: "#00aa00", textAlign:"center"}}>{selectedProduct.price}</h3>
-      <p style={{ marginTop: "1rem", textAlign:"center" }}>{selectedProduct.description}</p>
-      <button
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "0 auto",
-          marginTop: "2rem",
-          padding: "0.5rem 1rem",
-          fontSize: "20px",
-          fontWeight: "bold",
-          cursor: "pointer",
-          backgroundColor: "#4B5060",
-          color: "white",
-          borderRadius: "5px",
-          borderColor: "#4B5060",
-          boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)"
-        }}
-        onClick={() => setPage("shop")}
-      >
-        Volver
-      </button>
+      <h3 style={{ color: "#00aa00", textAlign: "center" }}>{selectedProduct.price}</h3>
+      <p style={{ marginTop: "1rem", textAlign: "center" }}>{selectedProduct.description}</p>
+
+      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "2.5rem" }}>
+        <button
+          className="buy-button"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "0.5rem 1rem",
+            fontSize: "20px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#28a745",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+          onClick={() => {
+            // Botón de compra conservado — redirige al contacto por WhatsApp
+            window.open('https://wa.me/59899284003', '_blank');
+          }}
+        >
+          <img src={buyicon} alt="shop" style={{ width: "24px", height: "24px", marginRight: "0.5rem" }} />
+          Comprar
+        </button>
+
+        <button
+          style={{
+            padding: "0.5rem 1rem",
+            fontSize: "20px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#4B5060",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+          onClick={() => setPage("shop")}
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
-    <header className="App-contact"><h6>Contacto</h6></header>
-        <div className="Contact-line"><img src={phone} alt="phone" className="Phone-icon" /><p id="phone-number">099284003</p><img src={facebook} alt="facebook" className="Facebook-icon" /><a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">Usados Coleccionables</a></div>
+
+    <header className="App-contact">
+      <h6>Contacto</h6>
+    </header>
+    <div className="Contact-line">
+      <img src={phone} alt="phone" className="Phone-icon" />
+      <p id="phone-number">099284003</p>
+      <img src={facebook} alt="facebook" className="Facebook-icon" />
+      <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
+        Usados Coleccionables
+      </a>
+    </div>
   </motion.div>
 )}
-      </AnimatePresence>
+
+
+</AnimatePresence>
 
       <footer className="App-footer"><p id="footer">2025 @areimo on Github</p></footer>
       <WppContact />
@@ -251,15 +294,58 @@ const headerStyle = (bg) => ({
 
 const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
 
-function ProductCard({ product, onClick }) {
+function ProductCard({ product, onBuyClick }) {
   return (
-    <div className="product-card" onClick={() => onClick(product)} style={{ cursor: "pointer" }}>
-      <img src={product.image} alt={product.title} style={{ width: "200px", height: "200px", borderRadius: "5px", marginTop: "1.5625rem" }} />
+    <div
+      className="product-card"
+      style={{
+        border: "1px solid #ddd",
+        borderRadius: "5px",
+        padding: "1rem",
+        marginTop: "1rem",
+        width: "220px",
+        textAlign: "center",
+        position: "relative",
+      }}
+    >
+      <img
+        src={product.image}
+        alt={product.title}
+        style={{ width: "200px", height: "200px", borderRadius: "5px" }}
+      />
       <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{product.title}</h5>
       <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{product.price}</h5>
+      <button
+        onClick={(e) => {
+          e.stopPropagation(); // para que no se active un clic padre
+          onBuyClick(product);
+        }}
+        style={{
+          marginTop: "0.5rem",
+          backgroundColor: "#28a745",
+          color: "white",
+          padding: "0.5rem 1rem",
+          fontWeight: "bold",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src={buyicon}
+          alt="shop"
+          style={{ width: "20px", height: "20px", marginRight: "0.5rem" }}
+        />
+        Comprar
+      </button>
+
     </div>
   );
 }
 
 export default App;
+
 
