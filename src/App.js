@@ -7,6 +7,7 @@ import shop from './shop.png';
 import buyicon from './buyicon.png';
 import phone from './phone.png';
 import facebook from './facebook.png';
+import email from './email.png';
 import xbox360logo from './xbox360logo.png';
 import pslogo from './playsation.png';
 import nintendologo from './nintendo.png';
@@ -42,21 +43,131 @@ import AutoSlider from './slider.jsx';
 import WppContact from './wppContact.jsx';
 import { SecondSlider } from './secondslider.jsx';
 
+import qrGTAV from './qr-gtav.jpeg';
 
 function App() {
   const [page, setPage] = useState("home");
   const [searchText, setSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [users, setUsers] = useState([]);
+  const [showQR, setShowQR] = useState(false);
+  const [qrImage, setQrImage] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/users")
-      .then(res => setUsers(res.data))
-      .catch(err => console.error(err));
+    axios
+      .get("http://localhost:3000/api/users")
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.error(err));
   }, []);
 
+  // Constantes de estilo
+  const headerStyle = (bg) => ({
+    backgroundColor: bg,
+    width: "11.2rem",
+    height: "4.125rem",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    fontSize: "calc(0.75rem + 2vmin)",
+    color: "white",
+    padding: "0 1.25rem",
+    cursor: "pointer",
+    borderRadius: "0.3125rem",
+    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+  });
+
+  const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
+
+  const ConsoleHeaders = () => (
+    <div
+      style={{
+        marginTop: "3.2rem",
+        display: "flex",
+        flexDirection: "row",
+        gap: "1.5rem",
+        justifyContent: "center",
+        alignItems: "center",
+        flexWrap: "wrap",
+        marginBottom: "1rem",
+      }}
+    >
+      <header style={headerStyle("#182580")} onClick={() => setPage("ps3")}>
+        <img src={pslogo} alt="pslogo" style={logoStyle} />
+        <h6>PLAYSTATION 3</h6>
+      </header>
+      <header style={headerStyle("#182580")} onClick={() => setPage("ps2")}>
+        <img src={pslogo} alt="pslogo" style={logoStyle} />
+        <h6>PLAYSTATION 2</h6>
+      </header>
+      <header style={headerStyle("green")} onClick={() => setPage("xbox360")}>
+        <img src={xbox360logo} alt="xbox360logo" style={logoStyle} />
+        <h6>XBOX 360</h6>
+      </header>
+      <header style={headerStyle("#EA473B")} onClick={() => setPage("nintendo")}>
+        <img src={nintendologo} alt="nintendologo" style={logoStyle} />
+        <h6>NINTENDO</h6>
+      </header>
+      <header style={headerStyle("#4B5060")} onClick={() => setPage("otros")}>
+        <img src={joystick} alt="joystick" style={logoStyle} />
+        <h6>Otros Productos</h6>
+      </header>
+    </div>
+  );
+
+  function ProductCard({ product, onBuyClick }) {
+    return (
+      <div
+        className="product-card"
+        style={{
+          border: "1px solid #ddd",
+          borderRadius: "5px",
+          padding: "1rem",
+          marginTop: "1rem",
+          width: "220px",
+          textAlign: "center",
+          position: "relative",
+        }}
+      >
+        <img
+          src={product.image}
+          alt={product.title}
+          style={{ width: "200px", height: "200px", borderRadius: "5px" }}
+        />
+        <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{product.title}</h5>
+        <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{product.price}</h5>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onBuyClick(product);
+          }}
+          style={{
+            marginTop: "0.5rem",
+            backgroundColor: "#28a745",
+            color: "white",
+            padding: "0.5rem 1rem",
+            fontWeight: "bold",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src={buyicon}
+            alt="shop"
+            style={{ width: "20px", height: "20px", marginRight: "0.5rem" }}
+          />
+          Comprar
+        </button>
+      </div>
+    );
+  }
+
   const featuredProducts = [
-    { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos." },
+    { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos.", qrImage: qrGTAV,Link: "https://mpago.la/2BYNkXZ" },
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
     { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
@@ -82,196 +193,356 @@ function App() {
     { id: 26, image: wii, title: "WII", price: "$4.000", description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento." },
   ];
 
-  const filteredProducts = featuredProducts.filter(product =>
+  const filteredProducts = featuredProducts.filter((product) =>
     product.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const ConsoleHeaders = () => (
-    <div style={{ marginTop: "3.2rem", display: "flex", flexDirection: "row", gap: "1.5rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap", marginBottom: "1rem" }}>
-      <header style={headerStyle("#182580")} onClick={() => setPage("ps3")}><img src={pslogo} alt="pslogo" style={logoStyle} /><h6>PLAYSTATION 3</h6></header>
-      <header style={headerStyle("#182580")} onClick={() => setPage("ps2")}><img src={pslogo} alt="pslogo" style={logoStyle} /><h6>PLAYSTATION 2</h6></header>
-      <header style={headerStyle("green")} onClick={() => setPage("xbox360")}><img src={xbox360logo} alt="xbox360logo" style={logoStyle} /><h6>XBOX 360</h6></header>
-      <header style={headerStyle("#EA473B")} onClick={() => setPage("nintendo")}><img src={nintendologo} alt="nintendologo" style={logoStyle} /><h6>NINTENDO</h6></header>
-      <header style={headerStyle("#4B5060")} onClick={() => setPage("otros")}><img src={joystick} alt="joystick" style={logoStyle} /><h6>Otros Productos</h6></header>
-    </div>
-  );
+  const defaultQrImage = "/qr-example.png";
+
+  const handleBuyClick = (product) => {
+    setSelectedProduct(product);
+    setQrImage(product.qrImage || defaultQrImage);
+    setPage("product");
+  };
+
+  const handleCloseQR = () => {
+    setShowQR(false);
+    setQrImage(null);
+  };
 
   return (
     <div className="App">
+      {/* Header */}
       <div className="Header-container">
-        <header className="App-header" onClick={() => setPage("home")} style={{ cursor: "pointer" }}><img src={logo} className="App-logo" alt="logo" /><h6 style={{ marginLeft: "10px" }}>Usados Coleccionables</h6></header>
-        <header className="App-shop" onClick={() => setPage("shop")} style={{ cursor: "pointer" }}><img src={shop} className="Shop-icon" alt="shop" /><h6 style={{ marginLeft: "10px" }}>Tienda</h6></header>
+        <header
+          className="App-header"
+          onClick={() => setPage("home")}
+          style={{ cursor: "pointer" }}
+        >
+          <img src={logo} className="App-logo" alt="logo" />
+          <h6 style={{ marginLeft: "10px" }}>Usados Coleccionables</h6>
+        </header>
+        <header
+          className="App-shop"
+          onClick={() => setPage("shop")}
+          style={{ cursor: "pointer" }}
+        >
+          <img src={shop} className="Shop-icon" alt="shop" />
+          <h6 style={{ marginLeft: "10px" }}>Tienda</h6>
+        </header>
       </div>
 
       <AnimatePresence mode="wait">
+        {/* Home */}
         {page === "home" && (
-          <motion.div key="home" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.5 }}>
+          <motion.div
+            key="home"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
             <main className="App-main">
               <AutoSlider />
               <div className="App-info">
-                <header className="App-about"><h6>Sobre Nosotros</h6></header>
-                <p id="about">Realizamos servicio técnico para PC y consolas (mantenimiento, reparaciones, destrabas), también vendemos consolas y videojuegos con envíos a todo el país. ¡No dudes en ponerte en contacto con nosotros!</p>
-                <header className="App-contact"><h6>Contacto</h6></header>
-                <div className="Contact-line">
-                  <img src={phone} alt="phone" className="Phone-icon" />
-                  <p id="phone-number">099284003</p>
-                  <img src={facebook} alt="facebook" className="Facebook-icon" />
-                  <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">Usados Coleccionables</a>
-                </div>
+                <header className="App-about">
+                  <h6>Sobre Nosotros</h6>
+                </header>
+                <p id="about">
+                  Realizamos servicio técnico para PC y consolas (mantenimiento,
+                  reparaciones, destrabas), también vendemos consolas y videojuegos
+                  con envíos a todo el país. ¡No dudes en ponerte en contacto con nosotros!
+                </p>
               </div>
             </main>
           </motion.div>
         )}
 
+        {/* Shop */}
         {page === "shop" && (
-          <motion.div key="shop" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.5 }}>
-            <header className="App-products" style={{ textAlign: "center" }}><h6>Productos Destacados</h6></header>
+          <motion.div
+            key="shop"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
+            <header className="App-products" style={{ textAlign: "center" }}>
+              <h6>Productos Destacados</h6>
+            </header>
             <SecondSlider />
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem", marginBottom: "1rem" }}>
-              <input type="text" placeholder="Buscar..." value={searchText} onChange={(e) => setSearchText(e.target.value)} style={{ padding: "0.25rem 0.5rem", fontSize: "0.9rem", borderRadius: "0.25rem", border: "1px solid #4B5060", width: "350px", height: "1.5rem" }} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Buscar..."
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                style={{
+                  padding: "0.25rem 0.5rem",
+                  fontSize: "0.9rem",
+                  borderRadius: "0.25rem",
+                  border: "1px solid #4B5060",
+                  width: "350px",
+                  height: "1.5rem",
+                }}
+              />
             </div>
-            <AnimatePresence>
-              {searchText !== "" && (
-                <motion.div key="search-results" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }} style={{ position: "relative", zIndex: 10, marginTop: "-1rem" }}>
-                  <div className="product-container" style={{ background: "white", padding: "1rem", borderRadius: "8px" }}>
-                    {filteredProducts.map(product => (
-                      <ProductCard
-                       key={product.id}
-                       product={product}
-                       onBuyClick={(p) => { setSelectedProduct(p); setPage("product"); }}
-                      />
 
+            {searchText !== "" && (
+              <motion.div
+                key="search-results"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                style={{ position: "relative", zIndex: 10, marginTop: "-1rem" }}
+              >
+                <div
+                  className="product-container"
+                  style={{ background: "white", padding: "1rem", borderRadius: "8px" }}
+                >
+                  {filteredProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onBuyClick={handleBuyClick}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            )}
 
-                    ))}
-                  </div>
-                  {/* User list (ONLY ONE --ROOT--) */}
-                  <div style={{ marginTop: "2rem", textAlign: "center" }}>
-                    <h2>USER ROOT</h2>
-                    <ul style={{ listStyle: "none", padding: 0 }}>
-                     {users.map(user => (
-                       <li key={user.id}>{user.nombre}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
             <ConsoleHeaders />
-            <header className="App-contact"><h6>Contacto</h6></header>
-            <div className="Contact-line"><img src={phone} alt="phone" className="Phone-icon" /><p id="phone-number">099284003</p><img src={facebook} alt="facebook" className="Facebook-icon" /><a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">Usados Coleccionables</a></div>
           </motion.div>
         )}
 
-        {['ps3', 'ps2', 'xbox360', 'nintendo','otros'].includes(page) && (
-          <motion.div key={page} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.5 }}>
+        {/* Consolas */}
+        {["ps3", "ps2", "xbox360", "nintendo", "otros"].includes(page) && (
+          <motion.div
+            key={page}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
             <ConsoleHeaders />
             <div className="product-container">
               {featuredProducts
-                .filter(p => {
+                .filter((p) => {
                   if (page === "ps3") return p.title.includes("PS3");
                   if (page === "ps2") return p.title.includes("PS2");
                   if (page === "xbox360") return p.title.includes("XBOX360");
-                  if (page === "nintendo") return p.title.includes("NINTENDO") || p.title.includes("WII") || p.title.includes("DS") || p.title.includes("64");
-                  if (page === "otros") return !p.title.includes("PS3") && !p.title.includes("PS2") && !p.title.includes("XBOX360") && !p.title.includes("NINTENDO") && !p.title.includes("WII") && !p.title.includes("DS") && !p.title.includes("64");
+                  if (page === "nintendo")
+                    return (
+                      p.title.includes("NINTENDO") ||
+                      p.title.includes("WII") ||
+                      p.title.includes("DS") ||
+                      p.title.includes("64")
+                    );
+                  if (page === "otros")
+                    return (
+                      !p.title.includes("PS3") &&
+                      !p.title.includes("PS2") &&
+                      !p.title.includes("XBOX360") &&
+                      !p.title.includes("NINTENDO") &&
+                      !p.title.includes("WII") &&
+                      !p.title.includes("DS") &&
+                      !p.title.includes("64")
+                    );
                   return false;
                 })
-                .map(product => (
-                 <ProductCard key={product.id} product={product} onBuyClick={(p) => { setSelectedProduct(p); setPage("product"); }} />
-                 ))}
-
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} onBuyClick={handleBuyClick} />
+                ))}
             </div>
-            <header className="App-contact"><h6>Contacto</h6></header>
-            <div className="Contact-line"><img src={phone} alt="phone" className="Phone-icon" /><p id="phone-number">099284003</p><img src={facebook} alt="facebook" className="Facebook-icon" /><a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">Usados Coleccionables</a></div>
           </motion.div>
         )}
 
-{page === "product" && selectedProduct && (
-  <motion.div
-    key="product"
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -30 }}
-    transition={{ duration: 0.5 }}
-  >
-    <div style={{ padding: "2rem" }}>
-      <img
-        src={selectedProduct.image}
-        alt={selectedProduct.title}
-        style={{
-          width: "400px",
-          height: "300px",
-          borderRadius: "5px",
-          display: "block",
-          margin: "0.5rem auto",
-        }}
-      />
-      <h2 style={{ textAlign: "center" }}>{selectedProduct.title}</h2>
-      <h3 style={{ color: "#00aa00", textAlign: "center" }}>{selectedProduct.price}</h3>
-      <p style={{ marginTop: "1rem", textAlign: "center" }}>{selectedProduct.description}</p>
+        {/* Producto */}
+        {page === "product" && selectedProduct && (
+          <motion.div
+            key="product"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div style={{ padding: "2rem", textAlign: "center" }}>
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.title}
+                style={{ width: "400px", height: "300px", borderRadius: "5px" }}
+              />
+              <h2>{selectedProduct.title}</h2>
+              <h3 style={{ color: "#00aa00" }}>{selectedProduct.price}</h3>
+              <p style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
 
-      <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "2.5rem" }}>
-        <button
-          className="buy-button"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "0.5rem 1rem",
-            fontSize: "20px",
-            fontWeight: "bold",
-            cursor: "pointer",
-            backgroundColor: "#28a745",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-          }}
-          onClick={() => {
-            // Botón de compra conservado — redirige al contacto por WhatsApp
-            window.open('https://wa.me/59899284003', '_blank');
-          }}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1rem",
+                  marginTop: "2.5rem",
+                }}
+              >
+                <button
+                  onClick={() => setShowQR(true)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "0.5rem 1rem",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    backgroundColor: "#28a745",
+                    color: "white",
+                    borderRadius: "5px",
+                    border: "none",
+                    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  <img
+                    src={buyicon}
+                    alt="shop"
+                    style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
+                  />
+                  Comprar
+                </button>
+                <button
+                  onClick={() => setPage("shop")}
+                  style={{
+                    padding: "0.5rem 1rem",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    backgroundColor: "#4B5060",
+                    color: "white",
+                    borderRadius: "5px",
+                    border: "none",
+                    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  Cancelar
+                </button>
+              </div>
+
+              {showQR && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    backgroundColor: "rgba(0,0,0,0.7)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 1000,
+                  }}
+                  onClick={handleCloseQR}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      background: "white",
+                      padding: "1rem",
+                      borderRadius: "5px",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      gap: "1rem",
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <img
+                      src={qrImage || defaultQrImage}
+                      alt={`QR de ${selectedProduct.title}`}
+                      style={{ width: "300px", height: "300px", objectFit: "contain" }}
+                    />
+                    {selectedProduct.Link && (
+                      <button
+                        onClick={() => window.open(selectedProduct.Link, "_blank")}
+                        style={{
+                          padding: "0.5rem 1rem",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                          backgroundColor: "#28a745",
+                          color: "white",
+                          borderRadius: "2px",
+                          border: "none",
+                          cursor: "pointer",
+                        }}
+                      >
+                        Ir al link de compra
+                      </button>
+                    )}
+                    <button
+                      onClick={handleCloseQR}
+                      style={{
+                        position: "absolute",
+                        top: "-5.5px",
+                        right: "-0.5px",
+                        background: "transparent",
+                        border: "none",
+                        fontSize: "22px",
+                        cursor: "pointer",
+                        fontWeight: "bold",
+                      }}
+                      aria-label="Cerrar QR"
+                    >
+                      ×
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Footer */}
+        <motion.div
+          key="footer"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.5 }}
         >
-          <img src={buyicon} alt="shop" style={{ width: "24px", height: "24px", marginRight: "0.5rem" }} />
-          Comprar
-        </button>
-
-        <button
-          style={{
-            padding: "0.5rem 1rem",
-            fontSize: "20px",
-            fontWeight: "bold",
-            cursor: "pointer",
-            backgroundColor: "#4B5060",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-          }}
-          onClick={() => setPage("shop")}
-        >
-          Cancelar
-        </button>
-      </div>
-    </div>
-
-    <header className="App-contact">
-      <h6>Contacto</h6>
-    </header>
-    <div className="Contact-line">
-      <img src={phone} alt="phone" className="Phone-icon" />
-      <p id="phone-number">099284003</p>
-      <img src={facebook} alt="facebook" className="Facebook-icon" />
-      <a href="https://www.facebook.com/profile.php?id=100089359691225" target="_blank" rel="noopener noreferrer">
-        Usados Coleccionables
-      </a>
-    </div>
-  </motion.div>
-)}
-
-
-</AnimatePresence>
-
-      <footer className="App-footer"><p id="footer">2025 @areimo on Github</p></footer>
-      <WppContact />
+          <footer className="App-footer">
+            <header className="App-contact">
+              <h6>Contacto</h6>
+            </header>
+            <div className="Contact-container">
+              <div className="Contact-line">
+                <img src={phone} alt="phone" className="Phone-icon" />
+                <p id="phone-number">099284003</p>
+              </div>
+              <div className="Contact-line">
+                <img src={facebook} alt="facebook" className="Facebook-icon" />
+                <a
+                  href="https://www.facebook.com/profile.php?id=100089359691225"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "white" }}
+                >
+                  Usados Coleccionables
+                </a>
+              </div>
+              <div className="Contact-line">
+                <img src={email} alt="email" className="Email-icon" />
+                <p id="email-contact">usadoscoleccionables25@gmail.com</p>
+              </div>
+            </div>
+          </footer>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
@@ -293,6 +564,7 @@ const headerStyle = (bg) => ({
 });
 
 const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
+
 
 function ProductCard({ product, onBuyClick }) {
   return (
@@ -317,7 +589,7 @@ function ProductCard({ product, onBuyClick }) {
       <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{product.price}</h5>
       <button
         onClick={(e) => {
-          e.stopPropagation(); // para que no se active un clic padre
+          e.stopPropagation();
           onBuyClick(product);
         }}
         style={{
@@ -341,11 +613,8 @@ function ProductCard({ product, onBuyClick }) {
         />
         Comprar
       </button>
-
     </div>
   );
 }
 
 export default App;
-
-
