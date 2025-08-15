@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/usados-coleccionables/static/css/main.64ab8e63.css",
-    "main.js": "/usados-coleccionables/static/js/main.e6a29ecf.js",
+    "main.css": "/usados-coleccionables/static/css/main.48d713ac.css",
+    "main.js": "/usados-coleccionables/static/js/main.0171a773.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
@@ -16,7 +16,6 @@
     "static/media/skatexbox360.jpg": "/usados-coleccionables/static/media/skatexbox360.7a3d0d2e9d6e3ef9f838.jpg",
     "static/media/aciixbox360.jpg": "/usados-coleccionables/static/media/aciixbox360.9df4fb674d403ab65a24.jpg",
     "static/media/f1poleposition64.jpg": "/usados-coleccionables/static/media/f1poleposition64.7f961cdf5c5d0b6ff366.jpg",
-    "static/media/wiimote.jpg": "/usados-coleccionables/static/media/wiimote.d4e34a39db4eccad3fa2.jpg",
     "static/media/crysis2ps3.jpg": "/usados-coleccionables/static/media/crysis2ps3.54c194c8378bf68021c8.jpg",
     "static/media/bacxbox360.jpg": "/usados-coleccionables/static/media/bacxbox360.129479001e4142446963.jpg",
     "static/media/avcable.jpg": "/usados-coleccionables/static/media/avcable.626d77eb971d5c182567.jpg",
@@ -26,7 +25,6 @@
     "static/media/kinnectsportsxbox360.jpg": "/usados-coleccionables/static/media/kinnectsportsxbox360.3ec56d757ad230cd86fb.jpg",
     "static/media/battlefield4ps3.jpg": "/usados-coleccionables/static/media/battlefield4ps3.e56820b33eaf53c759a4.jpg",
     "static/media/fifasoccer12ps3.jpg": "/usados-coleccionables/static/media/fifasoccer12ps3.c12eebeb7f6cb1ed9115.jpg",
-    "static/media/ps2.jpg": "/usados-coleccionables/static/media/ps2.df17f69d6ea2669001b0.jpg",
     "static/media/socomps2.jpg": "/usados-coleccionables/static/media/socomps2.0d5b0a73fa247e6fc2f9.jpg",
     "static/media/xbox360.jpg": "/usados-coleccionables/static/media/xbox360.7473d493337ecf4753d0.jpg",
     "static/media/psp.jpg": "/usados-coleccionables/static/media/psp.904e4a5ea95cb250f47d.jpg",
@@ -36,12 +34,12 @@
     "static/media/whatsapp.png": "/usados-coleccionables/static/media/whatsapp.c12d25261ebb8404ba07.png",
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
-    "main.64ab8e63.css.map": "/usados-coleccionables/static/css/main.64ab8e63.css.map",
-    "main.e6a29ecf.js.map": "/usados-coleccionables/static/js/main.e6a29ecf.js.map",
+    "main.48d713ac.css.map": "/usados-coleccionables/static/css/main.48d713ac.css.map",
+    "main.0171a773.js.map": "/usados-coleccionables/static/js/main.0171a773.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.64ab8e63.css",
-    "static/js/main.e6a29ecf.js"
+    "static/css/main.48d713ac.css",
+    "static/js/main.0171a773.js"
   ]
 }
