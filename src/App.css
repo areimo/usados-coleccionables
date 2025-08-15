@@ -235,6 +235,81 @@ html, body, #root {
   background-color: #218838;
 }
 
+/* Tablets */
+@media (max-width: 1024px) {
+  .Header-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .App-header,
+  .App-shop,
+  .App-about,
+  .App-products {
+    font-size: calc(0.65rem + 2vmin);
+    width: auto;
+    padding: 0 1rem;
+  }
+
+  .product-container {
+    gap: 15px;
+  }
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+  body {
+    font-size: 14px; 
+  }
+
+  .Header-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .App-header,
+  .App-shop,
+  .App-about,
+  .App-products {
+    width: 100%;
+    justify-content: center;
+    font-size: calc(0.6rem + 2vmin);
+  }
+
+  .App-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+  }
+
+  .product-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .product-title {
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .wpp-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .App-footer {
+    align-items: center;
+    text-align: center;
+  }
+
+  .Contact-container {
+    align-items: center;
+    text-align: center;
+  }
+}
 
 
 
