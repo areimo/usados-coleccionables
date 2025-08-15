@@ -43,22 +43,48 @@ import AutoSlider from './slider.jsx';
 import WppContact from './wppContact.jsx';
 import { SecondSlider } from './secondslider.jsx';
 
-import qrGTAV from './qr-gtav.jpeg';
+
+import { initMercadoPago} from '@mercadopago/sdk-react';
+
+initMercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
+  locale: "es-UY",
+});
 
 function App() {
   const [page, setPage] = useState("home");
   const [searchText, setSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [showQR, setShowQR] = useState(false);
-  const [qrImage, setQrImage] = useState(null);
+  const [users,setUsers] = useState([]);
+  const [preferenceId, setPreferenceId] = useState(null)
+  const createPreference = async () => {
+  try {
+    const response = await axios.post('http://localhost:3001/api/create_preference', {
+      title: selectedProduct.title,
+      unit_price: parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, "")),
+      quantity: 1,
+    });
+
+    return response.data.init_point; 
+  } catch (error) {
+    console.error("Error creating preference:", error);
+  }
+};
+
+const handleBuy = async () => {
+  const initPoint = await createPreference();
+  if (initPoint) {
+    window.location.href = initPoint;
+  }
+};
+
+
 
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/users")
       .then((res) => setUsers(res.data))
       .catch((err) => console.error(err));
-  }, []);
+  },[]);
 
   // Constantes de estilo
   const headerStyle = (bg) => ({
@@ -167,47 +193,39 @@ function App() {
   }
 
   const featuredProducts = [
-    { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos.", qrImage: qrGTAV,Link: "https://mpago.la/2BYNkXZ" },
-    { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
-    { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1.800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
-    { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2.500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
+    { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos."},
+    { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
+    { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
+    { id: 4, image: tloups3, title: "T.L.O.U PS3", price: "$2500", description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
     { id: 5, image: uncharted2ps3, title: "UNCHARTED 2 PS3", price: "$900", description: "Uncharted 2 es un juego de acción y aventura en tercera persona que sigue las aventuras del cazador de tesoros Nathan Drake." },
     { id: 6, image: fifasoccer12ps3, title: "FIFA SOCCER 12 PS3", price: "$800", description: "FIFA Soccer 12 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
-    { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: "$3.000", description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados." },
-    { id: 9, image: socomps2, title: "SOCOM PS2", price: "$1.800", description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
+    { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: "$3000", description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados." },
+    { id: 9, image: socomps2, title: "SOCOM PS2", price: "$1800", description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
     { id: 10, image: xbox360, title: "XBOX360", price: "$5.000", description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea." },
     { id: 11, image: xbox360controller, title: "MANDO XBOX360 INALÁMBRICO", price: "$900", description: "Controlador inalámbrico para Xbox 360, ideal para una experiencia de juego sin cables." },
     { id: 12, image: pes2012ps3, title: "PES 2012 PS3", price: "$500", description: "Pro Evolution Soccer 2012 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
-    { id: 13, image: aciixbox360, title: "Assassin's Creed II XBOX360", price: "$1.000", description: "Assassin's Creed II es un juego de acción y aventura en tercera persona que sigue las aventuras de Ezio Auditore." },
+    { id: 13, image: aciixbox360, title: "Assassin's Creed II XBOX360", price: "$1000", description: "Assassin's Creed II es un juego de acción y aventura en tercera persona que sigue las aventuras de Ezio Auditore." },
     { id: 14, image: bacxbox360, title: "Batman Arkham City XBOX360", price: "$800", description: "Batman Arkham City es un juego de acción y aventura en tercera persona que ofrece una experiencia inmersiva en el universo de Batman." },
     { id: 15, image: f12011xbox360, title: "F1 2011 XBOX360", price: "$1.200", description: "F1 2011 es un juego de simulación de carreras que ofrece una experiencia realista de la Fórmula 1." },
     { id: 16, image: pes2014ps3, title: "PES 2014 PS3", price: "$500", description: "Pro Evolution Soccer 2014 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
     { id: 17, image: kinnectsportsxbox360, title: "Kinnect Sports 360 XBOX360", price: "$400", description: "Kinect Sports es un juego de deportes que utiliza la tecnología Kinect para ofrecer una experiencia de juego interactiva." },
-    { id: 18, image: skatexbox360, title: "SKATE XBOX360", price: "$1.000", description: "Skate es un juego de deportes que ofrece una experiencia realista de patinaje en monopatín." },
+    { id: 18, image: skatexbox360, title: "SKATE XBOX360", price: "$1000", description: "Skate es un juego de deportes que ofrece una experiencia realista de patinaje en monopatín." },
     { id: 19, image: avcable, title: "Cable AV", price: "$500", description: "Cable AV para conectar tu consola a la televisión y disfrutar de tus juegos en alta calidad." },
     { id: 20, image: ndsgames, title: "JUEGOS Nintendo DS", price: "$350", description: "Una colección de juegos para Nintendo DS, ideal para los amantes de las aventuras portátiles." },
     { id: 21, image: f1poleposition64, title: "F1 POLE POSITION N64", price: "$700", description: "F1 Pole Position es un juego de carreras de Fórmula 1 para Nintendo 64 que ofrece una experiencia de conducción realista." },
-    { id: 22, image: psp, title: "PSP", price: "$6.000", description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos." },
+    { id: 22, image: psp, title: "PSP", price: "$6000", description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos." },
     { id: 23, image: fifa64, title: "FIFA 64", price: "$700", description: "FIFA 64 es un juego de simulación de fútbol para Nintendo 64 que ofrece una experiencia de juego clásica con equipos y jugadores de la época." },
     { id: 25, image: nscharger, title: "CARGADOR NINTENDO SWITCH", price: "$800", description: "Cargador para Nintendo Switch, ideal para mantener tu consola siempre lista para jugar." },
-    { id: 26, image: wii, title: "WII", price: "$4.000", description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento." },
+    { id: 26, image: wii, title: "WII", price: "$4000", description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento." },
   ];
 
   const filteredProducts = featuredProducts.filter((product) =>
     product.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const defaultQrImage = "/qr-example.png";
-
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
-    setQrImage(product.qrImage || defaultQrImage);
     setPage("product");
-  };
-
-  const handleCloseQR = () => {
-    setShowQR(false);
-    setQrImage(null);
   };
 
   return (
@@ -366,146 +384,128 @@ function App() {
         )}
 
         {/* Producto */}
-        {page === "product" && selectedProduct && (
-          <motion.div
-            key="product"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.5 }}
+{/* Producto */}
+{page === "product" && selectedProduct && (
+  <motion.div
+    key="product"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.5 }}
+  >
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <img
+        src={selectedProduct.image}
+        alt={selectedProduct.title}
+        style={{ width: "400px", height: "300px", borderRadius: "5px" }}
+      />
+      <h2>{selectedProduct.title}</h2>
+      <h3 style={{ color: "#00aa00" }}>{selectedProduct.price}</h3>
+      <p style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "1rem",
+          marginTop: "2.5rem",
+        }}
+      >
+        {/* Botón Comprar */}
+        <button
+          onClick={handleBuy}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "0.5rem 1rem",
+            fontSize: "20px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#28a745",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <img
+            src={buyicon}
+            alt="shop"
+            style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
+          />
+          Comprar
+        </button>
+
+        {/* Botón Cancelar */}
+        <button
+          onClick={() => setPage("shop")}
+          style={{
+            padding: "0.5rem 1rem",
+            fontSize: "20px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#4B5060",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          Cancelar
+        </button>
+      </div>
+
+      {/*Wallet */}
+      {preferenceId && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.7)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+            overflowY: "auto",
+            padding: "1rem",
+          }}
+        >
+          <div
+            style={{
+              background: "white",
+              borderRadius: "8px",
+              padding: "2rem",
+              maxWidth: "450px",
+              width: "100%",
+              textAlign: "center",
+              boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.3)",
+            }}
           >
-            <div style={{ padding: "2rem", textAlign: "center" }}>
-              <img
-                src={selectedProduct.image}
-                alt={selectedProduct.title}
-                style={{ width: "400px", height: "300px", borderRadius: "5px" }}
-              />
-              <h2>{selectedProduct.title}</h2>
-              <h3 style={{ color: "#00aa00" }}>{selectedProduct.price}</h3>
-              <p style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "1rem",
-                  marginTop: "2.5rem",
-                }}
-              >
-                <button
-                  onClick={() => setShowQR(true)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "0.5rem 1rem",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    backgroundColor: "#28a745",
-                    color: "white",
-                    borderRadius: "5px",
-                    border: "none",
-                    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  <img
-                    src={buyicon}
-                    alt="shop"
-                    style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
-                  />
-                  Comprar
-                </button>
-                <button
-                  onClick={() => setPage("shop")}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    backgroundColor: "#4B5060",
-                    color: "white",
-                    borderRadius: "5px",
-                    border: "none",
-                    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-                  }}
-                >
-                  Cancelar
-                </button>
-              </div>
-
-              {showQR && (
-                <div
-                  style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100vw",
-                    height: "100vh",
-                    backgroundColor: "rgba(0,0,0,0.7)",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    zIndex: 1000,
-                  }}
-                  onClick={handleCloseQR}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      background: "white",
-                      padding: "1rem",
-                      borderRadius: "5px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: "1rem",
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <img
-                      src={qrImage || defaultQrImage}
-                      alt={`QR de ${selectedProduct.title}`}
-                      style={{ width: "300px", height: "300px", objectFit: "contain" }}
-                    />
-                    {selectedProduct.Link && (
-                      <button
-                        onClick={() => window.open(selectedProduct.Link, "_blank")}
-                        style={{
-                          padding: "0.5rem 1rem",
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                          backgroundColor: "#28a745",
-                          color: "white",
-                          borderRadius: "2px",
-                          border: "none",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Ir al link de compra
-                      </button>
-                    )}
-                    <button
-                      onClick={handleCloseQR}
-                      style={{
-                        position: "absolute",
-                        top: "-5.5px",
-                        right: "-0.5px",
-                        background: "transparent",
-                        border: "none",
-                        fontSize: "22px",
-                        cursor: "pointer",
-                        fontWeight: "bold",
-                      }}
-                      aria-label="Cerrar QR"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        )}
+            <h3>Pagar {selectedProduct.title}</h3>
+            <button
+              onClick={() => setPreferenceId(null)}
+              style={{
+                marginTop: "1rem",
+                padding: "0.5rem 1rem",
+                fontSize: "16px",
+                cursor: "pointer",
+                backgroundColor: "#EA473B",
+                color: "white",
+                borderRadius: "5px",
+                border: "none",
+              }}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  </motion.div>
+)}
 
         {/* Footer */}
         <motion.div
@@ -543,76 +543,7 @@ function App() {
           </footer>
         </motion.div>
       </AnimatePresence>
-    </div>
-  );
-}
-
-const headerStyle = (bg) => ({
-  backgroundColor: bg,
-  width: "11.2rem",
-  height: "4.125rem",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "flex-start",
-  fontSize: "calc(0.75rem + 2vmin)",
-  color: "white",
-  padding: "0 1.25rem",
-  cursor: "pointer",
-  borderRadius: "0.3125rem",
-  boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-});
-
-const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
-
-
-function ProductCard({ product, onBuyClick }) {
-  return (
-    <div
-      className="product-card"
-      style={{
-        border: "1px solid #ddd",
-        borderRadius: "5px",
-        padding: "1rem",
-        marginTop: "1rem",
-        width: "220px",
-        textAlign: "center",
-        position: "relative",
-      }}
-    >
-      <img
-        src={product.image}
-        alt={product.title}
-        style={{ width: "200px", height: "200px", borderRadius: "5px" }}
-      />
-      <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{product.title}</h5>
-      <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{product.price}</h5>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onBuyClick(product);
-        }}
-        style={{
-          marginTop: "0.5rem",
-          backgroundColor: "#28a745",
-          color: "white",
-          padding: "0.5rem 1rem",
-          fontWeight: "bold",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src={buyicon}
-          alt="shop"
-          style={{ width: "20px", height: "20px", marginRight: "0.5rem" }}
-        />
-        Comprar
-      </button>
+      <WppContact />
     </div>
   );
 }
