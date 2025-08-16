@@ -45,6 +45,7 @@ import { SecondSlider } from './secondslider.jsx';
 
 
 import { initMercadoPago} from '@mercadopago/sdk-react';
+import Cart from './cart.jsx';
 
 initMercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
   locale: "es-UY",
@@ -71,11 +72,20 @@ function App() {
 
 // Cambiar URL del backend a local
 const BACKEND_URL = "http://localhost:3001";
-
 const handleNext = async () => {
   if (!selectedProduct) return alert("Selecciona un producto primero");
 
-  for (let key of ["name", "address", "city", "email", "phone"]) {
+  // Campos obligatorios siempre
+  const requiredFields = ["name", "email", "phone"];
+
+  // Campos obligatorios según método de entrega
+  if (shippingData.metodoEntrega === "domicilio") {
+    requiredFields.push("address", "city", "departamento");
+  } else if (shippingData.metodoEntrega === "dac") {
+    requiredFields.push("address", "agencia");
+  }
+
+  for (let key of requiredFields) {
     if (!shippingData[key]) return alert(`Completa el campo ${key}`);
   }
 
@@ -83,7 +93,7 @@ const handleNext = async () => {
     const price = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
     if (isNaN(price)) return alert("Precio inválido");
 
-    // Crear preferencia en backend local
+    // Crear preferencia en backend
     const prefRes = await axios.post(`${BACKEND_URL}/api/create_preference`, {
       title: selectedProduct.title,
       unit_price: price,
@@ -93,14 +103,14 @@ const handleNext = async () => {
     const { preferenceId } = prefRes.data;
     if (!preferenceId) return alert("No se pudo generar la preferencia");
 
-    // Inicializar MercadoPago con tu public key
+    // Inicializar MercadoPago
     const mp = new window.MercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
       locale: "es-UY",
     });
 
     mp.checkout({ preference: { id: preferenceId }, autoOpen: true });
 
-    // Enviar pedido y datos de envío al backend local
+    // Enviar pedido y datos de envío
     await axios.post(`${BACKEND_URL}/api/order`, {
       product: selectedProduct,
       shipping: shippingData,
@@ -113,6 +123,7 @@ const handleNext = async () => {
     alert("Hubo un problema al procesar tu pedido.");
   }
 };
+
 
 // Actualizar estado de shipping
 const handleShippingChange = (e) => {
@@ -875,8 +886,6 @@ const featuredProducts = [
 
   </motion.div>
 )}
-
-        {/* Footer */}
         <motion.div
           key="footer"
           initial={{ opacity: 0, y: 30 }}
@@ -912,8 +921,10 @@ const featuredProducts = [
           </footer>
         </motion.div>
       </AnimatePresence>
-
-      <WppContact />
+      <div style={{position: "fixed",bottom: "1.25rem",right: "1.25rem",display: "flex",flexDirection: "column",gap: "0.5rem",zIndex: 1000,}}>
+       <Cart />
+       <WppContact />
+      </div>
     </div>
   );
 }

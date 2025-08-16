@@ -176,7 +176,6 @@ html, body, #root {
   color: white;
 }
 
-
 .wpp-contact {
   position: fixed;
   bottom: 1.25rem;
@@ -192,6 +191,24 @@ html, body, #root {
 }
 
 .wpp-icon:hover {
+  transform: scale(1.1);
+}
+
+.cart {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 1000;
+}
+
+.cart-icon {
+  width: 4.6875rem;
+  height: 4.6875rem;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cart-icon:hover {
   transform: scale(1.1);
 }
 
