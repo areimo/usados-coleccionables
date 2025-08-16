@@ -63,7 +63,11 @@ function App() {
   city: "",
   email: "",
   phone: "",
+  cedula: "",          
+  metodoEntrega: "",   
+  agencia: "",         
 });
+
 
 // Cambiar URL del backend a local
 const BACKEND_URL = "http://localhost:3001";
@@ -456,7 +460,7 @@ const featuredProducts = [
             display: "flex",
             alignItems: "center",
             padding: "0.5rem 1rem",
-            fontSize: "20px",
+            fontSize: "1rem",
             fontWeight: "bold",
             cursor: "pointer",
             backgroundColor: "#28a745",
@@ -478,7 +482,7 @@ const featuredProducts = [
           onClick={() => setPage("shop")}
           style={{
             padding: "0.5rem 1rem",
-            fontSize: "20px",
+            fontSize: "1rem",
             fontWeight: "bold",
             cursor: "pointer",
             backgroundColor: "#4B5060",
@@ -488,7 +492,7 @@ const featuredProducts = [
             boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
           }}
         >
-          Cancelar
+          Volver 
         </button>
       </div>
     </div>
@@ -502,7 +506,7 @@ const featuredProducts = [
       left: 0,
       width: "100vw",
       height: "100vh",
-      backgroundColor: "rgba(0,0,0,0.7)",
+      backgroundColor: "rgba(0,0,0,0.6)",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -511,86 +515,357 @@ const featuredProducts = [
   >
     <div
       style={{
-        backgroundColor: "white",
+        backgroundColor: "#fff",
         padding: "2rem",
-        borderRadius: "10px",
-        width: "90%",
-        maxWidth: "400px",
+        borderRadius: "12px",
+        width: "95%",
+        maxWidth: "800px",
         position: "relative",
         fontSize: "1rem",
+        boxShadow: "0px 4px 20px rgba(0,0,0,0.2)",
       }}
     >
-      <h3 style={{ fontSize: "1.3rem", marginBottom: "1rem" }}>Datos de Envío</h3>
+      {/* Botón de cerrar */}
+      <button
+        onClick={() => setShowShippingForm(false)}
+        style={{
+          position: "absolute",
+          top: "15px",
+          right: "15px",
+          background: "transparent",
+          border: "none",
+          fontSize: "1.5rem",
+          fontWeight: "bold",
+          cursor: "pointer",
+          color: "#333",
+        }}
+      >
+        ✕
+      </button>
 
-      {/* Inputs compactos con separación moderada */}
-      {["name", "address", "city","email", "phone"].map((field) => (
-        <input
-          key={field}
-          type={field === "email" ? "email" : "text"}
-          name={field}
-          placeholder={
-            field === "name"
-              ? "Nombre"
-              : field === "address"
-              ? "Dirección"
-              : field === "city"
-              ? "Ciudad"
-              : field === "email"
-              ? "Email"
-              : "Teléfono"
-          }
-          value={shippingData[field]}
-          onChange={handleShippingChange}
-          style={{
-            width: "90%",
-            marginBottom: "1rem",
-            padding: "0.1rem",
-            fontSize: "1rem",
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-          required
-        />
-      ))}
+      <h3 style={{ fontSize: "1.6rem", marginBottom: "1.5rem", textAlign: "center" }}>
+        Datos de Envío
+      </h3>
+
+      {/* Datos personales */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "1.5rem 2rem",
+          marginBottom: "2rem",
+        }}
+      >
+        {/* Nombre */}
+        <div>
+          <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+            Nombre
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={shippingData.name}
+            onChange={handleShippingChange}
+            placeholder="Ej: Juan Pérez"
+            style={{
+              padding: "0.6rem",
+              fontSize: "1rem",
+              width: "94%",
+              border: "1px solid #ccc",
+              borderRadius: "6px",
+            }}
+            required
+          />
+        </div>
+
+        {/* Cédula */}
+        <div>
+          <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+            Cédula
+          </label>
+          <input
+            type="text"
+            name="cedula"
+            title="Sin puntos ni guiones"
+            value={shippingData.cedula || ""}
+            onChange={handleShippingChange}
+            placeholder="Ej: 5555555-5"
+            style={{
+              padding: "0.6rem",
+              fontSize: "1rem",
+              width: "94%",
+              border: "1px solid #ccc",
+              borderRadius: "6px",
+            }}
+            required
+          />
+        </div>
+
+        {/* Dirección (2 columnas) */}
+        {(shippingData.metodoEntrega === "domicilio" || shippingData.metodoEntrega === "dac") && (
+          <div style={{ gridColumn: "span 2" }}>
+            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+              Dirección
+            </label>
+            <input
+              type="text"
+              name="address"
+              value={shippingData.address}
+              onChange={handleShippingChange}
+              placeholder="Ej: Av. Principal 123"
+              style={{
+                padding: "0.6rem",
+                fontSize: "1rem",
+                width: "97%",
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+              }}
+              required
+            />
+          </div>
+        )}
+
+        {/* Departamento */}
+        {shippingData.metodoEntrega === "domicilio" && (
+          <div>
+            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+              Departamento
+            </label>
+            <input
+              type="text"
+              name="departamento"
+              value={shippingData.departamento || ""}
+              onChange={handleShippingChange}
+              placeholder="Ej: Montevideo"
+              style={{
+                padding: "0.6rem",
+                fontSize: "1rem",
+                width: "94%",
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+              }}
+              required
+            />
+          </div>
+        )}
+
+        {/* Ciudad */}
+        {shippingData.metodoEntrega === "domicilio" && (
+          <div>
+            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+              Ciudad
+            </label>
+            <input
+              type="text"
+              name="city"
+              value={shippingData.city}
+              onChange={handleShippingChange}
+              placeholder="Ej: Montevideo"
+              style={{
+                padding: "0.6rem",
+                fontSize: "1rem",
+                width: "94%",
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+              }}
+              required
+            />
+          </div>
+        )}
+
+        {/* Email */}
+        <div>
+          <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={shippingData.email}
+            onChange={handleShippingChange}
+            placeholder="Ej: juan@email.com"
+            style={{
+              padding: "0.6rem",
+              fontSize: "1rem",
+              width: "94%",
+              border: "1px solid #ccc",
+              borderRadius: "6px",
+            }}
+            required
+          />
+        </div>
+
+        {/* Teléfono */}
+        <div>
+          <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+            Teléfono
+          </label>
+          <input
+            type="text"
+            name="phone"
+            value={shippingData.phone}
+            onChange={handleShippingChange}
+            placeholder="Ej: 099123456"
+            style={{
+              padding: "0.6rem",
+              fontSize: "1rem",
+              width: "94%",
+              border: "1px solid #ccc",
+              borderRadius: "6px",
+            }}
+            required
+          />
+        </div>
+      </div>
+
+      {/* Método de entrega */}
+      <div>
+        <h4 style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>Método de Entrega</h4>
+
+        <div style={{ display: "flex", gap: "2rem", marginBottom: "1rem", flexWrap: "wrap" }}>
+          <label>
+            <input
+              type="radio"
+              name="metodoEntrega"
+              value="dac"
+              checked={shippingData.metodoEntrega === "dac"}
+              onChange={handleShippingChange}
+            />{" "}
+            Agencia DAC
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="metodoEntrega"
+              value="domicilio"
+              checked={shippingData.metodoEntrega === "domicilio"}
+              onChange={handleShippingChange}
+            />{" "}
+            Entrega a domicilio
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="metodoEntrega"
+              value="local"
+              checked={shippingData.metodoEntrega === "local"}
+              onChange={handleShippingChange}
+            />{" "}
+            Retiro en local
+          </label>
+        </div>
+
+        {/* Select de Agencia DAC */}
+        {shippingData.metodoEntrega === "dac" && (
+          <div>
+            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+              Seleccione Agencia
+            </label>
+            <select
+              name="agencia"
+              value={shippingData.agencia || ""}
+              onChange={handleShippingChange}
+              style={{
+                width: "100%",
+                padding: "0.6rem",
+                fontSize: "1rem",
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+              }}
+              required
+            >
+              <option value="">Selecciona una agencia</option>
+              <option value="Montevideo">Montevideo</option>
+              <option value="Canelones">Canelones</option>
+              <option value="Maldonado">Maldonado</option>
+              <option value="Paysandú">Paysandú</option>
+              <option value="Salto">Salto</option>
+            </select>
+            <p style={{ color: "#a00", fontSize: "0.9rem", marginTop: "0.5rem" }}>
+              El costo del envío será abonado por el cliente al momento de la entrega
+            </p>
+          </div>
+        )}
+
+        {/* Aviso para Entrega a domicilio */}
+        {shippingData.metodoEntrega === "domicilio" && (
+          <p style={{ color: "#a00", fontSize: "0.9rem", marginTop: "0.5rem" }}>
+            El costo del envío será abonado por el cliente al momento de la entrega
+          </p>
+        )}
+      </div>
 
       {/* Botones */}
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1.5rem" }}>
-        <button
-          onClick={() => setShowShippingForm(false)}
-          style={{
-            padding: "0.5rem 1rem",
-            fontWeight: "bold",
-            backgroundColor: "#4B5060",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "1rem",
-          }}
-        >
-          Volver
-        </button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "1rem",
+          marginTop: "2rem",
+        }}
+      >
+        {/* Botón Tarifas solo si es DAC o Domicilio */}
+        {(shippingData.metodoEntrega === "dac" || shippingData.metodoEntrega === "domicilio") && (
+          <button
+            onClick={() => window.open("https://www.dac.com.uy/tarifas?gad_source=1&gad_campaignid=20671149744", "_blank")}
+            style={{
+              padding: "0.7rem 1.5rem",
+              backgroundColor: "#D5312D",
+              color: "white",
+              fontWeight: "600",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontSize: "1rem",
+            }}
+          >
+            Tarifas
+          </button>
+        )}
 
-        <button
-          onClick={handleNext}
-          style={{
-            padding: "0.5rem 1rem",
-            fontWeight: "bold",
-            backgroundColor: "#28a745",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "1rem",
-          }}
-        >
-          Siguiente
-        </button>
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <button
+            onClick={() => setShowShippingForm(false)}
+            style={{
+              padding: "0.7rem 1.5rem",
+              fontWeight: "600",
+              backgroundColor: "#6c757d",
+              color: "white",
+              borderRadius: "5px",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "1rem",
+            }}
+          >
+            Cancelar
+          </button>
+
+          <button
+            onClick={handleNext}
+            style={{
+              padding: "0.7rem 1.5rem",
+              fontWeight: "600",
+              backgroundColor: "#28a745",
+              color: "white",
+              borderRadius: "5px",
+              border: "none",
+              cursor: "pointer",
+              fontSize: "1rem",
+            }}
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   </div>
 )}
+
+
+
 
   </motion.div>
 )}
