@@ -78,7 +78,7 @@ const handleNext = async () => {
   if (shippingData.metodoEntrega === "domicilio") {
     requiredFields.push("address", "city", "departamento");
   } else if (shippingData.metodoEntrega === "dac") {
-    requiredFields.push("agencia"); // Solo agencia
+    requiredFields.push("agencia"); 
   }
 
   for (let key of requiredFields) {
