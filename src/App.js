@@ -65,10 +65,12 @@ function App() {
   phone: "",
 });
 
-const BACKEND_URL = "https://usados-coleccionables.onrender.com";
+// Cambiar URL del backend a local
+const BACKEND_URL = "http://localhost:3001";
 
 const handleNext = async () => {
   if (!selectedProduct) return alert("Selecciona un producto primero");
+
   for (let key of ["name", "address", "city", "email", "phone"]) {
     if (!shippingData[key]) return alert(`Completa el campo ${key}`);
   }
@@ -77,6 +79,7 @@ const handleNext = async () => {
     const price = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
     if (isNaN(price)) return alert("Precio inválido");
 
+    // Crear preferencia en backend local
     const prefRes = await axios.post(`${BACKEND_URL}/api/create_preference`, {
       title: selectedProduct.title,
       unit_price: price,
@@ -86,18 +89,20 @@ const handleNext = async () => {
     const { preferenceId } = prefRes.data;
     if (!preferenceId) return alert("No se pudo generar la preferencia");
 
+    // Inicializar MercadoPago con tu public key
     const mp = new window.MercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
       locale: "es-UY",
     });
 
     mp.checkout({ preference: { id: preferenceId }, autoOpen: true });
 
+    // Enviar pedido y datos de envío al backend local
     await axios.post(`${BACKEND_URL}/api/order`, {
       product: selectedProduct,
       shipping: shippingData,
     });
 
-    alert("Pedido procesado correctamente"); // opcional
+    alert("Pedido procesado correctamente");
 
   } catch (err) {
     console.error(err);
@@ -105,19 +110,20 @@ const handleNext = async () => {
   }
 };
 
+// Actualizar estado de shipping
+const handleShippingChange = (e) => {
+  const { name, value } = e.target;
+  setShippingData((prev) => ({ ...prev, [name]: value }));
+};
 
+// Obtener usuarios desde backend local
+useEffect(() => {
+  axios
+    .get(`${BACKEND_URL}/api/users`)
+    .then((res) => setUsers(res.data))
+    .catch((err) => console.error(err));
+}, []);
 
-  const handleShippingChange = (e) => {
-    const { name, value } = e.target;
-    setShippingData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  useEffect(() => {
-    axios
-      .get(`${BACKEND_URL}/api/users`)
-      .then((res) => setUsers(res.data))
-      .catch((err) => console.error(err));
-  }, []);
 
   // Estilos
   const headerStyle = (bg) => ({

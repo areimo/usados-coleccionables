@@ -1,24 +1,22 @@
-// index.js
 import express from "express";
 import cors from "cors";
 import mercadopago from "mercadopago";
 import nodemailer from "nodemailer";
-import 'dotenv/config'; // para leer variables de entorno desde .env
+import 'dotenv/config';
 
 // Configurar MercadoPago
 if (!process.env.MP_ACCESS_TOKEN) {
-  console.error("Error: MP_ACCESS_TOKEN no está definido en las variables de entorno.");
+  console.error("MP_ACCESS_TOKEN no definido en .env");
   process.exit(1);
 }
 
 mercadopago.configurations.setAccessToken(process.env.MP_ACCESS_TOKEN);
 
-
 const app = express();
 
-// Configurar CORS
+// Configurar CORS para localhost
 app.use(cors({
-  origin: ["https://areimo.github.io", "http://localhost:3000"], 
+  origin: ["http://localhost:3000"],
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -27,7 +25,7 @@ app.use(express.json());
 
 // Configurar Nodemailer
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-  console.error("Error: EMAIL_USER o EMAIL_PASS no están definidos.");
+  console.error("EMAIL_USER o EMAIL_PASS no definidos en .env");
   process.exit(1);
 }
 
@@ -39,24 +37,22 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Ruta para crear preferencia de MercadoPago
+// Crear preferencia de MercadoPago
 app.post("/api/create_preference", async (req, res) => {
   const { title, unit_price, quantity } = req.body;
 
   const preference = {
     items: [{ title, unit_price, quantity }],
     back_urls: {
-      success: "https://areimo.github.io/usados-coleccionables/success",
-      failure: "https://areimo.github.io/usados-coleccionables/failure",
-      pending: "https://areimo.github.io/usados-coleccionables/pending",
+      success: "http://localhost:3000/success",
+      failure: "http://localhost:3000/failure",
+      pending: "http://localhost:3000/pending",
     },
     auto_return: "approved",
   };
 
   try {
-    // Crear la preferencia usando mercadopago directamente
     const response = await mercadopago.preferences.create(preference);
-
     res.json({ preferenceId: response.body.id });
   } catch (err) {
     console.error("Error creando preferencia:", err);
@@ -64,7 +60,7 @@ app.post("/api/create_preference", async (req, res) => {
   }
 });
 
-// Ruta para recibir pedido y enviar correo
+// Recibir pedido y enviar correo
 app.post("/api/order", async (req, res) => {
   const { product, shipping } = req.body;
 
@@ -95,9 +91,10 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
-// Arrancar servidor
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Arrancar servidor local
+const PORT = 3001;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
 
 
 
