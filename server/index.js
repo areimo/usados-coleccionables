@@ -11,10 +11,7 @@ if (!process.env.MP_ACCESS_TOKEN) {
   process.exit(1);
 }
 
-new MercadoPagoConfig({
-  accessToken: process.env.MP_ACCESS_TOKEN,
-  options: { timeout: 5000 },
-});
+mercadopago.configurations.setAccessToken(process.env.MP_ACCESS_TOKEN);
 
 
 const app = express();
