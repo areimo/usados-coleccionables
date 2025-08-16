@@ -65,7 +65,8 @@ function App() {
   phone: "",
 });
 
-   
+const BACKEND_URL = "https://usados-coleccionables.onrender.com";
+
 const handleNext = async () => {
   if (!selectedProduct) return alert("Selecciona un producto primero");
   for (let key of ["name", "address", "city", "email", "phone"]) {
@@ -73,11 +74,10 @@ const handleNext = async () => {
   }
 
   try {
-    // Crear preferencia primero
     const price = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
     if (isNaN(price)) return alert("Precio inválido");
 
-    const prefRes = await axios.post("http://localhost:3001/api/create_preference", {
+    const prefRes = await axios.post(`${BACKEND_URL}/api/create_preference`, {
       title: selectedProduct.title,
       unit_price: price,
       quantity: 1,
@@ -86,16 +86,13 @@ const handleNext = async () => {
     const { preferenceId } = prefRes.data;
     if (!preferenceId) return alert("No se pudo generar la preferencia");
 
-    // Inicializar MercadoPago JS SDK
     const mp = new window.MercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
       locale: "es-UY",
     });
 
-    // Abrir checkout
     mp.checkout({ preference: { id: preferenceId }, autoOpen: true });
 
-    // Enviar pedido al backend
-    await axios.post("http://localhost:3001/api/order", {
+    await axios.post(`${BACKEND_URL}/api/order`, {
       product: selectedProduct,
       shipping: shippingData,
     });
@@ -106,6 +103,7 @@ const handleNext = async () => {
   }
 };
 
+
   const handleShippingChange = (e) => {
     const { name, value } = e.target;
     setShippingData((prev) => ({ ...prev, [name]: value }));
@@ -113,7 +111,7 @@ const handleNext = async () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/users")
+      .get(`${BACKEND_URL}/api/users`)
       .then((res) => setUsers(res.data))
       .catch((err) => console.error(err));
   }, []);
