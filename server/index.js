@@ -1,7 +1,7 @@
 // index.js
 import express from "express";
 import cors from "cors";
-import mercadopago from "mercadopago";
+import MercadoPago from "mercadopago";
 import nodemailer from "nodemailer";
 import 'dotenv/config'; // para leer variables de entorno desde .env
 
@@ -11,9 +11,10 @@ if (!process.env.MP_ACCESS_TOKEN) {
   process.exit(1);
 }
 
-mercadopago.configure({
-  access_token: process.env.MP_ACCESS_TOKEN
+const mpClient = new MercadoPago({
+  accessToken: process.env.MP_ACCESS_TOKEN
 });
+
 
 const app = express();
 
@@ -40,7 +41,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Ruta para crear preferencia de MercadoPago
+// Dentro de tu ruta
 app.post("/api/create_preference", async (req, res) => {
   const { title, unit_price, quantity } = req.body;
 
@@ -55,14 +56,16 @@ app.post("/api/create_preference", async (req, res) => {
   };
 
   try {
-    const response = await mercadopago.preferences.create(preference);
+    // Crear la preferencia usando la instancia mpClient
+    const response = await mpClient.preferences.create(preference);
+
+    // Retornar el ID de la preferencia
     res.json({ preferenceId: response.body.id });
   } catch (err) {
     console.error("Error creando preferencia:", err);
     res.status(500).json({ error: "Error creando la preferencia" });
   }
 });
-
 // Ruta para recibir pedido y enviar correo
 app.post("/api/order", async (req, res) => {
   const { product, shipping } = req.body;
