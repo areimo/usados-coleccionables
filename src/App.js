@@ -97,11 +97,14 @@ const handleNext = async () => {
       shipping: shippingData,
     });
 
+    alert("Pedido procesado correctamente"); // opcional
+
   } catch (err) {
     console.error(err);
     alert("Hubo un problema al procesar tu pedido.");
   }
 };
+
 
 
   const handleShippingChange = (e) => {
@@ -281,7 +284,7 @@ const featuredProducts = [
         </header>
       </div>
 
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {/* Home */}
         {page === "home" && (
           <motion.div
