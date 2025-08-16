@@ -50,43 +50,75 @@ initMercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
   locale: "es-UY",
 });
 
+
 function App() {
   const [page, setPage] = useState("home");
   const [searchText, setSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [users,setUsers] = useState([]);
-  const [preferenceId, setPreferenceId] = useState(null)
-  const createPreference = async () => {
+  const [, setUsers] = useState([]);
+  const [showShippingForm, setShowShippingForm] = useState(false);
+  const [shippingData, setShippingData] = useState({
+  name: "",
+  address: "",
+  city: "",
+  email: "",
+  phone: "",
+});
+
+   
+const handleNext = async () => {
+  if (!selectedProduct) return alert("Selecciona un producto primero");
+  for (let key of ["name", "address", "city", "email", "phone"]) {
+    if (!shippingData[key]) return alert(`Completa el campo ${key}`);
+  }
+
   try {
-    const response = await axios.post('http://localhost:3001/api/create_preference', {
+    // Crear preferencia primero
+    const price = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
+    if (isNaN(price)) return alert("Precio inválido");
+
+    const prefRes = await axios.post("http://localhost:3001/api/create_preference", {
       title: selectedProduct.title,
-      unit_price: parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, "")),
+      unit_price: price,
       quantity: 1,
     });
 
-    return response.data.init_point; 
-  } catch (error) {
-    console.error("Error creating preference:", error);
+    const { preferenceId } = prefRes.data;
+    if (!preferenceId) return alert("No se pudo generar la preferencia");
+
+    // Inicializar MercadoPago JS SDK
+    const mp = new window.MercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
+      locale: "es-UY",
+    });
+
+    // Abrir checkout
+    mp.checkout({ preference: { id: preferenceId }, autoOpen: true });
+
+    // Enviar pedido al backend
+    await axios.post("http://localhost:3001/api/order", {
+      product: selectedProduct,
+      shipping: shippingData,
+    });
+
+  } catch (err) {
+    console.error(err);
+    alert("Hubo un problema al procesar tu pedido.");
   }
 };
 
-const handleBuy = async () => {
-  const initPoint = await createPreference();
-  if (initPoint) {
-    window.location.href = initPoint;
-  }
-};
-
-
+  const handleShippingChange = (e) => {
+    const { name, value } = e.target;
+    setShippingData((prev) => ({ ...prev, [name]: value }));
+  };
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/users")
+      .get("http://localhost:3001/api/users")
       .then((res) => setUsers(res.data))
       .catch((err) => console.error(err));
-  },[]);
+  }, []);
 
-  // Constantes de estilo
+  // Estilos
   const headerStyle = (bg) => ({
     backgroundColor: bg,
     width: "11.2rem",
@@ -192,7 +224,7 @@ const handleBuy = async () => {
     );
   }
 
-  const featuredProducts = [
+const featuredProducts = [
     { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos."},
     { id: 2, image: battlefield4ps3, title: "Battlefield 4 PS3", price: "$1800", description: "Un juego de disparos en primera persona que ofrece una experiencia de combate multijugador intensa." },
     { id: 3, image: crysis2ps3, title: "Crysis 2 PS3", price: "$1800", description: "Un juego de disparos en primera persona que combina acción y ciencia ficción en un mundo abierto." },
@@ -225,6 +257,7 @@ const handleBuy = async () => {
 
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
+    setShowShippingForm(true);
     setPage("product");
   };
 
@@ -384,7 +417,6 @@ const handleBuy = async () => {
         )}
 
         {/* Producto */}
-{/* Producto */}
 {page === "product" && selectedProduct && (
   <motion.div
     key="product"
@@ -411,9 +443,8 @@ const handleBuy = async () => {
           marginTop: "2.5rem",
         }}
       >
-        {/* Botón Comprar */}
         <button
-          onClick={handleBuy}
+          onClick={()=>handleBuyClick(selectedProduct)}
           style={{
             display: "flex",
             alignItems: "center",
@@ -436,7 +467,6 @@ const handleBuy = async () => {
           Comprar
         </button>
 
-        {/* Botón Cancelar */}
         <button
           onClick={() => setPage("shop")}
           style={{
@@ -454,56 +484,107 @@ const handleBuy = async () => {
           Cancelar
         </button>
       </div>
+    </div>
 
-      {/*Wallet */}
-      {preferenceId && (
-        <div
+{/* Overlay del formulario de envío */}
+{showShippingForm && (
+  <div
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: "rgba(0,0,0,0.7)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
+    }}
+  >
+    <div
+      style={{
+        backgroundColor: "white",
+        padding: "2rem",
+        borderRadius: "10px",
+        width: "90%",
+        maxWidth: "400px",
+        position: "relative",
+        fontSize: "1rem",
+      }}
+    >
+      <h3 style={{ fontSize: "1.3rem", marginBottom: "1rem" }}>Datos de Envío</h3>
+
+      {/* Inputs compactos con separación moderada */}
+      {["name", "address", "city","email", "phone"].map((field) => (
+        <input
+          key={field}
+          type={field === "email" ? "email" : "text"}
+          name={field}
+          placeholder={
+            field === "name"
+              ? "Nombre"
+              : field === "address"
+              ? "Dirección"
+              : field === "city"
+              ? "Ciudad"
+              : field === "email"
+              ? "Email"
+              : "Teléfono"
+          }
+          value={shippingData[field]}
+          onChange={handleShippingChange}
           style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0,0,0,0.7)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 9999,
-            overflowY: "auto",
-            padding: "1rem",
+            width: "90%",
+            marginBottom: "1rem",
+            padding: "0.1rem",
+            fontSize: "1rem",
+            display: "block",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+          required
+        />
+      ))}
+
+      {/* Botones */}
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "1.5rem" }}>
+        <button
+          onClick={() => setShowShippingForm(false)}
+          style={{
+            padding: "0.5rem 1rem",
+            fontWeight: "bold",
+            backgroundColor: "#4B5060",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1rem",
           }}
         >
-          <div
-            style={{
-              background: "white",
-              borderRadius: "8px",
-              padding: "2rem",
-              maxWidth: "450px",
-              width: "100%",
-              textAlign: "center",
-              boxShadow: "0 0.5rem 1rem rgba(0,0,0,0.3)",
-            }}
-          >
-            <h3>Pagar {selectedProduct.title}</h3>
-            <button
-              onClick={() => setPreferenceId(null)}
-              style={{
-                marginTop: "1rem",
-                padding: "0.5rem 1rem",
-                fontSize: "16px",
-                cursor: "pointer",
-                backgroundColor: "#EA473B",
-                color: "white",
-                borderRadius: "5px",
-                border: "none",
-              }}
-            >
-              Cerrar
-            </button>
-          </div>
-        </div>
-      )}
+          Volver
+        </button>
+
+        <button
+          onClick={handleNext}
+          style={{
+            padding: "0.5rem 1rem",
+            fontWeight: "bold",
+            backgroundColor: "#28a745",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "1rem",
+          }}
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
+  </div>
+)}
+
   </motion.div>
 )}
 
@@ -543,6 +624,7 @@ const handleBuy = async () => {
           </footer>
         </motion.div>
       </AnimatePresence>
+
       <WppContact />
     </div>
   );
