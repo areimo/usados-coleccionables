@@ -1,20 +1,20 @@
 import express from "express";
 import cors from "cors";
-import mercadopago from "mercadopago";
+import MercadoPago from "mercadopago";
 import nodemailer from "nodemailer";
 import 'dotenv/config';
 
-// Configurar MercadoPago
 if (!process.env.MP_ACCESS_TOKEN) {
   console.error("MP_ACCESS_TOKEN no definido en .env");
   process.exit(1);
 }
 
-mercadopago.configurations.setAccessToken(process.env.MP_ACCESS_TOKEN);
+MercadoPago.configure({
+  access_token: process.env.MP_ACCESS_TOKEN
+});
 
 const app = express();
 
-// Configurar CORS para localhost
 app.use(cors({
   origin: ["http://localhost:3000"],
   methods: ["GET", "POST"],
@@ -23,7 +23,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// Configurar Nodemailer
 if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
   console.error("EMAIL_USER o EMAIL_PASS no definidos en .env");
   process.exit(1);
@@ -37,30 +36,28 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Crear preferencia de MercadoPago
 app.post("/api/create_preference", async (req, res) => {
   const { title, unit_price, quantity } = req.body;
 
   const preference = {
     items: [{ title, unit_price, quantity }],
     back_urls: {
-      success: "http://localhost:3000/success",
-      failure: "http://localhost:3000/failure",
-      pending: "http://localhost:3000/pending",
+      success: "https://areimo.github.io/usados-coleccionables/success",
+      failure: "https://areimo.github.io/usados-coleccionables/failure",
+      pending: "https://areimo.github.io/usados-coleccionables/pending",
     },
     auto_return: "approved",
   };
 
   try {
-    const response = await mercadopago.preferences.create(preference);
-    res.json({ preferenceId: response.body.id });
+    const response = await MercadoPago.preferences.create(preference);
+    res.json({ init_point: response.body.init_point });
   } catch (err) {
     console.error("Error creando preferencia:", err);
     res.status(500).json({ error: "Error creando la preferencia" });
   }
 });
 
-// Recibir pedido y enviar correo
 app.post("/api/order", async (req, res) => {
   const { product, shipping } = req.body;
 
@@ -91,9 +88,10 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
-// Arrancar servidor local
 const PORT = 3001;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on http://localhost:3001`));
+
+
 
 
 

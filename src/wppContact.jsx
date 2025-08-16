@@ -1,4 +1,3 @@
-// WppContact.js
 import React from "react";
 import whatsapp from "./whatsapp.png";
 

@@ -61,6 +61,7 @@ function App() {
   const [shippingData, setShippingData] = useState({
   name: "",
   address: "",
+  departamento: "",
   city: "",
   email: "",
   phone: "",
@@ -69,20 +70,15 @@ function App() {
   agencia: "",         
 });
 
-
-// Cambiar URL del backend a local
-const BACKEND_URL = "http://localhost:3001";
 const handleNext = async () => {
   if (!selectedProduct) return alert("Selecciona un producto primero");
 
-  // Campos obligatorios siempre
   const requiredFields = ["name", "email", "phone"];
 
-  // Campos obligatorios según método de entrega
   if (shippingData.metodoEntrega === "domicilio") {
     requiredFields.push("address", "city", "departamento");
   } else if (shippingData.metodoEntrega === "dac") {
-    requiredFields.push("address", "agencia");
+    requiredFields.push("agencia"); // Solo agencia
   }
 
   for (let key of requiredFields) {
@@ -90,57 +86,47 @@ const handleNext = async () => {
   }
 
   try {
+ 
     const price = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
     if (isNaN(price)) return alert("Precio inválido");
 
-    // Crear preferencia en backend
-    const prefRes = await axios.post(`${BACKEND_URL}/api/create_preference`, {
+    const prefRes = await axios.post("http://localhost:3001/api/create_preference", {
       title: selectedProduct.title,
       unit_price: price,
       quantity: 1,
     });
 
-    const { preferenceId } = prefRes.data;
-    if (!preferenceId) return alert("No se pudo generar la preferencia");
+    const { init_point } = prefRes.data;
+    if (!init_point) return alert("No se pudo generar la preferencia");
 
-    // Inicializar MercadoPago
-    const mp = new window.MercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
-      locale: "es-UY",
-    });
+    setShowShippingForm(false);
 
-    mp.checkout({ preference: { id: preferenceId }, autoOpen: true });
+    window.open(init_point, "_blank");
 
-    // Enviar pedido y datos de envío
-    await axios.post(`${BACKEND_URL}/api/order`, {
+    await axios.post("http://localhost:3001/api/order", {
       product: selectedProduct,
       shipping: shippingData,
     });
 
     alert("Pedido procesado correctamente");
-
   } catch (err) {
     console.error(err);
     alert("Hubo un problema al procesar tu pedido.");
   }
 };
 
-
-// Actualizar estado de shipping
 const handleShippingChange = (e) => {
   const { name, value } = e.target;
   setShippingData((prev) => ({ ...prev, [name]: value }));
 };
 
-// Obtener usuarios desde backend local
 useEffect(() => {
   axios
-    .get(`${BACKEND_URL}/api/users`)
+    .get(`http://localhost:3001/api/users`)
     .then((res) => setUsers(res.data))
     .catch((err) => console.error(err));
 }, []);
 
-
-  // Estilos
   const headerStyle = (bg) => ({
     backgroundColor: bg,
     width: "11.2rem",
@@ -306,7 +292,7 @@ const featuredProducts = [
       </div>
 
       <AnimatePresence>
-        {/* Home */}
+
         {page === "home" && (
           <motion.div
             key="home"
@@ -331,7 +317,6 @@ const featuredProducts = [
           </motion.div>
         )}
 
-        {/* Shop */}
         {page === "shop" && (
           <motion.div
             key="shop"
@@ -396,7 +381,6 @@ const featuredProducts = [
           </motion.div>
         )}
 
-        {/* Consolas */}
         {["ps3", "ps2", "xbox360", "nintendo", "otros"].includes(page) && (
           <motion.div
             key={page}
@@ -438,7 +422,6 @@ const featuredProducts = [
           </motion.div>
         )}
 
-        {/* Producto */}
 {page === "product" && selectedProduct && (
   <motion.div
     key="product"
@@ -544,7 +527,7 @@ const featuredProducts = [
           boxShadow: "0px 4px 20px rgba(0,0,0,0.2)",
         }}
       >
-        {/* Botón de cerrar */}
+
         <button
           onClick={() => setShowShippingForm(false)}
           style={{
@@ -566,7 +549,6 @@ const featuredProducts = [
           Datos de Envío
         </h3>
 
-        {/* Datos personales */}
         <div
           style={{
             display: "grid",
@@ -575,7 +557,7 @@ const featuredProducts = [
             marginBottom: "2rem",
           }}
         >
-          {/* Nombre */}
+
           <div>
             <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
               Nombre
@@ -597,7 +579,6 @@ const featuredProducts = [
             />
           </div>
 
-          {/* Cédula */}
           <div>
             <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
               Cédula
@@ -620,7 +601,6 @@ const featuredProducts = [
             />
           </div>
 
-          {/* Dirección (2 columnas) */}
           {(shippingData.metodoEntrega === "domicilio" || shippingData.metodoEntrega === "dac") && (
             <div style={{ gridColumn: "span 2" }}>
               <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
@@ -644,7 +624,6 @@ const featuredProducts = [
             </div>
           )}
 
-          {/* Departamento */}
           {shippingData.metodoEntrega === "domicilio" && (
             <div>
               <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
@@ -668,7 +647,6 @@ const featuredProducts = [
             </div>
           )}
 
-          {/* Ciudad */}
           {shippingData.metodoEntrega === "domicilio" && (
             <div>
               <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
@@ -692,7 +670,6 @@ const featuredProducts = [
             </div>
           )}
 
-          {/* Email */}
           <div>
             <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
               Email
@@ -714,7 +691,6 @@ const featuredProducts = [
             />
           </div>
 
-          {/* Teléfono */}
           <div>
             <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
               Teléfono
@@ -737,7 +713,6 @@ const featuredProducts = [
           </div>
         </div>
 
-        {/* Método de entrega */}
         <div>
           <h4 style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>Método de Entrega</h4>
 
@@ -776,7 +751,6 @@ const featuredProducts = [
             </label>
           </div>
 
-          {/* Select de Agencia DAC */}
           {shippingData.metodoEntrega === "dac" && (
             <div>
               <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
@@ -808,7 +782,6 @@ const featuredProducts = [
             </div>
           )}
 
-          {/* Aviso para Entrega a domicilio */}
           {shippingData.metodoEntrega === "domicilio" && (
             <p style={{ color: "#a00", fontSize: "0.9rem", marginTop: "0.5rem" }}>
               El costo del envío será abonado por el cliente al momento de la entrega
@@ -816,7 +789,6 @@ const featuredProducts = [
           )}
         </div>
 
-        {/* Botones */}
         <div
           style={{
             display: "flex",
@@ -826,7 +798,7 @@ const featuredProducts = [
             marginTop: "2rem",
           }}
         >
-          {/* Botón Tarifas solo si es DAC o Domicilio */}
+
           {(shippingData.metodoEntrega === "dac" || shippingData.metodoEntrega === "domicilio") && (
             <button
               onClick={() => window.open("https://www.dac.com.uy/tarifas?gad_source=1&gad_campaignid=20671149744", "_blank")}

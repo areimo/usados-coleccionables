@@ -146,7 +146,7 @@ html, body, #root {
 }
 
 #footer {
-  text-align: center; /* centra horizontalmente */
+  text-align: center; 
   font-size: small;
   margin-top: 1rem;
 }
@@ -157,7 +157,7 @@ html, body, #root {
   gap: 0.8rem;
   width: 100%;
   max-width: 400px;
-  align-items: flex-start; /* alinea todo a la izquierda */
+  align-items: flex-start; 
 }
 
 .Contact-line {
