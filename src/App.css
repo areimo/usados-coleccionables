@@ -249,36 +249,42 @@ html, body, #root {
 
 /* ---------- RESPONSIVE ---------- */
 
-/* Tablets */
+/* ------------------ TABLETS ------------------ */
 @media (max-width: 1024px) {
+  body, html, #root, .App {
+    min-height: 100%;
+  }
+
+  /* Headers y productos */
   .App-header,
   .App-shop,
-  .App-about,
-  .App-products {
-    width: auto;             /* no ocupar todo el ancho */
-    max-width: 20rem;        /* opcional: limitar ancho máximo */
-    justify-content: center; /* centra el contenido dentro del bloque */
+  .App-about {
+    width: auto;               /* no ocupan todo el ancho */
+    max-width: 20rem;          /* ancho máximo más pequeño */
+    justify-content: center;   
     font-size: calc(0.65rem + 2vmin);
-    margin-left: 1rem;       /* mantener un pequeño margen lateral */
-    margin-right: 1rem;
+    margin: 0.5rem auto;       /* centrado horizontal con márgenes */
   }
 
-  .product-container {
-    gap: 15px;
+  .App-products {
+    width: 10rem;              /* más pequeño que en PC */
+    font-size: calc(0.65rem + 2vmin);
+    padding: 0 0.5rem;
+    margin: 1rem auto;         /* centrado horizontal */
   }
 
-  /* Otros ajustes responsive que quieras mantener */
-  .App-button {
-    width: 2.5rem;
-    height: 2.5rem;
+  /* Footer siempre al fondo y ocupa todo el ancho */
+  .App-footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
   }
 }
 
-
-/* Celulares */
+/* ------------------ CELULARES ------------------ */
 @media (max-width: 600px) {
-  body {
-    font-size: 14px; 
+  body, html, #root, .App {
+    min-height: 100%;
   }
 
   .Header-container {
@@ -287,21 +293,37 @@ html, body, #root {
     gap: 0.5rem;
   }
 
-  /* Todos los headers mantienen su ancho original */
+  /* Headers y productos más pequeños y centrados */
   .App-header,
   .App-shop,
-  .App-about,
-  .App-products {
-    width: auto; /* no ocupa todo el ancho */
-    justify-content: center; /* opcional: centra el contenido dentro del bloque */
+  .App-about {
+    width: auto;
+    max-width: 18rem;          /* aún más pequeño en celular */
+    justify-content: center;
     font-size: calc(0.6rem + 2vmin);
-    margin-left: 0; /* opcional: quitar margen lateral si quieres centrarlos */
+    margin: 0.5rem auto;
   }
 
-  .App-button {
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0;
+  .App-products {
+    width: 8rem;               /* ancho reducido en celular */
+    font-size: calc(0.6rem + 2vmin);
+    padding: 0 0.5rem;
+    margin: 1rem auto;
+  }
+
+  /* Footer ocupa todo el ancho inferior */
+  .App-footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+  }
+
+  /* Ajustes adicionales para que no queden espacios en blanco */
+  .App-main, .product-container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 0.5rem;
   }
 
   .product-container {
@@ -309,28 +331,4 @@ html, body, #root {
     align-items: center;
     gap: 1rem;
   }
-
-  .product-title {
-    max-width: 90%;
-    text-align: center;
-  }
-
-  .wpp-icon,
-  .cart-icon {
-    width: 3.5rem;
-  }
-
-  .App-footer {
-    align-items: center;
-    text-align: center;
-  }
-
-  .Contact-container {
-    align-items: center;
-    text-align: center;
-  }
 }
-
-
-
-
