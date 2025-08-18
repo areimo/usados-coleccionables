@@ -251,36 +251,31 @@ html, body, #root {
 
 /* Tablets */
 @media (max-width: 1024px) {
-  .App-header {
-    font-size: calc(0.65rem + 2vmin);
-    width: auto;
-    padding: 0 1rem;
-  }
-
-  .App-shop {
-    font-size: calc(0.65rem + 2vmin);
-    width: auto;
-    padding: 0 1rem;
-  }
-
-  .App-about {
-    font-size: calc(0.65rem + 2vmin);
-    width: auto;
-    padding: 0 1rem;
-  }
-
+  .App-header,
+  .App-shop,
+  .App-about,
   .App-products {
-    width: 9rem;   /* un poco más ancho que en PC para mayor legibilidad */
+    width: auto;             /* no ocupar todo el ancho */
+    max-width: 20rem;        /* opcional: limitar ancho máximo */
+    justify-content: center; /* centra el contenido dentro del bloque */
     font-size: calc(0.65rem + 2vmin);
-    padding: 0 1rem;
+    margin-left: 1rem;       /* mantener un pequeño margen lateral */
+    margin-right: 1rem;
   }
-}
 
   .product-container {
     gap: 15px;
   }
 
-  /* Celulares */
+  /* Otros ajustes responsive que quieras mantener */
+  .App-button {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+
+/* Celulares */
 @media (max-width: 600px) {
   body {
     font-size: 14px; 
@@ -292,32 +287,16 @@ html, body, #root {
     gap: 0.5rem;
   }
 
-@media (max-width: 600px) {
-  .App-header {
-    width: 100%;
-    justify-content: center;
+  /* Todos los headers mantienen su ancho original */
+  .App-header,
+  .App-shop,
+  .App-about,
+  .App-products {
+    width: auto; /* no ocupa todo el ancho */
+    justify-content: center; /* opcional: centra el contenido dentro del bloque */
     font-size: calc(0.6rem + 2vmin);
+    margin-left: 0; /* opcional: quitar margen lateral si quieres centrarlos */
   }
-
-  .App-shop {
-    width: 100%;
-    justify-content: center;
-    font-size: calc(0.6rem + 2vmin);
-  }
-
-  .App-about {
-    width: 100%;
-    justify-content: center;
-    font-size: calc(0.6rem + 2vmin);
-  }
-
-   .App-products {
-    width: 100%; /* en celulares ocupa todo el ancho */
-    justify-content: center;
-    font-size: calc(0.6rem + 2vmin);
-  }
-
-}
 
   .App-button {
     width: 2.5rem;
@@ -351,6 +330,7 @@ html, body, #root {
     text-align: center;
   }
 }
+
 
 
 
