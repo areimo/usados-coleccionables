@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import cart from "./cart.png";
 
 const Cart = () => {
-  const [size, setSize] = useState(75); // tamaño en px
+  const [size, setSize] = useState(75);
+  const [rightPos, setRightPos] = useState(20); // distancia desde la derecha en px
 
   useEffect(() => {
     const updateSize = () => {
@@ -10,10 +11,13 @@ const Cart = () => {
 
       if (width <= 600) { // celular
         setSize(50);
+        setRightPos(40);   // más a la izquierda
       } else if (width <= 1024) { // tablet
         setSize(60);
+        setRightPos(35);   // un poco más a la izquierda
       } else { // PC
         setSize(75);
+        setRightPos(20);   // posición normal
       }
     };
 
@@ -34,8 +38,8 @@ const Cart = () => {
         boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
         borderRadius: "0.25rem",
         position: "fixed",
-        right: "1.25rem",
-        bottom: "10rem", // un poco más arriba que WhatsApp
+        right: `${rightPos}px`,
+        bottom: "10rem",
         zIndex: 1000,
       }}
       onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
@@ -45,6 +49,7 @@ const Cart = () => {
 };
 
 export default Cart;
+
 
 
 
