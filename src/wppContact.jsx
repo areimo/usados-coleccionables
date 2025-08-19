@@ -38,7 +38,7 @@ const WppContact = () => {
           transition: "transform 0.2s ease-in-out",
           position: "fixed",
           right: "1.25rem",
-          bottom: "10rem", // más arriba que antes
+          bottom: "5rem", // más arriba que antes
           zIndex: 1000,
         }}
         onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}

@@ -35,7 +35,7 @@ const Cart = () => {
         borderRadius: "0.25rem",
         position: "fixed",
         right: "1.25rem",
-        bottom: "18rem", // un poco más arriba que WhatsApp
+        bottom: "10rem", // un poco más arriba que WhatsApp
         zIndex: 1000,
       }}
       onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
