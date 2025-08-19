@@ -193,6 +193,21 @@ html, body, #root .App{
   color: white;
 }
 
+.console-header {
+  width: 11.2rem;
+  height: 4.125rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: calc(0.75rem + 2vmin);
+  color: white;
+  padding: 0 1.25rem;
+  cursor: pointer;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
+}
+
 /* ---------- BOTONES FLOTANTES ---------- */
 .wpp-contact,
 .cart {
@@ -350,6 +365,12 @@ html, body, #root .App{
     padding: 0.25rem 0.5rem;   /* más pequeño que en PC */
     font-size: 0.8rem;         /* reduce tamaño del texto */
   }
+
+  .console-header {
+    width: 9rem;
+    height: 3.5rem;
+    font-size: calc(0.7rem + 1.5vmin);
+  }
 }
 
 /* ------------------ CELULARES (max-width:600px) ------------------ */
@@ -434,5 +455,11 @@ html, body, #root .App{
   .buy-button {
     padding: 0.2rem 0.4rem;    /* aún más pequeño */
     font-size: 0.7rem;         /* texto más compacto */
+  }
+
+  .console-header {
+    width: 7rem;
+    height: 3rem;
+    font-size: calc(0.65rem + 1vmin);
   }
 }
