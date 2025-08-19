@@ -7,6 +7,7 @@ const Cart = () => {
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth;
+
       if (width <= 600) { // celular
         setSize(50);
       } else if (width <= 1024) { // tablet
@@ -32,6 +33,10 @@ const Cart = () => {
         transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
         boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
         borderRadius: "0.25rem",
+        position: "fixed",
+        right: "1.25rem",
+        bottom: "10rem", // un poco más arriba que WhatsApp
+        zIndex: 1000,
       }}
       onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
       onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
@@ -40,5 +45,6 @@ const Cart = () => {
 };
 
 export default Cart;
+
 
 
