@@ -14,22 +14,22 @@ const SecondSlider = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [containerWidth, setContainerWidth] = useState(0);
   const [imageWidth, setImageWidth] = useState(200);
-  const [imageHeight, setImageHeight] = useState(120); // altura menor como primer slider
+  const [imageHeight, setImageHeight] = useState(120); // misma altura que primer slider
 
   useEffect(() => {
     const updateWidth = () => {
       const width = window.innerWidth;
       setContainerWidth(width);
 
-      if (width <= 600) {
-        setVisibleCount(1);          // una imagen por vez
-        setImageWidth(width * 0.8);  // ancho del slider 80% del contenedor
-        setImageHeight((width * 0.8 * 3) / 5); // misma proporción que primer slider
-      } else if (width <= 1024) {
+      if (width <= 600) { // celular
+        setVisibleCount(1);
+        setImageWidth(width * 0.8); // ancho 80%
+        setImageHeight((width * 0.8 * 3) / 5); // misma proporción
+      } else if (width <= 1024) { // tablet
         setVisibleCount(2);
         setImageWidth(250);
         setImageHeight(150);
-      } else {
+      } else { // PC
         setVisibleCount(3);
         setImageWidth(300);
         setImageHeight(180);
@@ -85,5 +85,6 @@ const SecondSlider = () => {
 };
 
 export { SecondSlider };
+
 
 
