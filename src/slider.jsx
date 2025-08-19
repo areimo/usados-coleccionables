@@ -17,9 +17,9 @@ const AutoSlider = () => {
       const width = window.innerWidth;
 
       if (width <= 600) { // celular
-        setVisibleCount(1);
-        setImageWidth(180);
-        setSliderWidth(200); // slider más pequeño que el ancho de la pantalla
+        setVisibleCount(1);      // mostrar solo 1 imagen
+        setImageWidth(150);      // imagen más pequeña
+        setSliderWidth(170);     // ancho mínimo del slider
       } else if (width <= 1024) { // tablet
         setVisibleCount(2);
         setImageWidth(250);

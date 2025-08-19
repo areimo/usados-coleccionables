@@ -21,10 +21,10 @@ const SecondSlider = () => {
       const width = window.innerWidth;
 
       if (width <= 600) { // celular
-        setSideImageWidth(100);
-        setCenterImageWidth(180);
+        setSideImageWidth(120);
+        setCenterImageWidth(150); // imagen más pequeña
         setImageGap(5);
-        setSliderWidth(220);
+        setSliderWidth(180);       // ancho mínimo del slider
       } else if (width <= 1024) { // tablet
         setSideImageWidth(150);
         setCenterImageWidth(400);
