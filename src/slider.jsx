@@ -26,7 +26,11 @@ const AutoSlider = () => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const imageWidth = containerWidth / visibleCount - 10; // 10px margen
+  // Ajuste celular: slider un poco menos ancho
+  const imageWidth =
+    containerWidth <= 600
+      ? containerWidth * 0.8 // slider más estrecho en celular
+      : containerWidth / visibleCount - 10;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,7 +42,7 @@ const AutoSlider = () => {
   return (
     <div
       style={{
-        width: `${visibleCount * imageWidth}px`,
+        width: `${imageWidth}px`,
         overflow: "hidden",
         margin: "40px auto",
       }}
@@ -71,6 +75,7 @@ const AutoSlider = () => {
 };
 
 export default AutoSlider;
+
 
 
 

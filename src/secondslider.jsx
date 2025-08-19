@@ -29,8 +29,15 @@ const SecondSlider = () => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const sideWidth = containerWidth / (visibleCount * 2 + 1); // aproximación para centrar
-  const centerWidth = sideWidth * 2;
+  const sideWidth =
+    containerWidth <= 600
+      ? containerWidth * 0.3 // imágenes más anchas que antes
+      : containerWidth / (visibleCount * 2 + 1);
+
+  const centerWidth =
+    containerWidth <= 600
+      ? containerWidth * 0.5 // imagen central más grande
+      : sideWidth * 2;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -42,7 +49,7 @@ const SecondSlider = () => {
   return (
     <div
       style={{
-        width: `${visibleCount * centerWidth}px`,
+        width: `${containerWidth <= 600 ? containerWidth * 0.8 : visibleCount * centerWidth}px`,
         height: "300px",
         overflow: "hidden",
         margin: "40px auto",
