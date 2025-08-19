@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/usados-coleccionables/static/css/main.66549a0c.css",
+    "main.css": "/usados-coleccionables/static/css/main.1140c3e1.css",
     "main.js": "/usados-coleccionables/static/js/main.f58c4ea5.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
@@ -34,12 +34,12 @@
     "static/media/whatsapp.png": "/usados-coleccionables/static/media/whatsapp.c12d25261ebb8404ba07.png",
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
-    "main.66549a0c.css.map": "/usados-coleccionables/static/css/main.66549a0c.css.map",
+    "main.1140c3e1.css.map": "/usados-coleccionables/static/css/main.1140c3e1.css.map",
     "main.f58c4ea5.js.map": "/usados-coleccionables/static/js/main.f58c4ea5.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66549a0c.css",
+    "static/css/main.1140c3e1.css",
     "static/js/main.f58c4ea5.js"
   ]
 }
