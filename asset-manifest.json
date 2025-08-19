@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/usados-coleccionables/static/css/main.a2705d9f.css",
-    "main.js": "/usados-coleccionables/static/js/main.31aefceb.js",
+    "main.js": "/usados-coleccionables/static/js/main.9be735e5.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
@@ -35,11 +35,11 @@
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "index.html": "/usados-coleccionables/index.html",
     "main.a2705d9f.css.map": "/usados-coleccionables/static/css/main.a2705d9f.css.map",
-    "main.31aefceb.js.map": "/usados-coleccionables/static/js/main.31aefceb.js.map",
+    "main.9be735e5.js.map": "/usados-coleccionables/static/js/main.9be735e5.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a2705d9f.css",
-    "static/js/main.31aefceb.js"
+    "static/js/main.9be735e5.js"
   ]
 }
