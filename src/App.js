@@ -349,7 +349,7 @@ const featuredProducts = [
                   border: "1px solid #4B5060",
                   width: 
                     window.innerWidth <= 600
-                    ? "200px"
+                    ? "250px"
                     :window.innerWidth <= 1024
                     ? "280px"
                     : "350px",
