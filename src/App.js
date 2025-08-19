@@ -181,56 +181,33 @@ useEffect(() => {
     </div>
   );
 
-  function ProductCard({ product, onBuyClick }) {
-    return (
-      <div
-        className="product-card"
-        style={{
-          border: "1px solid #ddd",
-          borderRadius: "5px",
-          padding: "1rem",
-          marginTop: "1rem",
-          width: "150px",
-          textAlign: "center",
-          position: "relative",
+function ProductCard({ product, onBuyClick }) {
+  return (
+    <div className="product-card">
+      <img
+        src={product.image}
+        alt={product.title}
+        className="product-image"
+      />
+      <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{product.title}</h5>
+      <h5 style={{ color: "#00aa00", fontWeight: "bold", textAlign:"right" }}>{product.price}</h5>
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onBuyClick(product);
         }}
+        className="buy-button"
       >
         <img
-          src={product.image}
-          alt={product.title}
-          style={{ width: "150px", height: "150px", borderRadius: "5px" }}
+          src={buyicon}
+          alt="shop"
+          style={{ width: "20px", height: "20px", marginRight: "0.5rem" }}
         />
-        <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{product.title}</h5>
-        <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{product.price}</h5>
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onBuyClick(product);
-          }}
-          style={{
-            marginTop: "0.5rem",
-            backgroundColor: "#28a745",
-            color: "white",
-            padding: "0.5rem 1rem",
-            fontWeight: "bold",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <img
-            src={buyicon}
-            alt="shop"
-            style={{ width: "20px", height: "20px", marginRight: "0.5rem" }}
-          />
-          Comprar
-        </button>
-      </div>
-    );
-  }
+        Comprar
+      </button>
+    </div>
+  );
+}
 
 const featuredProducts = [
     { id: 1, image: gtavps3, title: "GTA V PS3", price: "$1000", description: "Grand Theft Auto V es un juego de acción y aventura en mundo abierto que ofrece una experiencia inmersiva en Los Santos."},
