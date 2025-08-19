@@ -255,22 +255,23 @@ html, body, #root {
     min-height: 100%;
   }
 
-  /* Headers pegados arriba y menos espacio entre ellos */
-  .App-header {
-    width: auto;
-    max-width: 20rem;
-    justify-content: flex-start;  /* contenido alineado a la izquierda */
-    font-size: calc(0.65rem + 2vmin);
-    margin: 0 auto 0.25rem auto;  /* margen inferior pequeño */
-    padding-top: 0;              /* pegado arriba */
+  /* Contenedor del header y shop centrado horizontalmente */
+  .Header-container {
+    display: flex;
+    flex-direction: row;       /* fila horizontal */
+    justify-content: center;   /* centrado horizontal */
+    align-items: center;
+    gap: 0.5rem;              /* espacio entre header y shop */
+    margin-top: 0;            /* pegado arriba */
   }
 
+  .App-header,
   .App-shop {
-    width: auto;
-    max-width: 18rem;
-    justify-content: flex-start;  /* alineado a la izquierda */
+    width: auto;               /* ancho automático */
+    max-width: 20rem;
+    justify-content: center;   /* contenido centrado dentro del bloque */
     font-size: calc(0.65rem + 2vmin);
-    margin: 0 auto 0.5rem auto;   /* pequeño espacio con header */
+    margin: 0;                 /* sin margen extra */
   }
 
   /* App-about y App-products alineados a la izquierda */
@@ -278,13 +279,13 @@ html, body, #root {
   .App-products {
     width: auto;
     max-width: 20rem;
-    justify-content: flex-start;  /* alineado a la izquierda */
+    justify-content: flex-start;
     margin-left: 1rem;
     margin-right: auto;
   }
 
   .App-products {
-    width: 10rem; 
+    width: 10rem;
     padding: 0 0.5rem;
     margin-top: 1rem;
   }
@@ -302,27 +303,23 @@ html, body, #root {
     min-height: 100%;
   }
 
+  /* Contenedor header y shop centrado en fila */
   .Header-container {
-    flex-direction: column;
-    align-items: flex-start; /* alineación izquierda */
-    gap: 0.25rem;            /* menos espacio entre header y shop */
+    display: flex;
+    flex-direction: row;       /* fila horizontal */
+    justify-content: center;   /* centrado horizontal */
+    align-items: center;
+    gap: 0.25rem;             /* espacio entre header y shop */
+    margin-top: 0;            /* pegado arriba */
   }
 
-  .App-header {
-    width: auto;
-    max-width: 18rem;
-    justify-content: flex-start;
-    font-size: calc(0.6rem + 2vmin);
-    margin: 0 0 0.25rem 0;   /* margen inferior pequeño */
-    padding-top: 0;
-  }
-
+  .App-header,
   .App-shop {
     width: auto;
     max-width: 16rem;
-    justify-content: flex-start;
+    justify-content: center;   /* contenido centrado */
     font-size: calc(0.6rem + 2vmin);
-    margin-bottom: 0.5rem;
+    margin: 0;                /* sin margen */
   }
 
   /* App-about y App-products alineados a la izquierda */
