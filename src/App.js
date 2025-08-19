@@ -198,7 +198,7 @@ useEffect(() => {
         <img
           src={product.image}
           alt={product.title}
-          style={{ width: "200px", height: "200px", borderRadius: "5px" }}
+          style={{ width: "150px", height: "150px", borderRadius: "5px" }}
         />
         <h5 style={{ marginTop: "0.5rem", textAlign: "left" }}>{product.title}</h5>
         <h5 style={{ color: "#00aa00", fontWeight: "bold" }}>{product.price}</h5>
