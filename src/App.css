@@ -247,89 +247,54 @@ html, body, #root {
   background-color: #218838;
 }
 
-/* ---------- RESPONSIVE ---------- */
-
-/* ------------------ TABLETS ------------------ */
+/* ---------- RESPONSIVE TABLET (max-width:1024px) ---------- */
 @media (max-width: 1024px) {
-  body, html, #root, .App {
-    min-height: 100%;
-  }
-
-  /* Contenedor del header y shop centrado horizontalmente */
-  .Header-container {
-    display: flex;
-    flex-direction: row;       /* fila horizontal */
-    justify-content: center;   /* centrado horizontal */
-    align-items: center;
-    gap: 0.5rem;              /* espacio entre header y shop */
-    margin-top: 0;            /* pegado arriba */
-  }
-
   .App-header,
   .App-shop {
-    width: auto;               /* ancho automático */
     max-width: 20rem;
-    justify-content: center;   /* contenido centrado dentro del bloque */
     font-size: calc(0.65rem + 2vmin);
-    margin: 0;                 /* sin margen extra */
   }
 
-  /* App-about y App-products alineados a la izquierda */
   .App-about,
   .App-products {
-    width: auto;
-    max-width: 20rem;
-    justify-content: flex-start;
+    max-width: 18rem;
     margin-left: 1rem;
-    margin-right: auto;
   }
 
   .App-products {
     width: 10rem;
-    padding: 0 0.5rem;
-    margin-top: 1rem;
   }
 
-  .App-footer {
-    width: 100%;
-    position: relative;
-    bottom: 0;
+  .product-container {
+    gap: 15px;
   }
 }
 
-/* ------------------ CELULARES ------------------ */
+/* ---------- RESPONSIVE CELULAR (max-width:600px) ---------- */
 @media (max-width: 600px) {
-  body, html, #root, .App {
-    min-height: 100%;
+  body {
+    font-size: 14px;
   }
 
-  /* Contenedor header y shop centrado en fila */
   .Header-container {
-    display: flex;
     flex-direction: row;       /* fila horizontal */
-    justify-content: center;   /* centrado horizontal */
+    justify-content: center;
     align-items: center;
     gap: 0.25rem;             /* espacio entre header y shop */
-    margin-top: 0;            /* pegado arriba */
   }
 
   .App-header,
   .App-shop {
-    width: auto;
     max-width: 16rem;
-    justify-content: center;   /* contenido centrado */
     font-size: calc(0.6rem + 2vmin);
-    margin: 0;                /* sin margen */
+    margin: 0;
   }
 
-  /* App-about y App-products alineados a la izquierda */
   .App-about,
   .App-products {
-    width: auto;
     max-width: 18rem;
-    justify-content: flex-start;
+    justify-content: flex-start; /* alineado izquierda */
     margin-left: 0.5rem;
-    margin-right: auto;
   }
 
   .App-products {
@@ -338,23 +303,19 @@ html, body, #root {
     margin-top: 0.75rem;
   }
 
-  /* Footer ocupa todo el ancho */
+  .product-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
   .App-footer {
     width: 100%;
     position: relative;
     bottom: 0;
-  }
-
-  .App-main, .product-container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 0.5rem;
-  }
-
-  .product-container {
-    flex-direction: column;
-    align-items: flex-start; /* productos alineados a la izquierda */
-    gap: 1rem;
+    align-items: flex-start;
+    text-align: left;
   }
 }
