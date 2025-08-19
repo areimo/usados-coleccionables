@@ -20,8 +20,8 @@ const AutoSlider = () => {
 
       if (width <= 600) { // celular
         setVisibleCount(1);
-        setImageWidth(width * 0.8);
-        setImageHeight((width * 0.8 * 3) / 5); // misma proporción que antes
+        setImageWidth(width * 0.7); // un poco más pequeño que antes (antes 0.8)
+        setImageHeight((width * 0.7 * 3) / 5); // misma proporción
       } else if (width <= 1024) { // tablet
         setVisibleCount(2);
         setImageWidth(250);
@@ -82,6 +82,7 @@ const AutoSlider = () => {
 };
 
 export default AutoSlider;
+
 
 
 
