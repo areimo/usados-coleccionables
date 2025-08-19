@@ -127,59 +127,94 @@ useEffect(() => {
     .catch((err) => console.error(err));
 }, []);
 
-  const headerStyle = (bg) => ({
-    backgroundColor: bg,
-    width: "11.2rem",
-    height: "4.125rem",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    fontSize: "calc(0.75rem + 2vmin)",
-    color: "white",
-    padding: "0 1.25rem",
-    cursor: "pointer",
-    borderRadius: "0.3125rem",
-    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-  });
+const headerStyleBase = (bg, width) => ({
+  backgroundColor: bg,
+  width: width,
+  height: "4.125rem",
+  display: "flex",          // fila: logo + texto
+  flexDirection: "row",     // horizontal
+  alignItems: "center",     // verticalmente centrado
+  justifyContent: "flex-start",
+  fontSize: "calc(0.75rem + 2vmin)",
+  color: "white",
+  padding: "0 1rem",
+  cursor: "pointer",
+  borderRadius: "0.3125rem",
+  boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+});
 
-  const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
+const getLogoSize = (screenSize) => {
+  if (screenSize === "mobile") return "2.5rem";
+  if (screenSize === "tablet") return "2rem";
+  return "1.5rem";
+};
 
-  const ConsoleHeaders = () => (
+const ConsoleHeaders = ({ setPage }) => {
+  const [screenSize, setScreenSize] = useState("pc");
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 600) setScreenSize("mobile");
+      else if (width <= 1024) setScreenSize("tablet");
+      else setScreenSize("pc");
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getHeaderStyle = (bg) => {
+    let width = "11.2rem"; // PC
+    if (screenSize === "tablet") width = "9rem";
+    if (screenSize === "mobile") width = "7rem";
+    return headerStyleBase(bg, width);
+  };
+
+  const logoSize = getLogoSize(screenSize);
+
+  return (
     <div
       style={{
         marginTop: "3.2rem",
         display: "flex",
         flexDirection: "row",
-        gap: "1.5rem",
+        gap: "1rem",
         justifyContent: "center",
         alignItems: "center",
         flexWrap: "wrap",
         marginBottom: "1rem",
       }}
     >
-      <header style={headerStyle("#182580")} onClick={() => setPage("ps3")}>
-        <img src={pslogo} alt="pslogo" style={logoStyle} />
+      <header style={getHeaderStyle("#182580")} onClick={() => setPage("ps3")}>
+        <img src={pslogo} alt="pslogo" style={{ width: logoSize, height: logoSize, marginRight: "0.5rem", pointerEvents: "none" }} />
         <h6>PLAYSTATION 3</h6>
       </header>
-      <header style={headerStyle("#182580")} onClick={() => setPage("ps2")}>
-        <img src={pslogo} alt="pslogo" style={logoStyle} />
+
+      <header style={getHeaderStyle("#182580")} onClick={() => setPage("ps2")}>
+        <img src={pslogo} alt="pslogo" style={{ width: logoSize, height: logoSize, marginRight: "0.5rem", pointerEvents: "none" }} />
         <h6>PLAYSTATION 2</h6>
       </header>
-      <header style={headerStyle("green")} onClick={() => setPage("xbox360")}>
-        <img src={xbox360logo} alt="xbox360logo" style={logoStyle} />
+
+      <header style={getHeaderStyle("green")} onClick={() => setPage("xbox360")}>
+        <img src={xbox360logo} alt="xbox360logo" style={{ width: logoSize, height: logoSize, marginRight: "0.5rem", pointerEvents: "none" }} />
         <h6>XBOX 360</h6>
       </header>
-      <header style={headerStyle("#EA473B")} onClick={() => setPage("nintendo")}>
-        <img src={nintendologo} alt="nintendologo" style={logoStyle} />
+
+      <header style={getHeaderStyle("#EA473B")} onClick={() => setPage("nintendo")}>
+        <img src={nintendologo} alt="nintendologo" style={{ width: logoSize, height: logoSize, marginRight: "0.5rem", pointerEvents: "none" }} />
         <h6>NINTENDO</h6>
       </header>
-      <header style={headerStyle("#4B5060")} onClick={() => setPage("otros")}>
-        <img src={joystick} alt="joystick" style={logoStyle} />
+
+      <header style={getHeaderStyle("#4B5060")} onClick={() => setPage("otros")}>
+        <img src={joystick} alt="joystick" style={{ width: logoSize, height: logoSize, marginRight: "0.5rem", pointerEvents: "none" }} />
         <h6>Otros Productos</h6>
       </header>
     </div>
   );
+};
+
 
 function ProductCard({ product, onBuyClick }) {
   return (
