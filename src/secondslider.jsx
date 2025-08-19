@@ -1,41 +1,62 @@
-import { useEffect,useState } from 'react';import React from "react";
+import { useEffect, useState } from "react";
+import React from "react";
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
-import psp from './psp.jpg'
-import tloups3 from './tloups3.jpg'
-import ndsgames from './ndsgames.jpg'
-import f12011xbox360 from './f12011xbox360.jpg'
+import psp from './psp.jpg';
+import tloups3 from './tloups3.jpg';
+import ndsgames from './ndsgames.jpg';
+import f12011xbox360 from './f12011xbox360.jpg';
 
-const images = [ xbox360, xbox360controller, psp, tloups3, ndsgames, f12011xbox360];
+const images = [xbox360, xbox360controller, psp, tloups3, ndsgames, f12011xbox360];
 
-
-const AutoSlider = () => {
-  const visibleCount = 3;
-  const imageGap = 10; 
-  const centerImageWidth = 780;
-  const sideImageWidth = 200;
-
-  const slideWidth = sideImageWidth + centerImageWidth + sideImageWidth + imageGap * 2; 
-
+const SecondSlider = () => {
   const [index, setIndex] = useState(0);
+  const [sideImageWidth, setSideImageWidth] = useState(200);
+  const [centerImageWidth, setCenterImageWidth] = useState(780);
+  const [imageGap, setImageGap] = useState(10);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 600) {         // celulares
+        setSideImageWidth((width - 40) / 4);
+        setCenterImageWidth((width - 40) / 2);
+        setImageGap(5);
+      } else if (width <= 1024) { // tablets
+        setSideImageWidth(150);
+        setCenterImageWidth(400);
+        setImageGap(8);
+      } else {                     // PC
+        setSideImageWidth(200);
+        setCenterImageWidth(780);
+        setImageGap(10);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % (images.length - visibleCount + 1));
+      setIndex((prev) => (prev + 1) % (images.length - 3 + 1));
     }, 3000);
     return () => clearInterval(interval);
   }, []);
 
+  const slideWidth = sideImageWidth * 2 + centerImageWidth + imageGap * 2;
+
   return (
-<div
-  style={{
-    width: `${slideWidth}px`,
-    height: "300px",
-    overflow: "hidden",
-    margin: "40px auto",
-    paddingLeft: "10px",
-  }}
->
+    <div
+      style={{
+        width: `${slideWidth}px`,
+        height: "300px",
+        overflow: "hidden",
+        margin: "40px auto",
+        paddingLeft: "10px",
+      }}
+    >
       <div
         style={{
           display: "flex",
@@ -45,7 +66,6 @@ const AutoSlider = () => {
       >
         {images.map((img, i) => {
           const isCenter = i === index + 1;
-
           return (
             <img
               key={i}
@@ -53,7 +73,7 @@ const AutoSlider = () => {
               alt={`img-${i}`}
               style={{
                 width: isCenter ? `${centerImageWidth}px` : `${sideImageWidth}px`,
-                height: isCenter ? "300px" : `${sideImageWidth}px`,
+                height: "300px",
                 objectFit: "cover",
                 borderRadius: "5px",
                 marginRight: `${imageGap}px`,
@@ -66,5 +86,5 @@ const AutoSlider = () => {
     </div>
   );
 };
-export default AutoSlider;
-export { AutoSlider as SecondSlider }; 
+
+export { SecondSlider };
