@@ -18,17 +18,17 @@ const SecondSlider = () => {
     const updateWidth = () => {
       const width = window.innerWidth;
 
-      if (width <= 600) { // celular
+      if (width <= 600) { 
         setVisibleCount(1);
         setImageWidth(width * 0.8);
         setImageHeight((width * 0.8 * 3) / 5);
-      } else if (width <= 1024) { // tablet
+      } else if (width <= 1024) {
         setVisibleCount(2);
         setImageWidth(250);
         setImageHeight(150);
-      } else { // PC
+      } else { 
         setVisibleCount(3);
-        setImageWidth(300); // tamaño grande
+        setImageWidth(300); 
         setImageHeight(250);
       }
     };
@@ -48,8 +48,8 @@ const SecondSlider = () => {
   return (
     <div
       style={{
-        width: "100%",  // contenedor ocupa todo el ancho
-        maxWidth: `${visibleCount * (imageWidth + 10)}px`, // ancho máximo según imágenes
+        width: "100%",  
+        maxWidth: `${visibleCount * (imageWidth + 10)}px`, 
         height: `${imageHeight}px`,
         overflow: "hidden",
         margin: "40px auto",

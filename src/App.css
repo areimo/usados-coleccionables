@@ -7,7 +7,6 @@ html, body, #root .App{
   min-height: 100%;
 }
 
-/* ---------- HEADER ---------- */
 .Header-container {
   display: flex;
   flex-direction: row;
@@ -36,8 +35,8 @@ html, body, #root .App{
   font-size: calc(0.75rem + 2vmin);
   color: white;
   padding: 0 1.25rem;         
-  border-top-left-radius: 0;   /* esquina superior izquierda recta */
-  border-top-right-radius: 0;  /* esquina superior derecha recta */
+  border-top-left-radius: 0;   
+  border-top-right-radius: 0;  
   border-bottom-left-radius: 0.3125rem;
   border-bottom-right-radius: 0.3125rem;
   box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
@@ -53,8 +52,8 @@ html, body, #root .App{
   font-size: calc(0.75rem + 2vmin);
   color: white;
   padding: 0 1.25rem;         
-  border-top-left-radius: 0;   /* esquina superior izquierda recta */
-  border-top-right-radius: 0;  /* esquina superior derecha recta */
+  border-top-left-radius: 0;   
+  border-top-right-radius: 0;  
   border-bottom-left-radius: 0.3125rem;
   border-bottom-right-radius: 0.3125rem;
   box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
@@ -76,16 +75,16 @@ html, body, #root .App{
 
 .App-products {
   background-color: #4B5060; 
-  width: 12rem;               /* 👈 ancho más chico */
+  width: 12rem;               
   height: 3.125rem;
   display: flex;
   align-items: center;       
-  justify-content: center;   /* centrado horizontal */
+  justify-content: center;  
   margin-top: 2.5rem;
   margin-left: 1.25rem;
   font-size: calc(0.75rem + 2vmin);
   color: white;
-  padding: 0 0.5rem;         /* menos padding que los otros */
+  padding: 0 0.5rem;         
   border-radius: 0.3125rem;
   box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
 }
@@ -107,7 +106,6 @@ html, body, #root .App{
   cursor: pointer;
 }
 
-/* ---------- SECCIONES ---------- */
 #about {
   font-size: calc(0.375rem + 2vmin);
   color: black;
@@ -153,13 +151,12 @@ html, body, #root .App{
   height: 1.5rem;
 }
 
-/* ---------- FOOTER ---------- */
 .App-footer {
   width: 100%;
   background: #4B5060;
   color: white;
   padding: 1rem;
-  text-align: left;   /* o center si prefieres */
+  text-align: left;   
 }
 
 #footer {
@@ -208,7 +205,6 @@ html, body, #root .App{
   box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
 }
 
-/* ---------- BOTONES FLOTANTES ---------- */
 .wpp-contact,
 .cart {
   position: fixed;
@@ -232,7 +228,6 @@ html, body, #root .App{
   transform: scale(1.1);
 }
 
-/* ---------- PRODUCTOS ---------- */
 .product-container {
   display: flex;
   flex-wrap: wrap;
@@ -249,10 +244,10 @@ html, body, #root .App{
   padding: 1rem;
   margin-top: 1rem;
   text-align: center;
-  width: 150px;           /* default PC */
+  width: 150px;           
   display: flex;
   flex-direction: column;
-  align-items: center;    /* centrado horizontal */
+  align-items: center;    
 }
 
 .product-image {
@@ -282,33 +277,29 @@ html, body, #root .App{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;             /* se ajusta al ancho de la tarjeta */
-  box-sizing: border-box;  /* incluye padding dentro del ancho */
+  width: 100%;             
+  box-sizing: border-box;  
 }
 
 .buy-button:hover {
   background-color: #218838;
 }
 
-/* ---------- RESPONSIVE ---------- */
 
-/* ------------------ TABLETS (max-width:1024px) ------------------ */
 @media (max-width: 1024px) {
   body, html, #root, .App {
     min-height: 100%;
   }
 
-  /* Contenedor header y shop: columna centrada */
   .Header-container {
     display: flex;
-    flex-direction: column;   /* uno debajo del otro */
+    flex-direction: column;   
     justify-content: center;
-    align-items: center;      /* centrado horizontal */
-    gap: 0.25rem;             /* espacio entre header y shop */
-    margin-top: 0;            /* pegado arriba */
+    align-items: center;      
+    gap: 0.25rem;             
+    margin-top: 0;            
   }
 
-  /* App-header */
   .App-header {
     width: auto;
     max-width: 20rem;
@@ -322,7 +313,6 @@ html, body, #root .App{
     padding: 0 1rem;
   }
 
-  /* App-shop con bordes redondeados completos */
   .App-shop {
     width: auto;
     max-width: 20rem;
@@ -333,7 +323,6 @@ html, body, #root .App{
     padding: 0 1rem;
   }
 
-  /* App-about y App-products alineados a la izquierda */
   .App-about,
   .App-products {
     width: auto;
@@ -348,9 +337,8 @@ html, body, #root .App{
     margin-top: 1rem;
   }
 
-  /* Footer ocupa todo el ancho */
   .App-footer {
-    margin-top: auto; /* asegura que se pegue abajo */
+    margin-top: auto; 
     text-align: center;
   }
 
@@ -361,7 +349,7 @@ html, body, #root .App{
   }
 
   .product-card {
-    width: 130px;           /* más compacto en tablet */
+    width: 130px;          
   }
 
   .product-image {
@@ -374,30 +362,27 @@ html, body, #root .App{
     font-size: 0.8rem;
   }
   .console-header {
-    width: 8.5rem;             /* menos ancho */
+    width: 8.5rem;            
     height: 3.5rem;
     font-size: calc(0.7rem + 1.5vmin);
   }
 }
 
-/* ------------------ CELULARES (max-width:600px) ------------------ */
 @media (max-width: 600px) {
   body, html, #root, .App {
     min-height: 100%;
     font-size: 14px;
   }
 
-  /* Contenedor header y shop: columna centrada */
   .Header-container {
     display: flex;
-    flex-direction: column;   /* uno debajo del otro */
+    flex-direction: column;   
     justify-content: center;
-    align-items: center;      /* centrado horizontal */
+    align-items: center;      
     gap: 0.5rem;
     margin-top: 0;
   }
 
-  /* App-header */
   .App-header {
     width: auto;
     max-width: 16rem;
@@ -411,7 +396,6 @@ html, body, #root .App{
     padding: 0 1rem;
   }
 
-  /* App-shop con bordes redondeados completos */
   .App-shop {
     width: auto;
     max-width: 16rem;
@@ -422,7 +406,6 @@ html, body, #root .App{
     padding: 0 1rem;
   }
 
-  /* App-about y App-products alineados a la izquierda */
   .App-about,
   .App-products {
     width: auto;
@@ -443,7 +426,6 @@ html, body, #root .App{
     text-align: left;
   }
 
-  /* Productos */
   .product-container {
     max-width: 100%;
     padding: 0 0.5rem;
@@ -451,7 +433,7 @@ html, body, #root .App{
   }
 
   .product-card {
-    width: 120px;           /* más angosto en celular */
+    width: 120px;           
   }
 
   .product-image {
@@ -465,7 +447,7 @@ html, body, #root .App{
   }
 
   .console-header {
-    width: 7rem;               /* aún más compacto */
+    width: 7rem;               
     height: 3rem;
     font-size: calc(0.65rem + 1vmin);
   }

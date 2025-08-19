@@ -16,15 +16,15 @@ const AutoSlider = () => {
     const updateWidth = () => {
       const width = window.innerWidth;
 
-      if (width <= 600) { // celular
+      if (width <= 600) { 
         setVisibleCount(1);
         setImageWidth(width * 0.8);
-        setImageHeight((width * 0.7)); // relación de aspecto 3:5
-      } else if (width <= 1024) { // tablet 
+        setImageHeight((width * 0.7)); 
+      } else if (width <= 1024) { 
         setVisibleCount(2);
         setImageWidth(250);
         setImageHeight(150);
-      } else { // PC
+      } else { 
         setVisibleCount(3);
         setImageWidth(500);
         setImageHeight(300);
@@ -46,8 +46,8 @@ const AutoSlider = () => {
   return (
     <div
       style={{
-        width: "100%",           // contenedor ocupa todo el ancho disponible
-        maxWidth: `${visibleCount * (imageWidth + 10)}px`, // máximo ancho según imágenes
+        width: "100%",          
+        maxWidth: `${visibleCount * (imageWidth + 10)}px`, 
         overflow: "hidden",
         margin: "40px auto",
       }}
