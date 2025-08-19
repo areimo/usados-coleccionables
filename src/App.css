@@ -306,11 +306,14 @@ html, body, #root {
   }
 
   /* Footer ocupa todo el ancho */
-  .App-footer {
-    width: 100%;
-    position: relative;
-    bottom: 0;
-  }
+.App-footer {
+  width: 100%;
+  background: #4B5060;   /* color de ejemplo */
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: auto;      /* truco que lo empuja al fondo */
+}
 
   /* Productos */
   .product-container {
