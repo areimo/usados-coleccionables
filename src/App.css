@@ -196,15 +196,15 @@ html, body, #root .App{
 .console-header {
   width: 11.2rem;
   height: 4.125rem;
+  font-size: calc(0.75rem + 2vmin);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  font-size: calc(0.75rem + 2vmin);
-  color: white;
   padding: 0 1.25rem;
-  cursor: pointer;
   border-radius: 0.3125rem;
+  cursor: pointer;
+  color: white;
   box-shadow: 0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2);
 }
 
@@ -374,7 +374,7 @@ html, body, #root .App{
     font-size: 0.8rem;
   }
   .console-header {
-    width: 9rem;
+    width: 8.5rem;             /* menos ancho */
     height: 3.5rem;
     font-size: calc(0.7rem + 1.5vmin);
   }
@@ -393,7 +393,7 @@ html, body, #root .App{
     flex-direction: column;   /* uno debajo del otro */
     justify-content: center;
     align-items: center;      /* centrado horizontal */
-    gap: 0.25rem;
+    gap: 0.5rem;
     margin-top: 0;
   }
 
@@ -465,7 +465,7 @@ html, body, #root .App{
   }
 
   .console-header {
-    width: 7rem;
+    width: 7rem;               /* aún más compacto */
     height: 3rem;
     font-size: calc(0.65rem + 1vmin);
   }
