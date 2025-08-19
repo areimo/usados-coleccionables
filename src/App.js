@@ -162,7 +162,7 @@ useEffect(() => {
         <img src={pslogo} alt="pslogo" style={logoStyle} />
         <h6>PLAYSTATION 3</h6>
       </header>
-      <header style={headerStyle({backgroundColor:"#182580"})} onClick={() => setPage("ps2")} className="console-header" >
+      <header style={{backgroundColor:"#182580"}} onClick={() => setPage("ps2")} className="console-header" >
         <img src={pslogo} alt="pslogo" style={logoStyle} />
         <h6>PLAYSTATION 2</h6>
       </header>
