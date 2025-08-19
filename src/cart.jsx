@@ -1,18 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import cart from "./cart.png";
 
 const Cart = () => {
+  const [size, setSize] = useState(75); // tamaño en px
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth;
+      if (width <= 600) { // celular
+        setSize(50);
+      } else if (width <= 1024) { // tablet
+        setSize(60);
+      } else { // PC
+        setSize(75);
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   return (
     <img
       src={cart}
       alt="Cart"
       style={{
-        width: "4.6875rem",
-        height: "4.6875rem",
+        width: `${size}px`,
+        height: `${size}px`,
         cursor: "pointer",
         transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-        boxShadow: "0 4px 6px rgba(0,0,0,0.3)", 
-        borderRadius: "0.25rem", 
+        boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
+        borderRadius: "0.25rem",
       }}
       onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
       onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
@@ -21,4 +40,5 @@ const Cart = () => {
 };
 
 export default Cart;
+
 
