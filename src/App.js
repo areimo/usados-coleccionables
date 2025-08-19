@@ -158,23 +158,23 @@ useEffect(() => {
         marginBottom: "1rem",
       }}
     >
-      <header style={headerStyle("#182580")} onClick={() => setPage("ps3")} className="console-header" >
+      <header style={{backgroundColor:"#182580"}} onClick={() => setPage("ps3")} className="console-header" >
         <img src={pslogo} alt="pslogo" style={logoStyle} />
         <h6>PLAYSTATION 3</h6>
       </header>
-      <header style={headerStyle("#182580")} onClick={() => setPage("ps2")} className="console-header" >
+      <header style={headerStyle({backgroundColor:"#182580"})} onClick={() => setPage("ps2")} className="console-header" >
         <img src={pslogo} alt="pslogo" style={logoStyle} />
         <h6>PLAYSTATION 2</h6>
       </header>
-      <header style={headerStyle("green")} onClick={() => setPage("xbox360")} className="console-header" >
+      <header style={{backgroundColor:"green"}} onClick={() => setPage("xbox360")} className="console-header" >
         <img src={xbox360logo} alt="xbox360logo" style={logoStyle} />
         <h6>XBOX 360</h6>
       </header>
-      <header style={headerStyle("#EA473B")} onClick={() => setPage("nintendo")} className="console-header" >
+      <header style={{backgroundColor:"#EA473B"}} onClick={() => setPage("nintendo")} className="console-header" >
         <img src={nintendologo} alt="nintendologo" style={logoStyle} />
         <h6>NINTENDO</h6>
       </header>
-      <header style={headerStyle("#4B5060")} onClick={() => setPage("otros")} className="console-header" >
+      <header style={{backgroundColor:"#4B5060"}} onClick={() => setPage("otros")} className="console-header" >
         <img src={joystick} alt="joystick" style={logoStyle} />
         <h6>Otros Productos</h6>
       </header>
