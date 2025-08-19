@@ -13,31 +13,33 @@ const SecondSlider = () => {
   const [index, setIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [imageWidth, setImageWidth] = useState(200);
+  const [imageHeight, setImageHeight] = useState(120); // altura menor como primer slider
 
   useEffect(() => {
     const updateWidth = () => {
       const width = window.innerWidth;
       setContainerWidth(width);
 
-      if (width <= 600) setVisibleCount(1);
-      else if (width <= 1024) setVisibleCount(2);
-      else setVisibleCount(3);
+      if (width <= 600) {
+        setVisibleCount(1);          // una imagen por vez
+        setImageWidth(width * 0.8);  // ancho del slider 80% del contenedor
+        setImageHeight((width * 0.8 * 3) / 5); // misma proporción que primer slider
+      } else if (width <= 1024) {
+        setVisibleCount(2);
+        setImageWidth(250);
+        setImageHeight(150);
+      } else {
+        setVisibleCount(3);
+        setImageWidth(300);
+        setImageHeight(180);
+      }
     };
 
     updateWidth();
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
-
-  const sideWidth =
-    containerWidth <= 600
-      ? containerWidth * 0.3 // imágenes más anchas que antes
-      : containerWidth / (visibleCount * 2 + 1);
-
-  const centerWidth =
-    containerWidth <= 600
-      ? containerWidth * 0.5 // imagen central más grande
-      : sideWidth * 2;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,8 +51,8 @@ const SecondSlider = () => {
   return (
     <div
       style={{
-        width: `${containerWidth <= 600 ? containerWidth * 0.8 : visibleCount * centerWidth}px`,
-        height: "300px",
+        width: `${imageWidth}px`,
+        height: `${imageHeight}px`,
         overflow: "hidden",
         margin: "40px auto",
       }}
@@ -59,30 +61,29 @@ const SecondSlider = () => {
         style={{
           display: "flex",
           transition: "transform 0.8s ease-in-out",
-          transform: `translateX(-${index * (sideWidth + 10)}px)`,
+          transform: `translateX(-${index * (imageWidth + 10)}px)`,
         }}
       >
-        {images.map((img, i) => {
-          const isCenter = i === index + 1;
-          return (
-            <img
-              key={i}
-              src={img}
-              alt={`img-${i}`}
-              style={{
-                width: isCenter ? `${centerWidth}px` : `${sideWidth}px`,
-                height: "300px",
-                objectFit: "cover",
-                borderRadius: "5px",
-                marginRight: "10px",
-                transition: "all 0.5s ease-in-out",
-              }}
-            />
-          );
-        })}
+        {images.map((img, i) => (
+          <img
+            key={i}
+            src={img}
+            alt={`img-${i}`}
+            style={{
+              width: `${imageWidth}px`,
+              height: `${imageHeight}px`,
+              objectFit: "cover",
+              borderRadius: "5px",
+              marginRight: "10px",
+              transition: "all 0.5s ease-in-out",
+            }}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
 export { SecondSlider };
+
+
