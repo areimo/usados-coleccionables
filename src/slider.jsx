@@ -9,32 +9,24 @@ const images = [computers, consoles, delivery, board, computers, consoles, board
 const AutoSlider = () => {
   const [index, setIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
-  const [imageWidth, setImageWidth] = useState(500);
-  const [sliderWidth, setSliderWidth] = useState(1500);
+  const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
+    const updateWidth = () => {
       const width = window.innerWidth;
+      setContainerWidth(width);
 
-      if (width <= 600) { // celular
-        setVisibleCount(1);      // mostrar solo 1 imagen
-        setImageWidth(150);      // imagen más pequeña
-        setSliderWidth(170);     // ancho mínimo del slider
-      } else if (width <= 1024) { // tablet
-        setVisibleCount(2);
-        setImageWidth(250);
-        setSliderWidth(520);
-      } else { // PC
-        setVisibleCount(3);
-        setImageWidth(500);
-        setSliderWidth(1500);
-      }
+      if (width <= 600) setVisibleCount(1);       // celular
+      else if (width <= 1024) setVisibleCount(2); // tablet
+      else setVisibleCount(3);                     // PC
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
   }, []);
+
+  const imageWidth = containerWidth / visibleCount - 10; // 10px margen
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -46,7 +38,7 @@ const AutoSlider = () => {
   return (
     <div
       style={{
-        width: `${sliderWidth}px`,
+        width: `${visibleCount * imageWidth}px`,
         overflow: "hidden",
         margin: "40px auto",
       }}
