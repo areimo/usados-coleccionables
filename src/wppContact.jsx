@@ -38,17 +38,19 @@ const WppContact = () => {
           transition: "transform 0.2s ease-in-out",
           position: "fixed",
           right: "1rem",
-          bottom: "1rem", // ahora pegado al borde inferior
+          top: "50%", // mitad de pantalla
+          transform: "translateY(-20%)", // más abajo que el carrito
           zIndex: 1000,
         }}
-        onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
-        onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+        onMouseOver={e => e.currentTarget.style.transform = "translateY(-20%) scale(1.1)"}
+        onMouseOut={e => e.currentTarget.style.transform = "translateY(-20%) scale(1)"}
       />
     </a>
   );
 };
 
 export default WppContact;
+
 
 
 
