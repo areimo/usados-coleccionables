@@ -255,25 +255,40 @@ html, body, #root {
     min-height: 100%;
   }
 
-  /* Headers y productos */
-  .App-header,
-  .App-shop,
-  .App-about {
-    width: auto;               /* no ocupan todo el ancho */
-    max-width: 20rem;          /* ancho máximo más pequeño */
-    justify-content: center;   
+  /* Headers pegados arriba y menos espacio entre ellos */
+  .App-header {
+    width: auto;
+    max-width: 20rem;
+    justify-content: flex-start;  /* contenido alineado a la izquierda */
     font-size: calc(0.65rem + 2vmin);
-    margin: 0.5rem auto;       /* centrado horizontal con márgenes */
+    margin: 0 auto 0.25rem auto;  /* margen inferior pequeño */
+    padding-top: 0;              /* pegado arriba */
+  }
+
+  .App-shop {
+    width: auto;
+    max-width: 18rem;
+    justify-content: flex-start;  /* alineado a la izquierda */
+    font-size: calc(0.65rem + 2vmin);
+    margin: 0 auto 0.5rem auto;   /* pequeño espacio con header */
+  }
+
+  /* App-about y App-products alineados a la izquierda */
+  .App-about,
+  .App-products {
+    width: auto;
+    max-width: 20rem;
+    justify-content: flex-start;  /* alineado a la izquierda */
+    margin-left: 1rem;
+    margin-right: auto;
   }
 
   .App-products {
-    width: 10rem;              /* más pequeño que en PC */
-    font-size: calc(0.65rem + 2vmin);
+    width: 10rem; 
     padding: 0 0.5rem;
-    margin: 1rem auto;         /* centrado horizontal */
+    margin-top: 1rem;
   }
 
-  /* Footer siempre al fondo y ocupa todo el ancho */
   .App-footer {
     width: 100%;
     position: relative;
@@ -289,36 +304,50 @@ html, body, #root {
 
   .Header-container {
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: flex-start; /* alineación izquierda */
+    gap: 0.25rem;            /* menos espacio entre header y shop */
   }
 
-  /* Headers y productos más pequeños y centrados */
-  .App-header,
-  .App-shop,
-  .App-about {
+  .App-header {
     width: auto;
-    max-width: 18rem;          /* aún más pequeño en celular */
-    justify-content: center;
+    max-width: 18rem;
+    justify-content: flex-start;
     font-size: calc(0.6rem + 2vmin);
-    margin: 0.5rem auto;
+    margin: 0 0 0.25rem 0;   /* margen inferior pequeño */
+    padding-top: 0;
+  }
+
+  .App-shop {
+    width: auto;
+    max-width: 16rem;
+    justify-content: flex-start;
+    font-size: calc(0.6rem + 2vmin);
+    margin-bottom: 0.5rem;
+  }
+
+  /* App-about y App-products alineados a la izquierda */
+  .App-about,
+  .App-products {
+    width: auto;
+    max-width: 18rem;
+    justify-content: flex-start;
+    margin-left: 0.5rem;
+    margin-right: auto;
   }
 
   .App-products {
-    width: 8rem;               /* ancho reducido en celular */
-    font-size: calc(0.6rem + 2vmin);
+    width: 8rem;
     padding: 0 0.5rem;
-    margin: 1rem auto;
+    margin-top: 0.75rem;
   }
 
-  /* Footer ocupa todo el ancho inferior */
+  /* Footer ocupa todo el ancho */
   .App-footer {
     width: 100%;
     position: relative;
     bottom: 0;
   }
 
-  /* Ajustes adicionales para que no queden espacios en blanco */
   .App-main, .product-container {
     width: 100%;
     max-width: 100%;
@@ -328,7 +357,7 @@ html, body, #root {
 
   .product-container {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* productos alineados a la izquierda */
     gap: 1rem;
   }
 }
