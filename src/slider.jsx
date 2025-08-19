@@ -11,7 +11,7 @@ const AutoSlider = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const [containerWidth, setContainerWidth] = useState(0);
   const [imageWidth, setImageWidth] = useState(500);
-  const [imageHeight, setImageHeight] = useState(300); // altura estándar
+  const [imageHeight, setImageHeight] = useState(300);
 
   useEffect(() => {
     const updateWidth = () => {
@@ -20,8 +20,8 @@ const AutoSlider = () => {
 
       if (width <= 600) { // celular
         setVisibleCount(1);
-        setImageWidth(width * 0.7); // un poco más pequeño que antes (antes 0.8)
-        setImageHeight((width * 0.7 * 3) / 5); // misma proporción
+        setImageWidth(width * 0.5); // mucho más pequeño (50% de la pantalla)
+        setImageHeight((width * 0.5 * 3) / 5); // mantiene proporción
       } else if (width <= 1024) { // tablet
         setVisibleCount(2);
         setImageWidth(250);
@@ -50,7 +50,7 @@ const AutoSlider = () => {
       style={{
         width: `${imageWidth}px`,
         overflow: "hidden",
-        margin: "40px auto",
+        margin: "40px auto", // centrado
       }}
     >
       <div
@@ -82,6 +82,7 @@ const AutoSlider = () => {
 };
 
 export default AutoSlider;
+
 
 
 
