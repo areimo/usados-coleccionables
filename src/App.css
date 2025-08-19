@@ -247,53 +247,126 @@ html, body, #root {
   background-color: #218838;
 }
 
-/* ---------- RESPONSIVE TABLET (max-width:1024px) ---------- */
+/* ---------- RESPONSIVE ---------- */
+
+/* ------------------ TABLETS (max-width:1024px) ------------------ */
 @media (max-width: 1024px) {
-  .App-header,
-  .App-shop {
-    max-width: 20rem;
-    font-size: calc(0.65rem + 2vmin);
+  body, html, #root, .App {
+    min-height: 100%;
   }
 
+  /* Contenedor header y shop: columna centrada */
+  .Header-container {
+    display: flex;
+    flex-direction: column;   /* uno debajo del otro */
+    justify-content: center;
+    align-items: center;      /* centrado horizontal */
+    gap: 0.25rem;             /* espacio entre header y shop */
+    margin-top: 0;            /* pegado arriba */
+  }
+
+  /* App-header */
+  .App-header {
+    width: auto;
+    max-width: 20rem;
+    height: 3.125rem;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.3125rem;
+    border-bottom-right-radius: 0.3125rem;
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  /* App-shop con bordes redondeados completos */
+  .App-shop {
+    width: auto;
+    max-width: 20rem;
+    height: 3.125rem;
+    justify-content: center;
+    border-radius: 0.3125rem;
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  /* App-about y App-products alineados a la izquierda */
   .App-about,
   .App-products {
+    width: auto;
     max-width: 18rem;
+    justify-content: flex-start;
     margin-left: 1rem;
   }
 
   .App-products {
     width: 10rem;
+    padding: 0 0.5rem;
+    margin-top: 1rem;
   }
 
+  /* Footer ocupa todo el ancho */
+  .App-footer {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+  }
+
+  /* Productos */
   .product-container {
     gap: 15px;
+    justify-content: flex-start;
   }
 }
 
-/* ---------- RESPONSIVE CELULAR (max-width:600px) ---------- */
+/* ------------------ CELULARES (max-width:600px) ------------------ */
 @media (max-width: 600px) {
-  body {
+  body, html, #root, .App {
+    min-height: 100%;
     font-size: 14px;
   }
 
+  /* Contenedor header y shop: columna centrada */
   .Header-container {
-    flex-direction: row;       /* fila horizontal */
+    display: flex;
+    flex-direction: column;   /* uno debajo del otro */
     justify-content: center;
-    align-items: center;
-    gap: 0.25rem;             /* espacio entre header y shop */
+    align-items: center;      /* centrado horizontal */
+    gap: 0.25rem;
+    margin-top: 0;
   }
 
-  .App-header,
-  .App-shop {
+  /* App-header */
+  .App-header {
+    width: auto;
     max-width: 16rem;
-    font-size: calc(0.6rem + 2vmin);
+    height: 3.125rem;
+    justify-content: center;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0.3125rem;
+    border-bottom-right-radius: 0.3125rem;
     margin: 0;
+    padding: 0 1rem;
   }
 
+  /* App-shop con bordes redondeados completos */
+  .App-shop {
+    width: auto;
+    max-width: 16rem;
+    height: 3.125rem;
+    justify-content: center;
+    border-radius: 0.3125rem;
+    margin: 0;
+    padding: 0 1rem;
+  }
+
+  /* App-about y App-products alineados a la izquierda */
   .App-about,
   .App-products {
+    width: auto;
     max-width: 18rem;
-    justify-content: flex-start; /* alineado izquierda */
+    justify-content: flex-start;
     margin-left: 0.5rem;
   }
 
@@ -303,19 +376,21 @@ html, body, #root {
     margin-top: 0.75rem;
   }
 
-  .product-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    width: 100%;
-    padding: 0 0.5rem;
-  }
-
+  /* Footer ocupa todo el ancho */
   .App-footer {
     width: 100%;
     position: relative;
     bottom: 0;
     align-items: flex-start;
     text-align: left;
+  }
+
+  /* Productos */
+  .product-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 0.5rem;
   }
 }
