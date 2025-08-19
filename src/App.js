@@ -364,7 +364,7 @@ const featuredProducts = [
               >
                 <div
                   className="product-container"
-                  style={{ background: "white", padding: "1rem", borderRadius: "8px" }}
+                  style={{ background: "white", padding: "1rem", borderRadius: "8px", width: "100%", maxWidth: "600px", margin: "0 auto" }}
                 >
                   {filteredProducts.map((product) => (
                     <ProductCard

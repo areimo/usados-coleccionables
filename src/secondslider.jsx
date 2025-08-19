@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
 import psp from './psp.jpg';
@@ -12,27 +11,25 @@ const images = [xbox360, xbox360controller, psp, tloups3, ndsgames, f12011xbox36
 const SecondSlider = () => {
   const [index, setIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
-  const [containerWidth, setContainerWidth] = useState(0);
-  const [imageWidth, setImageWidth] = useState(200);
-  const [imageHeight, setImageHeight] = useState(120); // misma altura que primer slider
+  const [imageWidth, setImageWidth] = useState(300);
+  const [imageHeight, setImageHeight] = useState(180);
 
   useEffect(() => {
     const updateWidth = () => {
       const width = window.innerWidth;
-      setContainerWidth(width);
 
       if (width <= 600) { // celular
         setVisibleCount(1);
-        setImageWidth(width * 0.8); // ancho 80%
-        setImageHeight((width * 0.8 * 3) / 5); // misma proporción
+        setImageWidth(width * 0.8);
+        setImageHeight((width * 0.8 * 3) / 5);
       } else if (width <= 1024) { // tablet
         setVisibleCount(2);
         setImageWidth(250);
         setImageHeight(150);
       } else { // PC
         setVisibleCount(3);
-        setImageWidth(300);
-        setImageHeight(180);
+        setImageWidth(300); // tamaño grande
+        setImageHeight(250);
       }
     };
 
@@ -51,7 +48,8 @@ const SecondSlider = () => {
   return (
     <div
       style={{
-        width: `${imageWidth}px`,
+        width: "100%",  // contenedor ocupa todo el ancho
+        maxWidth: `${visibleCount * (imageWidth + 10)}px`, // ancho máximo según imágenes
         height: `${imageHeight}px`,
         overflow: "hidden",
         margin: "40px auto",
@@ -85,6 +83,8 @@ const SecondSlider = () => {
 };
 
 export { SecondSlider };
+
+
 
 
 

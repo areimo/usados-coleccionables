@@ -9,19 +9,17 @@ const images = [computers, consoles, delivery, board, computers, consoles, board
 const AutoSlider = () => {
   const [index, setIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
-  const [containerWidth, setContainerWidth] = useState(0);
   const [imageWidth, setImageWidth] = useState(500);
   const [imageHeight, setImageHeight] = useState(300);
 
   useEffect(() => {
     const updateWidth = () => {
       const width = window.innerWidth;
-      setContainerWidth(width);
 
       if (width <= 600) { // celular
         setVisibleCount(1);
-        setImageWidth(width * 0.5); // mucho más pequeño (50% de la pantalla)
-        setImageHeight((width * 0.5 * 3) / 5); // mantiene proporción
+        setImageWidth(width * 0.5);
+        setImageHeight((width * 0.5 * 3) / 5);
       } else if (width <= 1024) { // tablet
         setVisibleCount(2);
         setImageWidth(250);
@@ -48,9 +46,10 @@ const AutoSlider = () => {
   return (
     <div
       style={{
-        width: `${imageWidth}px`,
+        width: "100%",           // contenedor ocupa todo el ancho disponible
+        maxWidth: `${visibleCount * (imageWidth + 10)}px`, // máximo ancho según imágenes
         overflow: "hidden",
-        margin: "40px auto", // centrado
+        margin: "40px auto",
       }}
     >
       <div
@@ -82,6 +81,8 @@ const AutoSlider = () => {
 };
 
 export default AutoSlider;
+
+
 
 
 
