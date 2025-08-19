@@ -1,4 +1,4 @@
-html, body, #root {
+html, body, #root .App{
   height: 100%;
   margin: 0;
 }
@@ -131,6 +131,7 @@ html, body, #root {
 .App-main {
   font-size: calc(0.5rem + 2vmin);
   color: black;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -154,13 +155,11 @@ html, body, #root {
 
 /* ---------- FOOTER ---------- */
 .App-footer {
-  background-color: #57606D;
+  width: 100%;
+  background: #4B5060;
   color: white;
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
+  text-align: left;   /* o center si prefieres */
 }
 
 #footer {
@@ -306,14 +305,10 @@ html, body, #root {
   }
 
   /* Footer ocupa todo el ancho */
-.App-footer {
-  width: 100%;
-  background: #4B5060;   /* color de ejemplo */
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;      /* truco que lo empuja al fondo */
-}
+  .App-footer {
+    margin-top: auto; /* asegura que se pegue abajo */
+    text-align: center;
+  }
 
   /* Productos */
   .product-container {
@@ -379,11 +374,8 @@ html, body, #root {
     margin-top: 0.75rem;
   }
 
-  /* Footer ocupa todo el ancho */
   .App-footer {
-    width: 100%;
-    position: relative;
-    bottom: 0;
+    margin-top: auto;
     align-items: flex-start;
     text-align: left;
   }
