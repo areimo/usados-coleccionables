@@ -14,22 +14,27 @@ const SecondSlider = () => {
   const [sideImageWidth, setSideImageWidth] = useState(200);
   const [centerImageWidth, setCenterImageWidth] = useState(780);
   const [imageGap, setImageGap] = useState(10);
+  const [sliderWidth, setSliderWidth] = useState(1180);
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width <= 600) {         // celulares
-        setSideImageWidth((width - 40) / 4);
-        setCenterImageWidth((width - 40) / 2);
+
+      if (width <= 600) { // celular
+        setSideImageWidth(100);
+        setCenterImageWidth(180);
         setImageGap(5);
-      } else if (width <= 1024) { // tablets
+        setSliderWidth(220);
+      } else if (width <= 1024) { // tablet
         setSideImageWidth(150);
         setCenterImageWidth(400);
         setImageGap(8);
-      } else {                     // PC
+        setSliderWidth(700);
+      } else { // PC
         setSideImageWidth(200);
         setCenterImageWidth(780);
         setImageGap(10);
+        setSliderWidth(1180);
       }
     };
 
@@ -50,7 +55,7 @@ const SecondSlider = () => {
   return (
     <div
       style={{
-        width: `${slideWidth}px`,
+        width: `${sliderWidth}px`,
         height: "300px",
         overflow: "hidden",
         margin: "40px auto",

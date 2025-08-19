@@ -10,19 +10,24 @@ const AutoSlider = () => {
   const [index, setIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
   const [imageWidth, setImageWidth] = useState(500);
+  const [sliderWidth, setSliderWidth] = useState(1500);
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      if (width <= 600) {        // celulares
+
+      if (width <= 600) { // celular
         setVisibleCount(1);
-        setImageWidth(width - 40); // ancho con margen
-      } else if (width <= 1024) { // tablets
+        setImageWidth(180);
+        setSliderWidth(200); // slider más pequeño que el ancho de la pantalla
+      } else if (width <= 1024) { // tablet
         setVisibleCount(2);
-        setImageWidth((width - 60) / 2);
-      } else {                     // PC
+        setImageWidth(250);
+        setSliderWidth(520);
+      } else { // PC
         setVisibleCount(3);
         setImageWidth(500);
+        setSliderWidth(1500);
       }
     };
 
@@ -41,7 +46,7 @@ const AutoSlider = () => {
   return (
     <div
       style={{
-        width: `${visibleCount * imageWidth}px`,
+        width: `${sliderWidth}px`,
         overflow: "hidden",
         margin: "40px auto",
       }}
@@ -61,7 +66,7 @@ const AutoSlider = () => {
             alt={`img-${i}`}
             style={{
               width: `${imageWidth}px`,
-              height: `${(imageWidth * 3) / 5}px`, // mantener proporción 5:3
+              height: `${(imageWidth * 3) / 5}px`,
               objectFit: "cover",
               borderRadius: "5px",
               marginRight: "10px",
