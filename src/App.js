@@ -190,7 +190,7 @@ useEffect(() => {
           borderRadius: "5px",
           padding: "1rem",
           marginTop: "1rem",
-          width: "220px",
+          width: "150px",
           textAlign: "center",
           position: "relative",
         }}
@@ -347,8 +347,14 @@ const featuredProducts = [
                   fontSize: "0.9rem",
                   borderRadius: "0.25rem",
                   border: "1px solid #4B5060",
-                  width: "350px",
+                  width: 
+                    window.innerWidth <= 600
+                    ? "200px"
+                    :window.innerWidth <= 1024
+                    ? "280px"
+                    : "350px",
                   height: "1.5rem",
+                  maxWidth: "90%"
                 }}
               />
             </div>
@@ -434,7 +440,7 @@ const featuredProducts = [
       <img
         src={selectedProduct.image}
         alt={selectedProduct.title}
-        style={{ width: "400px", height: "300px", borderRadius: "5px" }}
+        style={{ width: "300px", height: "300px", borderRadius: "5px" }}
       />
       <h2>{selectedProduct.title}</h2>
       <h3 style={{ color: "#00aa00" }}>{selectedProduct.price}</h3>

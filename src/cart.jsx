@@ -34,20 +34,17 @@ const Cart = () => {
         boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
         borderRadius: "0.25rem",
         position: "fixed",
-        right: "1rem",
-        top: "50%", // mitad de pantalla
-        transform: "translateY(-60%)", // un poco más arriba para dejar lugar a WhatsApp
+        right: "1.25rem",
+        bottom: "7rem", // un poco más arriba que WhatsApp
         zIndex: 1000,
       }}
-      onMouseOver={e => e.currentTarget.style.transform = "translateY(-60%) scale(1.1)"}
-      onMouseOut={e => e.currentTarget.style.transform = "translateY(-60%) scale(1)"}
+      onMouseOver={e => e.currentTarget.style.transform = "scale(1.1)"}
+      onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
     />
   );
 };
 
 export default Cart;
-
-
 
 
 
