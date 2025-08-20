@@ -57,7 +57,9 @@ function App() {
   const [searchText, setSearchText] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [, setUsers] = useState([]);
-  const [showShippingForm, setShowShippingForm] = useState(false);
+  const [showShippingForm, setShowShippingForm] = useState(false); // Solo una vez
+  const [cartItems, setCartItems] = useState([]);
+
   const [shippingData, setShippingData] = useState({
   name: "",
   address: "",
@@ -69,6 +71,24 @@ function App() {
   metodoEntrega: "",   
   agencia: "",         
 });
+
+const addToCart = (product) => {
+  const exists = cartItems.find((item) => item.id === product.id);
+
+  if (exists) {
+
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  } else {
+
+    setCartItems((prev) => [...prev, { ...product, quantity: 1 }]);
+  }
+  setSelectedProduct(product);
+};
+
 
 const handleNext = async () => {
   if (!selectedProduct) return alert("Selecciona un producto primero");
@@ -126,22 +146,6 @@ useEffect(() => {
     .then((res) => setUsers(res.data))
     .catch((err) => console.error(err));
 }, []);
-
-  const headerStyle = (bg) => ({
-    backgroundColor: bg,
-    width: "11.2rem",
-    height: "4.125rem",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    fontSize: "calc(0.75rem + 2vmin)",
-    color: "white",
-    padding: "0 1.25rem",
-    cursor: "pointer",
-    borderRadius: "0.3125rem",
-    boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-  });
 
   const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
 
@@ -242,7 +246,6 @@ const featuredProducts = [
 
   const handleBuyClick = (product) => {
     setSelectedProduct(product);
-    setShowShippingForm(true);
     setPage("product");
   };
 
@@ -432,7 +435,10 @@ const featuredProducts = [
         }}
       >
         <button
-          onClick={()=>handleBuyClick(selectedProduct)}
+          onClick={() => {
+            handleBuyClick(selectedProduct);
+            setShowShippingForm(true);
+          }}
           style={{
             display: "flex",
             alignItems: "center",
@@ -453,6 +459,29 @@ const featuredProducts = [
             style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
           />
           Comprar
+        </button>
+        <button onClick={()=>addToCart(selectedProduct)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "0.5rem 1rem",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#007bff",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+        >
+
+          <img
+            src={buyicon}
+            alt="cart"
+            style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
+          />
+          Agregar al carrito
         </button>
 
         <button
@@ -877,7 +906,8 @@ const featuredProducts = [
         </motion.div>
       </AnimatePresence>
       <div style={{position: "fixed",bottom: "1.25rem",right: "1.25rem",display: "flex",flexDirection: "column",gap: "0.5rem",zIndex: 1000,}}>
-       <Cart />
+       <Cart selectedProduct={selectedProduct} cartItems={cartItems} setCartItems={setCartItems}
+       showShippingForm={showShippingForm} setShowShippingForm={setShowShippingForm} />
        <WppContact />
       </div>
     </div>
