@@ -42,6 +42,7 @@ import './App.css';
 import AutoSlider from './slider.jsx';
 import WppContact from './wppContact.jsx';
 import { SecondSlider } from './secondslider.jsx';
+import CheckoutForm from './CheckoutForm.jsx';
 
 
 import { initMercadoPago} from '@mercadopago/sdk-react';
@@ -59,6 +60,7 @@ function App() {
   const [, setUsers] = useState([]);
   const [showShippingForm, setShowShippingForm] = useState(false); // Solo una vez
   const [cartItems, setCartItems] = useState([]);
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
 
   const [shippingData, setShippingData] = useState({
   name: "",
@@ -89,50 +91,22 @@ const addToCart = (product) => {
   setSelectedProduct(product);
 };
 
-
-const handleNext = async () => {
+const handleNext = () => {
   if (!selectedProduct) return alert("Selecciona un producto primero");
 
+  // Validaciones que ya tenías
   const requiredFields = ["name", "email", "phone"];
-
   if (shippingData.metodoEntrega === "domicilio") {
     requiredFields.push("address", "city", "departamento");
   } else if (shippingData.metodoEntrega === "dac") {
-    requiredFields.push("agencia"); 
+    requiredFields.push("agencia");
   }
-
   for (let key of requiredFields) {
     if (!shippingData[key]) return alert(`Completa el campo ${key}`);
   }
 
-  try {
- 
-    const price = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
-    if (isNaN(price)) return alert("Precio inválido");
-
-    const prefRes = await axios.post("http://localhost:3001/api/create_preference", {
-      title: selectedProduct.title,
-      unit_price: price,
-      quantity: 1,
-    });
-
-    const { init_point } = prefRes.data;
-    if (!init_point) return alert("No se pudo generar la preferencia");
-
-    setShowShippingForm(false);
-
-    window.open(init_point, "_blank");
-
-    await axios.post("http://localhost:3001/api/order", {
-      product: selectedProduct,
-      shipping: shippingData,
-    });
-
-    alert("Pedido procesado correctamente");
-  } catch (err) {
-    console.error(err);
-    alert("Hubo un problema al procesar tu pedido.");
-  }
+  setShowShippingForm(false);
+  setPage("checkout"); // 👉 en vez de abrir init_point
 };
 
 const handleShippingChange = (e) => {
@@ -367,144 +341,51 @@ const featuredProducts = [
           </motion.div>
         )}
 
-        {["ps3", "ps2", "xbox360", "nintendo", "otros"].includes(page) && (
-          <motion.div
-            key={page}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.5 }}
-          >
-            <ConsoleHeaders />
-            <div className="product-container">
-              {featuredProducts
-                .filter((p) => {
-                  if (page === "ps3") return p.title.includes("PS3");
-                  if (page === "ps2") return p.title.includes("PS2");
-                  if (page === "xbox360") return p.title.includes("XBOX360");
-                  if (page === "nintendo")
-                    return (
-                      p.title.includes("NINTENDO") ||
-                      p.title.includes("WII") ||
-                      p.title.includes("DS") ||
-                      p.title.includes("64")
-                    );
-                  if (page === "otros")
-                    return (
-                      !p.title.includes("PS3") &&
-                      !p.title.includes("PS2") &&
-                      !p.title.includes("XBOX360") &&
-                      !p.title.includes("NINTENDO") &&
-                      !p.title.includes("WII") &&
-                      !p.title.includes("DS") &&
-                      !p.title.includes("64")
-                    );
-                  return false;
-                })
-                .map((product) => (
-                  <ProductCard key={product.id} product={product} onBuyClick={handleBuyClick} />
-                ))}
-            </div>
-          </motion.div>
-        )}
-
-{page === "product" && selectedProduct && (
+{/* Contenido de la tienda */}
+{["ps3", "ps2", "xbox360", "nintendo", "otros"].includes(page) && (
   <motion.div
-    key="product"
+    key={page}
     initial={{ opacity: 0, y: 30 }}
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -30 }}
     transition={{ duration: 0.5 }}
   >
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <img
-        src={selectedProduct.image}
-        alt={selectedProduct.title}
-        style={{ width: "300px", height: "300px", borderRadius: "5px" }}
-      />
-      <h2>{selectedProduct.title}</h2>
-      <h3 style={{ color: "#00aa00" }}>{selectedProduct.price}</h3>
-      <p style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "1rem",
-          marginTop: "2.5rem",
-        }}
-      >
-        <button
-          onClick={() => {
-            handleBuyClick(selectedProduct);
-            setShowShippingForm(true);
-          }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "0.5rem 1rem",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            cursor: "pointer",
-            backgroundColor: "#28a745",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <img
-            src={buyicon}
-            alt="shop"
-            style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
-          />
-          Comprar
-        </button>
-        <button onClick={()=>addToCart(selectedProduct)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "0.5rem 1rem",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            cursor: "pointer",
-            backgroundColor: "#007bff",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-          }}
-        >
-
-          <img
-            src={buyicon}
-            alt="cart"
-            style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
-          />
-          Agregar al carrito
-        </button>
-
-        <button
-          onClick={() => setPage("shop")}
-          style={{
-            padding: "0.5rem 1rem",
-            fontSize: "1rem",
-            fontWeight: "bold",
-            cursor: "pointer",
-            backgroundColor: "#4B5060",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          Volver 
-        </button>
-      </div>
+    <ConsoleHeaders />
+    <div className="product-container">
+      {featuredProducts
+        .filter((p) => {
+          if (page === "ps3") return p.title.includes("PS3");
+          if (page === "ps2") return p.title.includes("PS2");
+          if (page === "xbox360") return p.title.includes("XBOX360");
+          if (page === "nintendo")
+            return (
+              p.title.includes("NINTENDO") ||
+              p.title.includes("WII") ||
+              p.title.includes("DS") ||
+              p.title.includes("64")
+            );
+          if (page === "otros")
+            return (
+              !p.title.includes("PS3") &&
+              !p.title.includes("PS2") &&
+              !p.title.includes("XBOX360") &&
+              !p.title.includes("NINTENDO") &&
+              !p.title.includes("WII") &&
+              !p.title.includes("DS") &&
+              !p.title.includes("64")
+            );
+          return false;
+        })
+        .map((product) => (
+          <ProductCard key={product.id} product={product} onBuyClick={handleBuyClick} />
+        ))}
     </div>
+  </motion.div>
+)}
 
-<AnimatePresence>
-  {showShippingForm && (
+{/* CheckoutForm como overlay */}
+{showCheckoutForm && selectedProduct && (
+  <AnimatePresence>
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -539,9 +420,8 @@ const featuredProducts = [
           boxShadow: "0px 4px 20px rgba(0,0,0,0.2)",
         }}
       >
-
         <button
-          onClick={() => setShowShippingForm(false)}
+          onClick={() => setShowCheckoutForm(false)}
           style={{
             position: "absolute",
             top: "15px",
@@ -557,317 +437,393 @@ const featuredProducts = [
           ✕
         </button>
 
-        <h3 style={{ fontSize: "1.6rem", marginBottom: "1.5rem", textAlign: "center" }}>
-          Datos de Envío
-        </h3>
+        <CheckoutForm
+          selectedProduct={selectedProduct}
+          shippingData={shippingData}
+          onFinish={() => setShowCheckoutForm(false)}
+          show={showCheckoutForm}
+          setShow={setShowCheckoutForm}
+        />
+      </motion.div>
+    </motion.div>
+  </AnimatePresence>
+)}
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "1.5rem 2rem",
-            marginBottom: "2rem",
-          }}
-        >
+{page === "product" && selectedProduct && (
+  <motion.div
+    key="product"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -30 }}
+    transition={{ duration: 0.5 }}
+  >
+    <div style={{ padding: "2rem", textAlign: "center" }}>
+      <img
+        src={selectedProduct.image}
+        alt={selectedProduct.title}
+        style={{ width: "300px", height: "300px", borderRadius: "5px" }}
+      />
+      <h2>{selectedProduct.title}</h2>
+      <h3 style={{ color: "#00aa00" }}>{selectedProduct.price}</h3>
+      <p style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
 
-          <div>
-            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-              Nombre
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={shippingData.name}
-              onChange={handleShippingChange}
-              placeholder="Ej: Juan Pérez"
-              style={{
-                padding: "0.6rem",
-                fontSize: "1rem",
-                width: "94%",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-              }}
-              required
-            />
-          </div>
-
-          <div>
-            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-              Cédula
-            </label>
-            <input
-              type="text"
-              name="cedula"
-              title="Sin puntos ni guiones"
-              value={shippingData.cedula || ""}
-              onChange={handleShippingChange}
-              placeholder="Ej: 5555555-5"
-              style={{
-                padding: "0.6rem",
-                fontSize: "1rem",
-                width: "94%",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-              }}
-              required
-            />
-          </div>
-
-          {(shippingData.metodoEntrega === "domicilio" || shippingData.metodoEntrega === "dac") && (
-            <div style={{ gridColumn: "span 2" }}>
-              <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-                Dirección
-              </label>
-              <input
-                type="text"
-                name="address"
-                value={shippingData.address}
-                onChange={handleShippingChange}
-                placeholder="Ej: Av. Principal 123"
-                style={{
-                  padding: "0.6rem",
-                  fontSize: "1rem",
-                  width: "97%",
-                  border: "1px solid #ccc",
-                  borderRadius: "6px",
-                }}
-                required
-              />
-            </div>
-          )}
-
-          {shippingData.metodoEntrega === "domicilio" && (
-            <div>
-              <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-                Departamento
-              </label>
-              <input
-                type="text"
-                name="departamento"
-                value={shippingData.departamento || ""}
-                onChange={handleShippingChange}
-                placeholder="Ej: Montevideo"
-                style={{
-                  padding: "0.6rem",
-                  fontSize: "1rem",
-                  width: "94%",
-                  border: "1px solid #ccc",
-                  borderRadius: "6px",
-                }}
-                required
-              />
-            </div>
-          )}
-
-          {shippingData.metodoEntrega === "domicilio" && (
-            <div>
-              <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-                Ciudad
-              </label>
-              <input
-                type="text"
-                name="city"
-                value={shippingData.city}
-                onChange={handleShippingChange}
-                placeholder="Ej: Montevideo"
-                style={{
-                  padding: "0.6rem",
-                  fontSize: "1rem",
-                  width: "94%",
-                  border: "1px solid #ccc",
-                  borderRadius: "6px",
-                }}
-                required
-              />
-            </div>
-          )}
-
-          <div>
-            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={shippingData.email}
-              onChange={handleShippingChange}
-              placeholder="Ej: juan@email.com"
-              style={{
-                padding: "0.6rem",
-                fontSize: "1rem",
-                width: "94%",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-              }}
-              required
-            />
-          </div>
-
-          <div>
-            <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-              Teléfono
-            </label>
-            <input
-              type="text"
-              name="phone"
-              value={shippingData.phone}
-              onChange={handleShippingChange}
-              placeholder="Ej: 099123456"
-              style={{
-                padding: "0.6rem",
-                fontSize: "1rem",
-                width: "94%",
-                border: "1px solid #ccc",
-                borderRadius: "6px",
-              }}
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <h4 style={{ fontSize: "1.2rem", marginBottom: "1rem" }}>Método de Entrega</h4>
-
-          <div style={{ display: "flex", gap: "2rem", marginBottom: "1rem", flexWrap: "wrap" }}>
-            <label>
-              <input
-                type="radio"
-                name="metodoEntrega"
-                value="dac"
-                checked={shippingData.metodoEntrega === "dac"}
-                onChange={handleShippingChange}
-              />{" "}
-              Agencia DAC
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="metodoEntrega"
-                value="domicilio"
-                checked={shippingData.metodoEntrega === "domicilio"}
-                onChange={handleShippingChange}
-              />{" "}
-              Entrega a domicilio
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                name="metodoEntrega"
-                value="local"
-                checked={shippingData.metodoEntrega === "local"}
-                onChange={handleShippingChange}
-              />{" "}
-              Retiro en local
-            </label>
-          </div>
-
-          {shippingData.metodoEntrega === "dac" && (
-            <div>
-              <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
-                Seleccione Agencia
-              </label>
-              <select
-                name="agencia"
-                value={shippingData.agencia || ""}
-                onChange={handleShippingChange}
-                style={{
-                  width: "100%",
-                  padding: "0.6rem",
-                  fontSize: "1rem",
-                  border: "1px solid #ccc",
-                  borderRadius: "6px",
-                }}
-                required
-              >
-                <option value="">Selecciona una agencia</option>
-                <option value="Montevideo">Montevideo</option>
-                <option value="Canelones">Canelones</option>
-                <option value="Maldonado">Maldonado</option>
-                <option value="Paysandú">Paysandú</option>
-                <option value="Salto">Salto</option>
-              </select>
-              <p style={{ color: "#a00", fontSize: "0.9rem", marginTop: "0.5rem" }}>
-                El costo del envío será abonado por el cliente al momento de la entrega
-              </p>
-            </div>
-          )}
-
-          {shippingData.metodoEntrega === "domicilio" && (
-            <p style={{ color: "#a00", fontSize: "0.9rem", marginTop: "0.5rem" }}>
-              El costo del envío será abonado por el cliente al momento de la entrega
-            </p>
-          )}
-        </div>
-
-        <div
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "1rem",
+          marginTop: "2.5rem",
+          flexWrap: "wrap",
+        }}
+      >
+        <button
+          onClick={() => setShowShippingForm(true)}
           style={{
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
-            gap: "1rem",
-            marginTop: "2rem",
+            padding: "0.5rem 1rem",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#28a745",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
           }}
         >
+          <img
+            src={buyicon}
+            alt="shop"
+            style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
+          />
+          Comprar
+        </button>
 
-          {(shippingData.metodoEntrega === "dac" || shippingData.metodoEntrega === "domicilio") && (
-            <button
-              onClick={() => window.open("https://www.dac.com.uy/tarifas?gad_source=1&gad_campaignid=20671149744", "_blank")}
-              style={{
-                padding: "0.7rem 1.5rem",
-                backgroundColor: "#D5312D",
-                color: "white",
-                fontWeight: "600",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                fontSize: "1rem",
-              }}
-            >
-              Tarifas
-            </button>
-          )}
+        <button
+          onClick={() => addToCart(selectedProduct)}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            padding: "0.5rem 1rem",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#007bff",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          <img
+            src={buyicon}
+            alt="cart"
+            style={{ width: "24px", height: "24px", marginRight: "0.5rem" }}
+          />
+          Agregar al carrito
+        </button>
 
-          <div style={{ display: "flex", gap: "1rem" }}>
+        <button
+          onClick={() => setPage("shop")}
+          style={{
+            padding: "0.5rem 1rem",
+            fontSize: "1rem",
+            fontWeight: "bold",
+            cursor: "pointer",
+            backgroundColor: "#4B5060",
+            color: "white",
+            borderRadius: "5px",
+            border: "none",
+            boxShadow: "0 0.3125rem 0.3125rem rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          Volver
+        </button>
+      </div>
+    </div>
+
+    <AnimatePresence>
+      {showShippingForm && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.6)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              backgroundColor: "#fff",
+              padding: "2rem",
+              borderRadius: "12px",
+              width: "95%",
+              maxWidth: "800px",
+              position: "relative",
+              fontSize: "1rem",
+              boxShadow: "0px 4px 20px rgba(0,0,0,0.2)",
+            }}
+          >
             <button
               onClick={() => setShowShippingForm(false)}
               style={{
-                padding: "0.7rem 1.5rem",
-                fontWeight: "600",
-                backgroundColor: "#6c757d",
-                color: "white",
-                borderRadius: "5px",
+                position: "absolute",
+                top: "15px",
+                right: "15px",
+                background: "transparent",
                 border: "none",
+                fontSize: "1.5rem",
+                fontWeight: "bold",
                 cursor: "pointer",
-                fontSize: "1rem",
+                color: "#333",
               }}
             >
-              Cancelar
+              ✕
             </button>
 
-            <button
-              onClick={handleNext}
-              style={{
-                padding: "0.7rem 1.5rem",
-                fontWeight: "600",
-                backgroundColor: "#28a745",
-                color: "white",
-                borderRadius: "5px",
-                border: "none",
-                cursor: "pointer",
-                fontSize: "1rem",
-              }}
-            >
-              Siguiente
-            </button>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  )}
-</AnimatePresence>
+            <h3 style={{ fontSize: "1.6rem", marginBottom: "1.5rem", textAlign: "center" }}>
+              Datos de Envío
+            </h3>
 
+            <div style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "1.5rem 2rem",
+              marginBottom: "2rem",
+            }}>
+              {/* Inputs Nombre, Cédula, Email, Teléfono */}
+              <div>
+                <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={shippingData.name}
+                  onChange={handleShippingChange}
+                  placeholder="Ej: Juan Pérez"
+                  style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                  required
+                />
+              </div>
+
+              <div>
+                <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+                  Cédula
+                </label>
+                <input
+                  type="text"
+                  name="cedula"
+                  value={shippingData.cedula || ""}
+                  onChange={handleShippingChange}
+                  placeholder="Ej: 5555555-5"
+                  style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                  required
+                />
+              </div>
+
+              <div>
+                <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={shippingData.email}
+                  onChange={handleShippingChange}
+                  placeholder="Ej: juan@email.com"
+                  style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                  required
+                />
+              </div>
+
+              <div>
+                <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>
+                  Teléfono
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={shippingData.phone}
+                  onChange={handleShippingChange}
+                  placeholder="Ej: 099123456"
+                  style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                  required
+                />
+              </div>
+
+              {/* Método de entrega */}
+              <div style={{ gridColumn: "span 2" }}>
+                <h4 style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>Método de Entrega</h4>
+                <label>
+                  <input
+                    type="radio"
+                    name="metodoEntrega"
+                    value="dac"
+                    checked={shippingData.metodoEntrega === "dac"}
+                    onChange={handleShippingChange}
+                  /> Agencia DAC
+                </label>
+                <label style={{ marginLeft: "1rem" }}>
+                  <input
+                    type="radio"
+                    name="metodoEntrega"
+                    value="domicilio"
+                    checked={shippingData.metodoEntrega === "domicilio"}
+                    onChange={handleShippingChange}
+                  /> Entrega a domicilio
+                </label>
+                <label style={{ marginLeft: "1rem" }}>
+                  <input
+                    type="radio"
+                    name="metodoEntrega"
+                    value="local"
+                    checked={shippingData.metodoEntrega === "local"}
+                    onChange={handleShippingChange}
+                  /> Retiro en local
+                </label>
+              </div>
+
+              {shippingData.metodoEntrega === "domicilio" && (
+                <>
+                  <div>
+                    <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>Dirección</label>
+                    <input
+                      type="text"
+                      name="address"
+                      value={shippingData.address}
+                      onChange={handleShippingChange}
+                      placeholder="Ej: Av. Principal 123"
+                      style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>Ciudad</label>
+                    <input
+                      type="text"
+                      name="city"
+                      value={shippingData.city}
+                      onChange={handleShippingChange}
+                      placeholder="Ej: Montevideo"
+                      style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>Departamento</label>
+                    <input
+                      type="text"
+                      name="departamento"
+                      value={shippingData.departamento}
+                      onChange={handleShippingChange}
+                      placeholder="Ej: Montevideo"
+                      style={{ padding: "0.6rem", fontSize: "1rem", width: "94%", border: "1px solid #ccc", borderRadius: "6px" }}
+                      required
+                    />
+                  </div>
+                </>
+              )}
+
+              {shippingData.metodoEntrega === "dac" && (
+                <div>
+                  <label style={{ display: "block", marginBottom: "0.3rem", fontWeight: "600" }}>Agencia</label>
+                  <select
+                    name="agencia"
+                    value={shippingData.agencia || ""}
+                    onChange={handleShippingChange}
+                    style={{ width: "100%", padding: "0.6rem", fontSize: "1rem", border: "1px solid #ccc", borderRadius: "6px" }}
+                    required
+                  >
+                    <option value="">Selecciona una agencia</option>
+                    <option value="Montevideo">Montevideo</option>
+                    <option value="Canelones">Canelones</option>
+                    <option value="Maldonado">Maldonado</option>
+                    <option value="Paysandú">Paysandú</option>
+                    <option value="Salto">Salto</option>
+                  </select>
+                </div>
+              )}
+
+            </div>
+
+            {/* Botón Ver Tarifas */}
+          {(shippingData.metodoEntrega === "domicilio" || shippingData.metodoEntrega === "dac") && (
+            <div style={{ marginBottom: "1rem", textAlign: "left" }}>
+              <button
+                onClick={() => alert("Aquí irían las tarifas")}
+                style={{
+                  padding: "0.6rem 1.2rem",
+                  fontWeight: "600",
+                  backgroundColor: "#D5312D",
+                  color: "white",
+                  borderRadius: "5px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                }}
+              >
+                Tarifas
+              </button>
+            </div>
+          )}
+
+            {/* Botones Cancelar / Siguiente */}
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+              <button
+                onClick={() => setShowShippingForm(false)}
+                style={{
+                  padding: "0.7rem 1.5rem",
+                  fontWeight: "600",
+                  backgroundColor: "#6c757d",
+                  color: "white",
+                  borderRadius: "5px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                }}
+              >
+                Cancelar
+              </button>
+
+              <button
+                onClick={() => {setShowShippingForm(false);
+                setShowCheckoutForm(true);
+                handleNext();}}
+                style={{
+                  padding: "0.7rem 1.5rem",
+                  fontWeight: "600",
+                  backgroundColor: "#28a745",
+                  color: "white",
+                  borderRadius: "5px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                }}
+              >
+                Siguiente
+              </button>
+            </div>
+
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   </motion.div>
 )}
         <motion.div
