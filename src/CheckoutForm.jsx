@@ -3,6 +3,12 @@ import axios from "axios";
 import { initMercadoPago, createCardToken } from "@mercadopago/sdk-react";
 
 export default function CheckoutForm({ selectedProduct, shippingData, show, setShow }) {
+  const [loading, setLoading] = useState(false);
+  const transactionAmount = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
+import React, { useEffect, useState } from "react";
+import { initMercadoPago, CardNumber, ExpirationDate, SecurityCode } from "@mercadopago/sdk-react";
+
+export default function CheckoutForm({ selectedProduct }) {
   const [mp, setMp] = useState(null);
   const [ready, setReady] = useState(false);
 
@@ -20,9 +26,6 @@ export default function CheckoutForm({ selectedProduct, shippingData, show, setS
   }, []);
 
   if (!show) return null;
-
-  const transactionAmount = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
-
   const handlePayment = async (e) => {
     e.preventDefault();
 

@@ -47,6 +47,10 @@ import CheckoutForm from './CheckoutForm.jsx';
 
 import { initMercadoPago} from '@mercadopago/sdk-react';
 import Cart from './cart.jsx';
+// CRA
+const accessToken = process.env.REACT_APP_MP_ACCESS_TOKEN;
+console.log("Token:", accessToken);
+import { initMercadoPago } from "@mercadopago/sdk-react";
 
 initMercadoPago("APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b", {
   locale: "es-UY",
@@ -113,13 +117,6 @@ const handleShippingChange = (e) => {
   const { name, value } = e.target;
   setShippingData((prev) => ({ ...prev, [name]: value }));
 };
-
-useEffect(() => {
-  axios
-    .get(`http://localhost:3001/api/users`)
-    .then((res) => setUsers(res.data))
-    .catch((err) => console.error(err));
-}, []);
 
   const logoStyle = { marginRight: "10px", height: "5vmin", pointerEvents: "none" };
 
