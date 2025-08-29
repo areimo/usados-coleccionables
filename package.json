@@ -5,6 +5,7 @@
   "homepage": "https://areimo.github.io/usados-coleccionables",
   "description": "Sitio oficial de Usados Coleccionables.",
   "dependencies": {
+    "@mercadopago/sdk-js": "^0.0.3",
     "@mercadopago/sdk-react": "^1.0.4",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
