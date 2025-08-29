@@ -1,74 +1,45 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { initMercadoPago, createCardToken } from "@mercadopago/sdk-react";
+import React, { useState } from "react";
 
 export default function CheckoutForm({ selectedProduct, shippingData, show, setShow }) {
   const [loading, setLoading] = useState(false);
-  const transactionAmount = parseFloat(selectedProduct.price.replace(/[^0-9.-]+/g, ""));
-import React, { useEffect, useState } from "react";
-import { initMercadoPago, CardNumber, ExpirationDate, SecurityCode } from "@mercadopago/sdk-react";
-
-export default function CheckoutForm({ selectedProduct }) {
-  const [mp, setMp] = useState(null);
-  const [ready, setReady] = useState(false);
-
-  // Inicializar Mercado Pago de forma asíncrona
-  useEffect(() => {
-    async function initialize() {
-      const mpInstance = await initMercadoPago(
-        "APP_USR-06e452ab-7538-4209-ab30-a16b5ea4760b",
-        { locale: "es-UY" }
-      );
-      setMp(mpInstance);
-      setReady(true);
-    }
-    initialize();
-  }, []);
+  const [cardNumber, setCardNumber] = useState("");
+  const [expirationDate, setExpirationDate] = useState("");
+  const [cvv, setCvv] = useState("");
 
   if (!show) return null;
-  const handlePayment = async (e) => {
-    e.preventDefault();
 
-    if (!ready || !mp) return alert("Mercado Pago aún no está inicializado");
+  const handlePayment = (e) => {
+    e.preventDefault();
+    setLoading(true);
 
     try {
-      const form = e.target;
-
-      const cardData = {
-        cardNumber: form.cardNumber.value,
-        cardholderName: form.cardholderName.value,
-        identificationType: "CI",
-        identificationNumber: shippingData.cedula,
-        expirationMonth: form.expirationMonth.value,
-        expirationYear: form.expirationYear.value,
-        securityCode: form.securityCode.value,
-      };
-
-      const tokenResponse = await createCardToken(mp, cardData);
-      const token = tokenResponse.id;
-
-      const body = {
-        token,
-        transactionAmount,
-        description: selectedProduct.title,
-        installments: 1,
-        paymentMethodId: "visa",
-        issuer: "issuer_id",
-        email: shippingData.email,
-        identificationType: "CI",
-        identificationNumber: shippingData.cedula,
-      };
-
-      const res = await axios.post("http://localhost:3001/api/create_payment", body);
-
-      console.log("Pago exitoso:", res.data);
-      alert(`Pago realizado correctamente! Estado: ${res.data.status}`);
+      console.log("Datos enviados:", {
+        cardNumber,
+        expirationDate,
+        cvv,
+        product: selectedProduct,
+      });
+      alert("Formulario enviado con éxito ✅");
       setShow(false);
-
     } catch (err) {
-      console.error("Error procesando el pago:", err.response?.data || err);
-      alert("Error al procesar el pago. Revisa la consola para más detalles.");
+      console.error(err);
+      alert("Error procesando el pago ❌");
     }
+
+    setLoading(false);
+  };
+
+  const handleOnlyNumbers = (e, setter, maxLength) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, maxLength);
+    setter(value);
+  };
+
+  const handleExpiration = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    if (value.length >= 3) {
+      value = value.slice(0, 2) + "/" + value.slice(2, 4);
+    }
+    setExpirationDate(value.slice(0, 5));
   };
 
   return (
@@ -90,13 +61,15 @@ export default function CheckoutForm({ selectedProduct }) {
         style={{
           backgroundColor: "#fff",
           padding: "2rem",
-          borderRadius: "12px",
+          borderRadius: "16px",
           width: "95%",
-          maxWidth: "800px",
+          maxWidth: "400px",
           fontSize: "1rem",
           position: "relative",
+          boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
         }}
       >
+        {/* Botón cerrar */}
         <button
           onClick={() => setShow(false)}
           style={{
@@ -114,58 +87,139 @@ export default function CheckoutForm({ selectedProduct }) {
           ✕
         </button>
 
-        <h3 style={{ fontSize: "1.6rem", marginBottom: "1.5rem", textAlign: "center" }}>
-          Datos de Pago
+        <h3
+          style={{
+            fontSize: "1.6rem",
+            marginBottom: "1.5rem",
+            textAlign: "center",
+            color: "#222",
+          }}
+        >
+          Datos de Tarjeta
         </h3>
 
-        {!ready && <p style={{ textAlign: "center" }}>Cargando formulario de pago...</p>}
+        {/* FORM */}
+        <form
+          onSubmit={handlePayment}
+          style={{
+            display: "flex",
+            flexDirection: "column", 
+            gap: "1.2rem",
+          }}
+        >
+          {/* Número tarjeta */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <label>Número de tarjeta</label>
+            <input
+              type="text"
+              value={cardNumber}
+              onChange={(e) => handleOnlyNumbers(e, setCardNumber, 16)}
+              placeholder="0000 0000 0000 0000"
+              required
+              style={inputStyle}
+            />
+          </div>
 
-        {ready && (
-          <form onSubmit={handlePayment}>
-            <div
+          {/* Exp */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <label>Vencimiento</label>
+            <input
+              type="text"
+              value={expirationDate}
+              onChange={handleExpiration}
+              placeholder="MM/YY"
+              required
+              style={inputStyle}
+            />
+          </div>
+
+          {/* CVV */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <label>CVV</label>
+            <input
+              type="password"
+              value={cvv}
+              onChange={(e) => handleOnlyNumbers(e, setCvv, 4)}
+              placeholder="CVV"
+              required
+              style={inputStyle}
+            />
+          </div>
+
+          {/* Botones */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "1rem",
+              marginTop: "1rem",
+              width: "100%",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setShow(false)}
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1.5rem 2rem",
-                marginBottom: "2rem",
+                flex: 1,
+                padding: "0.8rem 1.5rem",
+                backgroundColor: "#6c757d",
+                color: "#fff",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
               }}
             >
-              <div>
-                <label>Titular</label>
-                <input type="text" name="cardholderName" placeholder="Titular de la tarjeta" required style={{ width: "100%", padding: "0.6rem", borderRadius: "6px" }} />
-              </div>
-              <div>
-                <label>Email</label>
-                <input type="email" name="cardholderEmail" placeholder="E-mail" required style={{ width: "100%", padding: "0.6rem", borderRadius: "6px" }} />
-              </div>
-              <div>
-                <label>Número de tarjeta</label>
-                <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" required style={{ width: "100%", padding: "0.6rem", borderRadius: "6px" }} />
-              </div>
-              <div>
-                <label>Mes</label>
-                <input type="text" name="expirationMonth" placeholder="MM" required style={{ width: "100%", padding: "0.6rem", borderRadius: "6px" }} />
-              </div>
-              <div>
-                <label>Año</label>
-                <input type="text" name="expirationYear" placeholder="YYYY" required style={{ width: "100%", padding: "0.6rem", borderRadius: "6px" }} />
-              </div>
-              <div>
-                <label>CVV</label>
-                <input type="text" name="securityCode" placeholder="CVV" required style={{ width: "100%", padding: "0.6rem", borderRadius: "6px" }} />
-              </div>
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
-              <button type="button" onClick={() => setShow(false)} style={{ padding: "0.7rem 1.5rem", backgroundColor: "#6c757d", color: "#fff", borderRadius: "5px", border: "none" }}>Cancelar</button>
-              <button type="submit" style={{ padding: "0.7rem 1.5rem", backgroundColor: "#28a745", color: "#fff", borderRadius: "5px", border: "none" }}>Pagar</button>
-            </div>
-          </form>
-        )}
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              style={{
+                flex: 1,
+                padding: "0.8rem 1.5rem",
+                backgroundColor: "#28a745",
+                color: "#fff",
+                borderRadius: "5px",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {loading ? "Procesando..." : "Pagar"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
 }
+
+// Estilo común de inputs
+const inputStyle = {
+  width: "95%",       
+  padding: "0.5rem",
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+  fontSize: "0.9rem",
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
