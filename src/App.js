@@ -7,6 +7,7 @@ import buyicon from './buyicon.png';
 import phone from './phone.png';
 import facebook from './facebook.png';
 import email from './email.png';
+import location from './location.png'
 import xbox360logo from './xbox360logo.png';
 import pslogo from './playsation.png';
 import nintendologo from './nintendo.png';
@@ -133,9 +134,9 @@ function App() {
     { id: 4, image: tloups3, title: "T.L.O.U PS3", price: 2500, description: "The Last of Us es un juego de acción y aventura que narra la historia de supervivencia en un mundo post-apocalíptico." },
     { id: 5, image: uncharted2ps3, title: "UNCHARTED 2 PS3", price: 900, description: "Uncharted 2 es un juego de acción y aventura en tercera persona que sigue las aventuras del cazador de tesoros Nathan Drake." },
     { id: 6, image: fifasoccer12ps3, title: "FIFA SOCCER 12 PS3", price: 800, description: "FIFA Soccer 12 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
-    { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: 3000, description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados." },
+    { id: 8, image: ps2wpendrive, title: "PS2 CON PENDRIVE", price: 3000, description: "PlayStation 2 con un pendrive que contiene una colección de juegos preinstalados.", includes: "•Consola •Joystick original •Memorycard y Pendrive con juegos por $1000 adicionales •Cable AV original •Cable de conexión a la red eléctrica"},
     { id: 9, image: socomps2, title: "SOCOM PS2", price: 1800, description: "SOCOM es un juego de disparos táctico en tercera persona que ofrece una experiencia de combate militar." },
-    { id: 10, image: xbox360, title: "XBOX360", price: 5000, description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea." },
+    { id: 10, image: xbox360, title: "XBOX360", price: 5000, description: "Xbox 360, una consola de videojuegos de séptima generación con una amplia gama de juegos y servicios en línea.", includes: "•Consola •Joystick •Memorycard" },
     { id: 11, image: xbox360controller, title: "MANDO XBOX360 INALÁMBRICO", price: 900, description: "Controlador inalámbrico para Xbox 360, ideal para una experiencia de juego sin cables." },
     { id: 12, image: pes2012ps3, title: "PES 2012 PS3", price: 500, description: "Pro Evolution Soccer 2012 es un juego de simulación de fútbol que ofrece una experiencia realista con equipos y jugadores licenciados." },
     { id: 13, image: aciixbox360, title: "Assassin's Creed II XBOX360", price: 1000, description: "Assassin's Creed II es un juego de acción y aventura en tercera persona que sigue las aventuras de Ezio Auditore." },
@@ -147,10 +148,10 @@ function App() {
     { id: 19, image: avcable, title: "Cable AV", price: 500, description: "Cable AV para conectar tu consola a la televisión y disfrutar de tus juegos en alta calidad." },
     { id: 20, image: ndsgames, title: "JUEGOS Nintendo DS", price: 350, description: "Una colección de juegos para Nintendo DS, ideal para los amantes de las aventuras portátiles." },
     { id: 21, image: f1poleposition64, title: "F1 POLE POSITION N64", price: 700, description: "F1 Pole Position es un juego de carreras de Fórmula 1 para Nintendo 64 que ofrece una experiencia de conducción realista." },
-    { id: 22, image: psp, title: "PSP", price: 5000, description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos." },
+    { id: 22, image: psp, title: "PSP", price: 5000, description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos.", includes: "•Consola •Cargador •Memory Stick Pro Duo original de 8GB •UMD: Little Big Planet" },
     { id: 23, image: fifa64, title: "FIFA 64", price: 700, description: "FIFA 64 es un juego de simulación de fútbol para Nintendo 64 que ofrece una experiencia de juego clásica con equipos y jugadores de la época." },
     { id: 25, image: nscharger, title: "CARGADOR NINTENDO SWITCH", price: 800, description: "Cargador para Nintendo Switch, ideal para mantener tu consola siempre lista para jugar." },
-    { id: 26, image: wii, title: "WII", price: 4000, description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento." },
+    { id: 26, image: wii, title: "WII", price: 4000, description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento.", includes: "•Consola •Wiimote + Nunckchuck original •Cable AV original •Barra sensora original •Transformador original" },
   ];
 
   const filteredProducts = featuredProducts.filter((product) =>
@@ -227,19 +228,36 @@ function App() {
         {/* Vista de producto individual */}
         {page === "product" && selectedProduct && (
           <motion.div key="product" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.5 }}>
-            <div style={{ padding: "2rem", textAlign: "center" }}>
+            <div className="product-detail" style={{ padding: "2rem" }}>
+            <div className="product-detail-image">
               <img src={selectedProduct.image} alt={selectedProduct.title} style={{ width: "300px", height: "300px", borderRadius: "5px" }} />
+            </div>
+            <div className="product-detail-info">
+            <div className="product-header">
               <h2>{selectedProduct.title}</h2>
-              <h3 style={{ color: "#00aa00" }}>${selectedProduct.price}</h3>
-              <p style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
+              <h3 className="product-price" style={{ color: "#00aa00" }}>${selectedProduct.price}</h3>
+            </div>
+              <h4 className="product-description-title">Descripción:</h4>
+              <p className="product-description" style={{ marginTop: "1rem" }}>{selectedProduct.description}</p>
 
-              <div style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "2.5rem", flexWrap: "wrap" }}>
+              {selectedProduct.includes && (
+                <div className="product-includes">
+                <h4> Incluye:</h4>
+                <ul>
+                 {selectedProduct.includes.split("•").filter(item => item.trim() !== "").map((item, index) => (
+                 <li key={index}>{item.trim()}</li>
+                 ))}
+                </ul>
+                </div>
+              )}
+
+              <div className="product-actions" style={{ display: "flex", justifyContent: "center", gap: "1rem", marginTop: "2.5rem", flexWrap: "wrap" }}>
                 <button onClick={()=> {
                   const params = new URLSearchParams({
                     title: selectedProduct.title,
                     price: selectedProduct.price,
                     description: selectedProduct.description,
-                    image: selectedProduct.imageURL,
+                    image: selectedProduct.image,
                     });
                     window.location.href = `http://localhost:8080/?${params.toString()}`;
                 }}
@@ -248,7 +266,8 @@ function App() {
                   Comprar
                 </button>
 
-                <button onClick={() => addToCart(selectedProduct)} style={{ display: "flex", alignItems: "center", padding: "0.5rem 1rem", fontSize: "1rem", fontWeight: "bold", cursor: "pointer", backgroundColor: "#007bff", color: "white", borderRadius: "5px", border: "none" }}>
+                <button onClick={() => { addToCart(selectedProduct); alert(`${selectedProduct.title} se ha agregado al carrito`); }}
+                  style={{ display: "flex", alignItems: "center", padding: "0.5rem 1rem", fontSize: "1rem", fontWeight: "bold", cursor: "pointer", backgroundColor: "#007bff", color: "white", borderRadius: "5px", border: "none" }}>
                   <img src={buyicon} alt="cart" style={{ width: "24px", height: "24px", marginRight: "0.5rem" }} />
                   Agregar al carrito
                 </button>
@@ -257,6 +276,7 @@ function App() {
                   Volver
                 </button>
               </div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -264,11 +284,11 @@ function App() {
 
       {/* Carrito y WhatsApp flotantes */}
       <div style={{ position: "fixed", bottom: "1.25rem", right: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", zIndex: 1000 }}>
-        <Cart selectedProduct={selectedProduct} cartItems={cartItems} setCartItems={setCartItems} />
         <WppContact />
+        <Cart selectedProduct={selectedProduct} cartItems={cartItems} setCartItems={setCartItems} />
       </div>
 
-      {/* Footer siempre visible */}
+      {/* Footer */}
       <footer className="App-footer">
         <header className="App-contact"><h6>Contacto</h6></header>
         <div className="Contact-container">
@@ -285,6 +305,10 @@ function App() {
           <div className="Contact-line">
             <img src={email} alt="email" className="Email-icon" />
             <p id="email-contact">usadoscoleccionables25@gmail.com</p>
+          </div>
+          <div className="Contact-line">
+          <img src={location} alt="location" className="Location-icon" />
+          <p id="location-contact">Las Piedras, Canelones, Uruguay </p>
           </div>
         </div>
       </footer>
