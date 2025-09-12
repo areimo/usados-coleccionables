@@ -13,11 +13,11 @@ const WppContact = () => {
       const width = window.innerWidth;
 
       if (width <= 600) { 
-        setSize(50);
+        setSize(35);
       } else if (width <= 1024) { 
-        setSize(60);
+        setSize(45);
       } else { 
-        setSize(75);
+        setSize(65);
       }
     };
 
