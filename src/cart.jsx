@@ -9,7 +9,7 @@ const Cart = ({ cartItems, setCartItems }) => {
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth;
-      if (width <= 600) setSize(35);
+      if (width <= 600) setSize(60);
       else if (width <= 1024) setSize(45);
       else setSize(65);
     };
@@ -39,7 +39,7 @@ const Cart = ({ cartItems, setCartItems }) => {
     const encodedProducts = encodeURIComponent(JSON.stringify(products));
 
     // Redirige al localhost:8080 con los productos en la URL
-    window.location.href = `https://d4b65593517b.ngrok-free.app/?products=${encodedProducts}`;
+    window.location.href = `https://d84d82bc7c60.ngrok-free.app/?products=${encodedProducts}`;
   };
 
   return (
