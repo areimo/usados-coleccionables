@@ -259,7 +259,7 @@ function App() {
                     description: selectedProduct.description,
                     image: selectedProduct.image,
                     });
-                    window.location.href = `https://bd4706f5a6da.ngrok-free.app/?${params.toString()}`;
+                    window.location.href = `https://c074813c500b.ngrok-free.app/?${params.toString()}`;
                 }}
                   style={{ display: "flex", alignItems: "center", padding: "0.5rem 1rem", fontSize: "1rem", fontWeight: "bold", cursor: "pointer", backgroundColor: "#28a745", color: "white", borderRadius: "5px", border: "none" }}>
                   <img src={buyicon} alt="shop" style={{ width: "24px", height: "24px", marginRight: "0.5rem" }} />
