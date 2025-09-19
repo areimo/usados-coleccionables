@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/usados-coleccionables/static/css/main.52c0af5b.css",
-    "main.js": "/usados-coleccionables/static/js/main.028d4fec.js",
+    "main.js": "/usados-coleccionables/static/js/main.4a225e29.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
@@ -34,11 +34,11 @@
     "static/media/f12011xbox360.jpg": "/usados-coleccionables/static/media/f12011xbox360.f9e6e7cf3526d4520f2a.jpg",
     "index.html": "/usados-coleccionables/index.html",
     "main.52c0af5b.css.map": "/usados-coleccionables/static/css/main.52c0af5b.css.map",
-    "main.028d4fec.js.map": "/usados-coleccionables/static/js/main.028d4fec.js.map",
+    "main.4a225e29.js.map": "/usados-coleccionables/static/js/main.4a225e29.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.52c0af5b.css",
-    "static/js/main.028d4fec.js"
+    "static/js/main.4a225e29.js"
   ]
 }
