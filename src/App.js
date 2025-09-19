@@ -27,7 +27,6 @@ import tloups3 from './tloups3.jpg';
 import uncharted2ps3 from './uncharted2ps3.jpg';
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
-import psp from './psp.jpg';
 import skatexbox360 from './skatexbox360.jpg';
 import wii from './wii.jpg';
 import nscharger from './nscharger.jpg';
@@ -148,7 +147,6 @@ function App() {
     { id: 19, image: avcable, title: "Cable AV", price: 500, description: "Cable AV para conectar tu consola a la televisión y disfrutar de tus juegos en alta calidad." },
     { id: 20, image: ndsgames, title: "JUEGOS Nintendo DS", price: 350, description: "Una colección de juegos para Nintendo DS, ideal para los amantes de las aventuras portátiles." },
     { id: 21, image: f1poleposition64, title: "F1 POLE POSITION N64", price: 700, description: "F1 Pole Position es un juego de carreras de Fórmula 1 para Nintendo 64 que ofrece una experiencia de conducción realista." },
-    { id: 22, image: psp, title: "PSP", price: 5000, description: "PlayStation Portable (PSP), una consola portátil de videojuegos con una amplia biblioteca de juegos.", includes: "•Consola •Cargador •Memory Stick Pro Duo original de 8GB •UMD: Little Big Planet" },
     { id: 23, image: fifa64, title: "FIFA 64", price: 700, description: "FIFA 64 es un juego de simulación de fútbol para Nintendo 64 que ofrece una experiencia de juego clásica con equipos y jugadores de la época." },
     { id: 25, image: nscharger, title: "CARGADOR NINTENDO SWITCH", price: 800, description: "Cargador para Nintendo Switch, ideal para mantener tu consola siempre lista para jugar." },
     { id: 26, image: wii, title: "WII", price: 4000, description: "Nintendo Wii, una consola de videojuegos que ofrece una experiencia de juego única con controles de movimiento.", includes: "•Consola •Wiimote + Nunckchuck original •Cable AV original •Barra sensora original •Transformador original" },
