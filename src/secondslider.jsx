@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import xbox360 from './xbox360.jpg';
 import xbox360controller from './xbox360controller.jpg';
-import psp from './psp.jpg';
 import tloups3 from './tloups3.jpg';
 import ndsgames from './ndsgames.jpg';
 import f12011xbox360 from './f12011xbox360.jpg';
 
-const images = [xbox360, xbox360controller, psp, tloups3, ndsgames, f12011xbox360];
+const images = [tloups3, ndsgames, f12011xbox360, xbox360, xbox360controller];
 
 const SecondSlider = () => {
   const [index, setIndex] = useState(0);
