@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/usados-coleccionables/static/css/main.52c0af5b.css",
-    "main.js": "/usados-coleccionables/static/js/main.83a80f4d.js",
+    "main.js": "/usados-coleccionables/static/js/main.2e689cf7.js",
     "static/js/453.bde3e09a.chunk.js": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js",
     "static/media/board.png": "/usados-coleccionables/static/media/board.67e28d55f8292f2fa1fb.png",
     "static/media/delivery.png": "/usados-coleccionables/static/media/delivery.2ffcd8cd1ffc59fb4a51.png",
@@ -9,14 +9,12 @@
     "static/media/computers.png": "/usados-coleccionables/static/media/computers.592e04ef3c59ca36a825.png",
     "static/media/pes2014ps3.jpg": "/usados-coleccionables/static/media/pes2014ps3.5131f81706556a7761cc.jpg",
     "static/media/fifa64.jpg": "/usados-coleccionables/static/media/fifa64.782f575844c211cc7504.jpg",
-    "static/media/socomps2.jpg": "/usados-coleccionables/static/media/socomps2.baaa1a0a06dc28a5e6a5.jpg",
     "static/media/uncharted2ps3.jpg": "/usados-coleccionables/static/media/uncharted2ps3.451d4ee3a14628f6c21d.jpg",
     "static/media/fifasoccer12ps3.jpg": "/usados-coleccionables/static/media/fifasoccer12ps3.0ad4462180d16c093621.jpg",
     "static/media/kinnectsportsxbox360.jpg": "/usados-coleccionables/static/media/kinnectsportsxbox360.cc0f8430347e15273386.jpg",
     "static/media/bacxbox360.jpg": "/usados-coleccionables/static/media/bacxbox360.e57cbb101d6fa8c5701b.jpg",
-    "static/media/skatexbox360.jpg": "/usados-coleccionables/static/media/skatexbox360.a0ab8b1d0b976d315959.jpg",
     "static/media/ndsgames.jpg": "/usados-coleccionables/static/media/ndsgames.954f9929aafcf348a9ff.jpg",
-    "static/media/xbox360.jpg": "/usados-coleccionables/static/media/xbox360.024939e1cfafe0461ebb.jpg",
+    "static/media/xbox360E.jpg": "/usados-coleccionables/static/media/xbox360E.024939e1cfafe0461ebb.jpg",
     "static/media/wii.jpg": "/usados-coleccionables/static/media/wii.97b14e0d9322ed40f35c.jpg",
     "static/media/gtavps3.jpg": "/usados-coleccionables/static/media/gtavps3.9d5f8a1d03f685c62594.jpg",
     "static/media/avcable.jpg": "/usados-coleccionables/static/media/avcable.9fc08314dff227d6e295.jpg",
@@ -31,14 +29,15 @@
     "static/media/logo.png": "/usados-coleccionables/static/media/logo.b244cb4279a448f4a3a6.png",
     "static/media/nscharger.jpg": "/usados-coleccionables/static/media/nscharger.d9aca642b96101321687.jpg",
     "static/media/ps2wpendrive.jpg": "/usados-coleccionables/static/media/ps2wpendrive.d51fa04cd9b42af61164.jpg",
+    "static/media/xbox360.jpg": "/usados-coleccionables/static/media/xbox360.a371af1b28a399318703.jpg",
     "static/media/f12011xbox360.jpg": "/usados-coleccionables/static/media/f12011xbox360.f9e6e7cf3526d4520f2a.jpg",
     "index.html": "/usados-coleccionables/index.html",
     "main.52c0af5b.css.map": "/usados-coleccionables/static/css/main.52c0af5b.css.map",
-    "main.83a80f4d.js.map": "/usados-coleccionables/static/js/main.83a80f4d.js.map",
+    "main.2e689cf7.js.map": "/usados-coleccionables/static/js/main.2e689cf7.js.map",
     "453.bde3e09a.chunk.js.map": "/usados-coleccionables/static/js/453.bde3e09a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.52c0af5b.css",
-    "static/js/main.83a80f4d.js"
+    "static/js/main.2e689cf7.js"
   ]
 }
