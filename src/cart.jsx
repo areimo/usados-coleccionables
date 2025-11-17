@@ -39,7 +39,7 @@ const Cart = ({ cartItems, setCartItems }) => {
     const encodedProducts = encodeURIComponent(JSON.stringify(products));
 
     // Redirige al localhost:8080 con los productos en la URL
-    window.location.href = `https://c3e4e7932a23.ngrok-free.app/?products=${encodedProducts}`;
+    window.location.href = `https://9390e456dbcf.ngrok-free.app/?products=${encodedProducts}`;
   };
 
   return (
